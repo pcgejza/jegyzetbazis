@@ -1,0 +1,3 @@
+frontend_index_homepage:
+    pattern:  /
+    defaults: { _controller: FrontendIndexBundle:Default:index }
