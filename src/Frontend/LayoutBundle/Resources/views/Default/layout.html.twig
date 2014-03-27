@@ -1,0 +1,36 @@
+<html>
+    <head>
+    {% block head %}
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}{% endblock %}</title>
+        <meta name="keywords" content="Tanátrgy, tananyag, Huzynets Erik" />
+        <meta name="robots" content="all">
+        {% block javascripts %}
+
+        {% endblock %}
+        {% block stylesheets %}
+           <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/shared.css') }}" />
+           <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/header.css') }}" />
+        {% endblock %}
+    {% endblock %}
+    </head>
+    <body>
+    {% block body %}
+        <div class="headerHolder">
+            {% block headerHolder %}
+                {% render controller('FrontendLayoutBundle:Header:getHeader') %}
+            {% endblock %}
+        </div>
+        <div class="contentHolder">
+            {% block contentHolder %}
+                Tartalom
+            {% endblock %}
+        </div>
+        <div class="bottomHolder">
+            {% block bottomHolder %}
+            
+            {% endblock %}
+        </div>
+    {% endblock %}
+    </body>
+</html>
