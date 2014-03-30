@@ -3,12 +3,23 @@
     {% block head %}
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>{% block title %}{% endblock %}</title>
-        <meta name="keywords" content="Tanátrgy, tananyag, Huzynets Erik" />
+        <meta name="keywords" content="Tantárgy, tananyag, Huzynets Erik" />
         <meta name="robots" content="all">
         {% block javascripts %}
-
+            <script type="text/javascript" src="{{asset('js/jquery-1.10.2.min.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/own.jquery.js')}}"></script>
+	<script src="{{ asset('bundles/frontendlayout/js/Shared.js') }}"></script>
+            <script src="{{ asset('bundles/frontendlayout/js/Header.js') }}"></script>
+            <script>
+                $(document).ready(function(){
+                    // init objects
+                    Shared.init();
+                    Shared.loadingHtmlImage = "<img src='{{asset('images/loading1.gif')}}' class='loading'>";
+                });
+            </script>
         {% endblock %}
         {% block stylesheets %}
+           <link rel="stylesheet"  href="{{ asset('css/reset.css') }}" />
            <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/shared.css') }}" />
            <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/header.css') }}" />
         {% endblock %}
@@ -16,20 +27,21 @@
     </head>
     <body>
     {% block body %}
-        <div class="headerHolder">
-            {% block headerHolder %}
-                {% render controller('FrontendLayoutBundle:Header:getHeader') %}
-            {% endblock %}
-        </div>
-        <div class="contentHolder">
-            {% block contentHolder %}
-                Tartalom
-            {% endblock %}
-        </div>
-        <div class="bottomHolder">
-            {% block bottomHolder %}
-            
-            {% endblock %}
+        <div class="page">
+            <div class="headerHolder">
+                {% block headerHolder %}
+                    {% render controller('FrontendLayoutBundle:Header:getHeader') %}
+                {% endblock %}
+            </div>
+            <div class="contentHolder">
+                {% block contentHolder %}
+                {% endblock %}
+            </div>
+            <div class="bottomHolder">
+                {% block bottomHolder %}
+
+                {% endblock %}
+            </div>
         </div>
     {% endblock %}
     </body>

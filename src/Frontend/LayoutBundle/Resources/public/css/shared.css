@@ -1,4 +1,9 @@
 body{
-    float: left;
-    width: 769px;
+    margin: 0px auto;
+}
+
+.page{
+    margin: auto;
+    margin-top: 50px;
+    width: 750px;
 }
