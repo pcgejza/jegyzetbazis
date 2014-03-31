@@ -16,12 +16,12 @@
 
 .headerHolder .searchHolder{
     position: absolute;
-    left: 35%;
+    left: 33%;
 }
 
 .headerHolder .rightHolder{
     position: absolute;
-    left: 90%;
+    left: 80%;
 }
 
 #search-on-page{
@@ -29,12 +29,19 @@
     height: 25px;
     width: 400px;
     font-size: 16px;
+    background-image: url('/symfony/web/images/search2.png');
+    background-repeat: no-repeat;
+    background-position: 100% 20%;
+    background-size: 20px;
 }
 
 .searchResults{
     background-color: white;
     text-align: left;
     padding-left: 10px;
+    border: 2px solid #ff6600;
+    border-top : none;
+    width: 388px;
 }
 
 *.hide{
@@ -49,3 +56,99 @@
     width: 30px;
     margin-left: 44%;
 }
+
+
+.headerHolder .rightHolder button{
+    margin-top: 7px;
+    padding:4px;
+    width: 100px;
+    text-align: center;
+    border-radius: 7px;
+    border: none;
+    background-color: #fff;
+    font-weight: bold;
+    
+}
+
+.headerHolder .rightHolder button:hover{
+    cursor: pointer;
+    color:  #ff6600;
+    background-color: #fff;
+}
+
+.headerHolder .rightHolder button.active{
+    color:  #ff6600;
+    background-color: #fff;
+}
+
+.auth-window.not-loaded{
+    background-image: url('/symfony/web/images/loading1.gif');
+    background-repeat: no-repeat;
+    background-size: 20%;
+    background-position:center; 
+}
+
+.auth-window{
+    height: 300px;
+    width: 600px !important;
+    position: fixed !important;
+    top: 100px !important;
+    border-radius: 3px;
+    padding: 10px !important;
+}
+
+.auth-window .exit{
+    width : 30px;
+    height: 30px;
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    background-image: url('/symfony/web/images/ablak_bezarasa_icon.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    cursor: pointer;
+}
+
+.auth-window .header ul{
+    float:left;
+    width:100%;
+    padding:0;
+    margin:0;
+    list-style-type:none;
+}
+
+.auth-window .header ul a{
+    float:left;
+    width: 130px;
+    text-decoration:none;
+    font-size: 14px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    text-align: center;
+    color:#fff;
+    font-weight: bold;
+    background-color: #ff6600;
+    padding:0.2em 0.6em;
+    margin-right: 3px;
+}
+
+.auth-window .header ul li {display:inline;}
+.auth-window .header ul li.active a{
+    background-color:#55f;
+}
+
+.auth-window .header ul a:hover{
+    color: #000;
+}
+
+.auth-window .window-content .content{
+    background-color: #fff4ce;
+    border-top: 5px solid #55f;
+    margin-top: 0px;
+}
+
+.auth-window .window-content .header{
+    display: block;
+    height: 28px;
+}
+

@@ -6,15 +6,21 @@
         <meta name="keywords" content="Tantárgy, tananyag, Huzynets Erik" />
         <meta name="robots" content="all">
         {% block javascripts %}
-            <script type="text/javascript" src="{{asset('js/jquery-1.10.2.min.js')}}"></script>
-            <script type="text/javascript" src="{{asset('js/own.jquery.js')}}"></script>
+        <script type="text/javascript" src="{{asset('js/jquery-1.10.2.min.js')}}"></script>
+        <script type="text/javascript" src="{{asset('js/own.jquery.js')}}"></script>
+	<script type="text/javascript" src="{{asset('js/jquery.foundation.reveal.js')}}"></script>
 	<script src="{{ asset('bundles/frontendlayout/js/Shared.js') }}"></script>
-            <script src="{{ asset('bundles/frontendlayout/js/Header.js') }}"></script>
+        <script src="{{ asset('bundles/frontendlayout/js/Header.js') }}"></script>
+        <script src="{{ asset('bundles/frontendlayout/js/AuthWindow.js') }}"></script>
             <script>
                 $(document).ready(function(){
                     // init objects
                     Shared.init();
                     Shared.loadingHtmlImage = "<img src='{{asset('images/loading1.gif')}}' class='loading'>";
+                    Header.searchURL = "{{path('search_ajax')}}";
+                    AuthWindow.init();
+                    
+                    AuthWindow.getRevealUrl = "{{path('get_auth_window_ajax')}}";
                 });
             </script>
         {% endblock %}
@@ -22,6 +28,7 @@
            <link rel="stylesheet"  href="{{ asset('css/reset.css') }}" />
            <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/shared.css') }}" />
            <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/header.css') }}" />
+           <link rel="stylesheet"  href="{{ asset('css/foundation.css') }}" />
         {% endblock %}
     {% endblock %}
     </head>
@@ -43,6 +50,7 @@
                 {% endblock %}
             </div>
         </div>
+        {% include 'FrontendLayoutBundle:Widgets:sharedRevealModals.html.twig' %}
     {% endblock %}
     </body>
 </html>

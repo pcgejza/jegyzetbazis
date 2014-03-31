@@ -1,0 +1,32 @@
+<h2>Adatvédelem</h2>
+<hr />
+{{ form_widget(form) }}
+
+
+{#
+<form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" class="fos_user_profile_edit">
+    <div class="formLine">
+		<div class="labelText">{{ form_label(form.firstName) }}</div>
+		<div class="inputs">
+			{{ form_widget(form.new.first) }}
+		</div>
+	</div>
+	<div class="formLine">
+		<div class="labelText">Jelszó újra</div>
+		<div class="inputs">
+			{{ form_widget(form.new.second) }}
+		</div>
+	</div>
+	<div class="formLine">
+		<div class="labelText">&nbsp;</div>
+		<div class="inputs">
+			<input type="submit" value="Módosítom">
+		</div>
+	</div>
+    
+    {{ form_widget(form) }}
+    <div>
+        <input type="submit" value="{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}" />
+    </div>
+</form>
+#}

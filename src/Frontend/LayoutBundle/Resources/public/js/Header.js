@@ -3,10 +3,17 @@ Header = {
     searchInput: null,
     searchResults: null,
     searchResults: [] , // ebben tárolom a keresés eredményeit
+    searchURL : null,
+    postID: 0,
+    
+    loginButton: null,
+    registrationButton: null,
     
     init: function(){
         this.searchInput = $('#search-on-page');
         this.searchResults = $('.searchHolder .searchResults');
+        this.loginButton = $('.rightHolder .login');
+        this.registrationButton = $('.rightHolder .registration');
         this.bindUIActions();
     },
     
@@ -23,13 +30,24 @@ Header = {
                 
                 if(thisValLength > 0){
                     Header.showSearchResults();
-                    Header.showLoadingToSearchResults();
-                    //Header.search(thisVal);
+                    Header.search(thisVal);
                 }else{
                     Header.hideSearchResults();
                 }
             },
-        })
+            focusout: function(){
+                Header.searchInput.val('');
+                Header.hideSearchResults();
+            }
+        });
+        
+        this.loginButton.click(function(){
+            AuthWindow.show('login');
+        });
+        
+        this.registrationButton.click(function(){
+            AuthWindow.show('registration');
+        });
     },
     
     showSearchResults: function(){
@@ -56,11 +74,21 @@ Header = {
     },
     
     search: function(text){
-        var text = "valami szöveg";
+        Header.showLoadingToSearchResults();
         if(typeof(Header.searchResults[text]) == 'undefined'){
-            Header.searchResults[text] = text;
+            $.post(Header.searchURL, {text : text}).done(
+                function(h){
+                    Header.searchResults[text] = h;
+                    if(Header.searchInput.val() == text){
+                        Header.hideLoadingFromSearchResults();
+                        Header.addHtmlToSearchResults(Header.searchResults[text]);
+                    }
+            });
+        }else{
+            Header.hideLoadingFromSearchResults();
+            Header.addHtmlToSearchResults(Header.searchResults[text]); 
         }
-        
-        Header.addHtmlToSearchResults(text);
     },
+    
+    
 }

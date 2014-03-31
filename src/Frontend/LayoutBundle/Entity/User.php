@@ -24,4 +24,12 @@ class User extends BaseUser
         parent::__construct();
         // your own logic
     }
+    
+    
+    private $name;
+    
+    public function getName(){
+        return $this->name;
+    }
+    
 }

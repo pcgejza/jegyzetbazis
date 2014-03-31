@@ -1,0 +1,19 @@
+{% block subject %}
+{% autoescape false %}
+Gitwi - Új jelszó
+{% endautoescape %}
+{% endblock %}
+{% block body_text %}
+{% autoescape false %}
+Kedves {{ user.username }}!
+
+A gitwi.com oldalon kérted új jelszó megadását!
+Ezt az alábbi linkre klikkelve tudod megtenni:
+{{confirmationUrl }}
+
+Üdvözlettel,
+A Gitwi csapata!
+{% endautoescape %}
+{% endblock %}
+{% block body_html %}{% endblock %}
+

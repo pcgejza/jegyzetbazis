@@ -1,0 +1,35 @@
+{% if invalid_email is defined %}
+    Ezzel az e-mail címmel nincs regisztráció!
+{% else %}
+	<div id="requestNewPassword" class="reveal-modal ajaxFromBlock">
+		<div class="ajaxLoading"></div>
+		<div class="returnContent"></div>		
+		<div class="formContent">
+			{% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+				<form action="{{ path('fos_user_resetting_send_email') }}" id="requestNewPasswordForm" method="POST" class="fos_user_resetting_request">
+					<div class="topSection">		
+							<h2>Elfelejtetted a jelszavadat?</h2>
+							<h3>Add meg e-mail címedet az alábbi mezőben, hogy elküldhessük neked
+							a jelszóváltoztatáshoz szükséges linket.</h3>
+							<div class="formLine">
+								<div class="labelText">E-mail cím*:</div>
+								<div class="inputs">
+									<input type="text" id="email" name="email" class="resetEmailAddress" autocomplete="off"/>
+									<div class="thisIsNotEmail" id="passwordResetError">Helytelen email cím</div>
+								</div>
+							</div>
+							<p>*Kérjük, azt az e-mail címet add meg, amellyel regisztráltál!</p>
+					</div>
+				</form>
+				<div class="bottomSection">
+					<div class="info">Ha segítségre van szükséged, akkor kattints <a href="#">ide</a>.</div>
+						<div class="inputs">
+							<input type="submit" class="sumbitAjaxForm" connectForm="requestNewPasswordForm" value="Új jelszó beállítása" />
+							<a href="#" class="exitReveal"><input type="submit" class="cancel exit-reveal-modal" value="Mégse"/></a>
+						</div>
+					<div class="cf"></div>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+{% endif %}

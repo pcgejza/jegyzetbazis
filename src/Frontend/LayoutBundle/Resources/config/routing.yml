@@ -1,3 +1,11 @@
 frontend_layout_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: FrontendLayoutBundle:Default:index }
+
+search_ajax:
+    pattern:  /ajax/kereses
+    defaults: { _controller: FrontendLayoutBundle:Search:search }
+
+get_auth_window_ajax:
+    pattern:  /ajax/azonositasi-ablak-lekerdezes
+    defaults: { _controller: FrontendLayoutBundle:Header:getAuthReveal }

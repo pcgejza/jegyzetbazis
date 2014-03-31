@@ -1,0 +1,30 @@
+<span class="exit"></span>
+<div class="window-content">
+    <div class="header">
+        <ul>
+            <li class="registration{% if page == 'registration' %} active{% endif %}"><a href="javascript:void(0)">Regisztráció</a></li>
+            <li class="login{% if page == 'login' %} active{% endif %}"><a href="javascript:void(0)">Bejelentkezés</a></li>
+            <li class="forgot-pass"{% if page == 'forgot-pass' %} active{% endif %}><a href="javascript:void(0)">Elfelejtett jelszó</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="registration" {% if page != 'registration' %}style="display:none"{% endif %}>
+            <h3>Regisztráció</h3>
+            <div class="d">
+                {% render controller('FOSUserBundle:Registration:register') %}
+            </div>
+        </div>
+        <div class="login" {% if page != 'login' %}style="display:none"{% endif %}>
+            <h3>Bejelentkezés</h3>
+            <div class="d">
+                 {% render controller('FOSUserBundle:Security:login') %}
+            </div>
+        </div>
+        <div class="forgot-pass" {% if page != 'forgot-pass' %}style="display:none"{% endif %}>
+            <h3>Elfelejtett jelszó</h3>
+            <div class="d">
+                Elfelejtett adatok
+            </div>
+        </div>
+    </div>
+</div>

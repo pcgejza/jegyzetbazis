@@ -1,0 +1,102 @@
+{% extends "FrontendIndexBundle:Default:index.html.twig" %}
+
+{% block title%}Gitwi.com - Elfelejtett jelszó{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/frontendindex/css/index.css') }}"/>
+{% endblock %}
+
+{% block indexScripts %}
+	<script type="text/javascript" src="{{ asset('bundles/frontendlayout/js/NewPassword.js') }}?v={{ random(10000) }}"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			NewPassword.init();
+		});
+	</script>
+{% endblock %}
+
+{% block menu %}
+	{#% render "FrontendLayoutBundle:Default:menu" with{ 'activeId': 1 } %#}
+{% endblock %}
+
+{% block bodyClass %}class="resetPass"{% endblock %}
+
+{% block mainContent %}
+	<div class="header">
+	{% block loginFrom %}
+		<div class="wrapper">
+			<img src="/bundles/frontendlayout/images/header_logo.png" />
+		</div>
+	{% endblock %}
+	</div>
+	<div class="cf"></div>
+	<form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_resetting_reset passwordchanger">
+	<div class="formContent">
+		<div class="topSection">
+			<div class="leftSide">
+					{{ form_widget(form._token) }}
+					<h2>Új jelszó megadása!</h2>
+						
+					<div class="formLine">
+						<div class="labelText">Új jelszó: </div>
+						<div class="inputs">
+							{{ form_widget(form.new.first, {'attr': {'class': 'firstpass'} }) }}
+							<div id="firstErrorContainer" class="passwordCheck passwordError invisible">
+								<div class="tooShort">A jelszó túl rövid!</div>
+								<div class="tooEmpty hidden">Nem adtál meg új jelszót!</div>
+							</div>
+						</div>
+						<div class="cf"></div>
+					</div>
+					
+					<div class="formLine">
+						<div class="labelText">Jelszó megerősítése: </div>
+						<div class="inputs">
+							{{ form_widget(form.new.second, { 'attr': {'class': 'secondpass'} }) }}
+							<div id="secondErrorContainer" class="passwordCheck passwordOk invisible">
+								<div class="isMatch hidden">A jelszavak megegyeznek!</div>
+								<div class="notMatch">A jelszavak nem egyeznek meg!</div>
+								<div class="tooEmpty hidden">Meg kell erősítened az új jelszót!</div>
+							</div>
+						</div>
+						<div class="cf"></div>
+					</div>
+					<div class="formLine">
+						<div class="labelText">Jelszó erőssége: </div>
+						<div class="inputs">
+						<div class="passwordStrengthBg">
+							<!--div id="passwordStrength0" class="strength cf"><div class="empty"></div><div class="empty"></div></div-->
+							<div id="passwordStrength1" class="strength cf hidden"><div class="full last">Gyenge</div><div class="empty"></div><div class="empty"></div></div>
+							<div id="passwordStrength2" class="strength cf hidden"><div class="full"></div><div class="full last">Közepes</div><div class="empty"></div></div>
+							<div id="passwordStrength3" class="strength cf hidden"><div class="full"></div><div class="full"></div><div class="full">Erős</div></div>
+						</div>
+						</div>
+						<div class="cf"></div>
+					</div>
+					<div class="info">A nehezen kitalálható jelszavak betűket és írásjeleket egyaránt tartalmaznak. A jelszónak legalább 6 karakter hosszúságúnak kell lennie.</div>
+			</div>
+			<div class="rightSide">
+				<h2>Hogyan hozhatok létre erős jelszót?</h2>
+				<p><strong>A jelszó létrehozásánál vedd figyelembe az alábbiakat:</strong></p>
+				<ul>
+					<li>Lehetőleg ne tartalmazza a nevedet.</li>
+					<li>Lehetőleg ne tartalmazzon egyszerű szótári szót.</li>
+					<li>Nem árt, ha egy vagy több számot tartalmaz.</li>
+					<li>Kis- és nagybetűket egyaránt ajánlott használni.</li>
+					<li>Lehetőleg legyen legalább 8 karakter, vagy annál hosszabb.</li>
+					<li>Az új jelszó lehetőleg térjen el a régi jelszavadtól.</li>
+				</ul>
+			</div>
+			<div class="cf"></div>
+		</div>
+		<div class="bottomSection">
+			<div class="info">Ha segítségre van szükséged, akkor kattints <a href="#">ide</a>.</div>
+			<div class="inputs">
+				<input type="submit" id="resetPass" value="Új jelszó beállítása" formnovalidate="formnovalidate">				
+					<input type="submit" class="cancel" value="Mégse" formnovalidate="formnovalidate" onclick="window.location.href = '/'; return false;" />
+			</div>
+			<div class="cf"></div>
+		</div>
+				</form>
+	</div>
+{% endblock %}
