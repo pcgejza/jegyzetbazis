@@ -29,6 +29,7 @@ AuthWindow = {
                 AuthWindow.authReveal.html(data.html);
                 AuthWindow.authReveal.removeClass('not-loaded');
                 AuthWindow.bindAuthWindowActions();
+                AuthWindow.addG();
             });
         }else{
             this.authReveal.find('.window-content .header ul li.'+page).click();
@@ -56,6 +57,12 @@ AuthWindow = {
         this.authReveal.find('.exit').bind('click',function(){
             AuthWindow.hide();
         });
+    }, 
+    
+    addG: function(){
+       this.authReveal.find(':input[backtext]').each(function(){
+           $(this).addGray($(this).attr('backtext'));
+       });
     },
     
 }

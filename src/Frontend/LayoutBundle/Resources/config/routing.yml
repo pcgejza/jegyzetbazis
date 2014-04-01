@@ -9,3 +9,12 @@ search_ajax:
 get_auth_window_ajax:
     pattern:  /ajax/azonositasi-ablak-lekerdezes
     defaults: { _controller: FrontendLayoutBundle:Header:getAuthReveal }
+
+security:login:
+    pattern:  /bejelentkezes
+    defaults: { _controller: FrontendLayoutBundle:Auth:login }
+
+security:registration:
+    pattern:  /regisztracio
+    defaults: { _controller: FrontendLayoutBundle:Auth:registration }
+

@@ -11,8 +11,8 @@
 	<script type="text/javascript" src="{{asset('js/jquery.foundation.reveal.js')}}"></script>
 	<script src="{{ asset('bundles/frontendlayout/js/Shared.js') }}"></script>
         <script src="{{ asset('bundles/frontendlayout/js/Header.js') }}"></script>
-        <script src="{{ asset('bundles/frontendlayout/js/AuthWindow.js') }}"></script>
-            <script>
+        <script src="{{ asset('bundles/frontendlayout/js/AuthWindow.js') }}?v={{ random(2000) }}"></script>
+       <script>
                 $(document).ready(function(){
                     // init objects
                     Shared.init();

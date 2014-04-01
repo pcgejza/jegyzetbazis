@@ -76,3 +76,6 @@ fos_user:
     registration:
         form:
             type: frontend_user_registration
+       
+gregwar_image :
+    throw_exception: true
