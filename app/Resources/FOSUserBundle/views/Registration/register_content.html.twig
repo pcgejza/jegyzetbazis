@@ -1,34 +1,45 @@
 {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-        <form {#action="{{ path('modded_fos_registration') }}" {{ form_enctype(form) }} method="POST" autocomplete="off" class="fos_user_registration_register"#}>
-            <div class="formLine">
-                    <div class="labelText">{{ form_label(form.name) }}</div>
-                    <div class="inputs">
-                            {{ form_widget(form.name) }}
+        <form action="{{ path('security:registration') }}" name="form" method="POST" autocomplete="off" class="registration-form default-form">
+            <div class="holders">
+                <div class="leftHolder">
+                    <div class="formLine">
+                            <div class="labelText">{{ form_label(form.name) }}</div>
+                            <div class="inputs">
+                                    {{ form_widget(form.name) }}
+                            </div>
                     </div>
+                    <div class="formLine">
+                            <div class="labelText">{{ form_label(form.email) }}</div>
+                            <div class="inputs">
+                                    {{ form_widget(form.email) }}
+                            </div>
+                    </div>
+                    <div class="formLine">
+                            <div class="labelText">{{ form_label(form.password) }}</div>
+                            <div class="inputs">
+                                    {{ form_widget(form.password) }}
+                            </div>
+                    </div>
+                </div>
+                <div class="rightHolder">
+                    <div class="formLine">
+                            <div class="labelText">{{ form_label(form.nickname) }}</div>
+                            <div class="inputs">
+                                    {{ form_widget(form.nickname) }}
+                            </div>
+                    </div>
+                    <div class="formLine">
+                            <div class="labelText">{{ form_label(form.university) }}</div>
+                            <div class="inputs">
+                                    {{ form_widget(form.university) }}
+                            </div>
+                    </div>
+                    <div class="errors" style="display:none">
+                    </div>
+                </div>
             </div>
-            <div class="formLine">
-                    <div class="labelText">{{ form_label(form.email) }}</div>
-                    <div class="inputs">
-                            {{ form_widget(form.email) }}
-                    </div>
-            </div>
-            <div class="formLine">
-                    <div class="labelText">{{ form_label(form.password) }}</div>
-                    <div class="inputs">
-                            {{ form_widget(form.password) }}
-                    </div>
-            </div>
-            <div class="formLine">
-                    <div class="labelText">{{ form_label(form.nickname) }}</div>
-                    <div class="inputs">
-                            {{ form_widget(form.nickname) }}
-                    </div>
-            </div>
-            <div class="formLine">
-                    <div class="labelText">{{ form_label(form.university) }}</div>
-                    <div class="inputs">
-                            {{ form_widget(form.university) }}
-                    </div>
+            <div class="buttons">
+                <input type="submit" value="Regisztráció" class="registration-submit">
             </div>
 	</form>
 {% endif %}

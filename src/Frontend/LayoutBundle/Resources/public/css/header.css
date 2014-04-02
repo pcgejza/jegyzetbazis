@@ -89,12 +89,12 @@
 }
 
 .auth-window{
-    height: 300px;
-    width: 600px !important;
+    width: 700px !important;
     position: fixed !important;
     top: 100px !important;
     border-radius: 3px;
     padding: 10px !important;
+    left: 45% !important;
 }
 
 .auth-window .exit{
@@ -152,3 +152,76 @@
     height: 28px;
 }
 
+.auth-window .window-content .content .leftHolder{
+    width: 50%;
+    float: left;
+}
+
+.auth-window .window-content .content .rightHolder{
+     width: 50%;
+     float: right;
+}
+
+
+form.default-form .formLine{
+    
+}
+
+form.default-form .formLine input,
+form.default-form .formLine select
+{
+    border: 1 solid #888;
+    border-radius: 4px;
+    width: 240px;
+}
+
+
+form.default-form .buttons{
+    text-align: center;
+}
+
+form.default-form .formLine .error{
+     border: 1px solid #f11;
+}
+
+form.default-form .holders{
+    display: block;
+    height: 280px;
+}
+
+form.default-form .buttons input,
+form.default-form .buttons button
+{
+   border: none;
+   background-color: #ff2427;
+   font-size: 20px;
+   color: #fff;
+   font-weight: bold;
+   height: 30px;
+   border-radius: 5px;
+}
+
+form.default-form .buttons input:hover,
+form.default-form .buttons button:hover
+{
+    background-color: #ff6600;
+    cursor: pointer;
+}
+
+form.default-form .errors{
+    width: 90%;
+    background-image: url('/symfony/web/images/hibauz_icon_1.png');
+    background-repeat: no-repeat;
+    background-size: 10%;
+    background-color: #f88;
+    background-position: 95% center;
+    padding: 10px;
+    color: red;
+    margin-top: 20px;
+    font-weight: bold;
+    padding-right: 33px;
+}
+
+form.default-form .errors ul li{
+    margin-left: 10px;
+}

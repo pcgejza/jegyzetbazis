@@ -13,30 +13,39 @@ class RegistrationFormType extends BaseType
 
         $builder->add('name', 'text', array(
            'label' => 'Név*',
+           'required' => false,
            'mapped' => false,
            'attr' => array(
-               'backtext' => 'Add meg a neved...')
+               'backtext' => 'Add meg a neved...',
+               'class' => 'name')
         ));
         
         $builder->add('email','text', array(
             'label' => 'Email cím',
-           'attr' => array('backtext' => 'Add meg az email címed...')
+           'required' => false,
+           'attr' => array('backtext' => 'Add meg az email címed...',
+               'class' => 'email')
         ));
         
         $builder->add('password', 'repeated', array(
             'type' => 'password',
+           'required' => false,
             'first_options'  => array('label' => 'Jelszó*'),
             'second_options' => array('label' => 'Jelszó újra*'),
+           'attr' => array('class' => 'password')
         ));
         
         $builder->add('nickname','text', array(
             'label' => 'Nicknév',
+           'required' => false,
             'mapped' => false,
-            'attr' => array('backtext' => 'Válassz egy nicknevet')
+            'attr' => array('backtext' => 'Válassz egy nicknevet',
+               'class' => 'nickname')
         ));
         
         $builder->add('university','choice', array(
             'label' => 'Melyik egyetemre jársz?',
+           'required' => false,
             'mapped' => false,
             'expanded' => false,
             'multiple' => false
