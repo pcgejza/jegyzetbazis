@@ -12,6 +12,7 @@
 	<script src="{{ asset('bundles/frontendlayout/js/Shared.js') }}"></script>
         <script src="{{ asset('bundles/frontendlayout/js/Header.js') }}"></script>
         <script src="{{ asset('bundles/frontendlayout/js/AuthWindow.js') }}?v={{ random(2000) }}"></script>
+        <script src="{{ asset('bundles/frontendlayout/js/InfoPopUp.js') }}?v={{ random(2000) }}"></script>
        <script>
                 $(document).ready(function(){
                     // init objects
@@ -21,6 +22,8 @@
                     AuthWindow.init();
                     
                     AuthWindow.getRevealUrl = "{{path('get_auth_window_ajax')}}";
+                    AuthWindow.emalCheckUrl = "{{path('security:email-check')}}";
+                    AuthWindow.nicknameCheckUrl = "{{path('security:nickname-check')}}";
                 });
             </script>
         {% endblock %}
@@ -51,6 +54,7 @@
             </div>
         </div>
         {% include 'FrontendLayoutBundle:Widgets:sharedRevealModals.html.twig' %}
+        {% include 'FrontendLayoutBundle:Widgets:reveal.infoWindow.html.twig' %}
     {% endblock %}
     </body>
 </html>

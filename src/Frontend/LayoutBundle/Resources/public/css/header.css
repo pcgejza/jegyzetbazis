@@ -225,3 +225,21 @@ form.default-form .errors{
 form.default-form .errors ul li{
     margin-left: 10px;
 }
+
+form.default-form .faulty{
+    background-color: #ff775f;
+    border: 1px solid red;
+}
+
+form.default-form .buttons.loading{
+    background-image: url('/symfony/web/images/loading1.gif');
+    background-repeat: no-repeat;
+    background-size: 5%;
+    background-position:36%;
+}
+
+form.default-form .buttons.loading button,
+form.default-form .buttons.loading input{
+    opacity: 0.3;
+    cursor: auto;
+}

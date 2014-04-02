@@ -4,6 +4,7 @@ Shared = {
     
     init: function(){
         Header.init();
+        InfoPopUp.init();
         this.bindUIActions();
     },
     
