@@ -6,37 +6,26 @@
     <div class="login-error" style="display:none">{{ error|trans({}, 'FOSUserBundle') }}</div>
 {% endif %}
 	{% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-		<form action="{{ path("fos_user_security_check") }}" method="post" autocomplete="off">
-			<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-			<div class="loginHolder">
-				<div class="inputHolder">
-					<div class="inlineLabel">
-						<label class="infieldLabel"  for="username">E-mail</label>
-						<input type="text" id="username" name="_username" class='validate[required]' value="{{ last_email }}" />
-					</div>
-					<div>
-						<a href="" data-reveal-id="requestNewPassword" data-dismissmodalclass="exitReveal" class="passwordReminder">Jelszóemlékeztető</a>
-					</div>
-				</div>
-				<div class="inputHolder">
-					<div class="inlineLabel">
-
-						<label class="infieldLabel" for="password">Jelszó</label>
-						<input type="password" id="password" name="_password" class='validate[required]' />
-
-					</div>
-					<div>
-						<input type="checkbox" id="remember_me" name="_remember_me" value="on" class="styled"/>
-						<label for="savePass">Megjegyez</label>
-					</div>
-				</div>
-				<div class="inputHolder">
-					<input type="submit" class="loginButton redStyle" value="Belépés >>" /><br/>
-				</div>
-			</div>
-
-			<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-
+		<form action="{{ path("security:login") }}" method="post" autocomplete="off" class="login-form default-form">
+                     <div class="holders">
+                        <div class="leftHolder">
+                            <div class="formLine">
+                                    <div class="labelText"><label class="infieldLabel"  for="username">E-mail</label></div>
+                                    <div class="inputs">
+                                        <input type="text" id="username" name="_username" class='' value="{{ last_email }}" />
+                                    </div>
+                            </div>
+                            <div class="formLine">
+                                    <div class="labelText"><label class="infieldLabel" for="password">Jelszó</label></div>
+                                    <div class="inputs">
+                                        <input type="password" id="password" name="_password" class='' />
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="buttons">
+                            <input type="submit" value="Bejelentkezés" class="login-submit">
+                        </div>
+                     </div>
 		</form>
 	{% endif %}
 {% endblock fos_user_content %}

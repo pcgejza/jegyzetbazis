@@ -34,6 +34,7 @@ AuthWindow = {
                 AuthWindow.authReveal.removeClass('not-loaded');
                 AuthWindow.bindAuthWindowActions();
                 AuthWindow.bindRegistrationFormActions();
+                AuthWindow.bindLoginActions();
                 AuthWindow.addG();
             });
         }else{
@@ -275,5 +276,35 @@ AuthWindow = {
         return pattern.test(emailAddress);
     },
     
+    
+    bindLoginActions: function(){
+        var loginForm = this.authReveal.find('.login-form');
+        loginForm.submit(function(e){
+           e.preventDefault();
+            var postData = $(this).serializeArray();
+            var formURL = $(this).attr("action");
+            
+            $.ajax(
+            {
+                url : formURL,
+                type: "POST",
+                data : postData,
+                success:function(data, textStatus, jqXHR) 
+                {
+                    AuthWindow.hide();
+                   /* AuthWindow.hideLoadingFromForm(loginForm);
+                    InfoPopUp.showInfoPopup({
+                        type :      'ok',
+                        topText :   'Sikeres bejelentkezés!'
+                    });
+                    */
+                },
+                error: function(jqXHR, textStatus, errorThrown) 
+                {
+                    alert('HIBA: '+textStatus);
+                }
+            });
+        });
+    }
     
 }

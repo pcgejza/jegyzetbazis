@@ -9,6 +9,8 @@ use \Symfony\Component\HttpFoundation\Request;
 use Frontend\LayoutBundle\Form\Type\RegistrationFormType;
 use Frontend\LayoutBundle\Entity\User;
 
+use FOS\UserBundle\Controller\SecurityController as BaseController;
+
 class AuthController extends Controller{
     
     public function registrationAction(Request $request){
@@ -41,8 +43,26 @@ class AuthController extends Controller{
         }
     }
     
-    public function loginAction(){
-        
+    public function loginAction(Request $request){
+        try{
+            /*
+             * 
+             *  login-nál hagytam abba, valahogy kéne használni 
+             * a standart formot és annak segítségével beléptetni a user-t
+             * egy kis segítség: http://stackoverflow.com/questions/21194401/fosuserbundle-override-login-action
+             * 
+             */
+            
+            
+                $name = $request->request->get('_username');
+                $pass = $request->request->get('_password');
+                
+                echo $pass;
+            
+            return new JsonResponse(array('ok' => true));
+        } catch (Exception $ex) {
+            return new JsonResponse(array('err' => $ex->getMessage()));
+        }
     }
     
     public function checkEmailAction(){
