@@ -19,7 +19,12 @@ class HeaderController extends Controller{
     
     
     public function getHeaderAction(){
-        return $this->render('FrontendLayoutBundle:Header:header.html.twig', array());
+        $User = $this->container->get('security.context')->getToken()->getUser();
+        
+        $User = (is_object($User)) ? $User : NULL;
+        
+        return $this->render('FrontendLayoutBundle:Header:header.html.twig',
+                array('User' => $User));
     }
     
     public function getAuthRevealAction(){

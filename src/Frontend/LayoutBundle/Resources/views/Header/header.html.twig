@@ -1,9 +1,14 @@
+
 <span class="leftHolder">LEFT</span>
 <span class="searchHolder">
     <input type="text" id="search-on-page">
     <div class="searchResults hide">Keresés...</div>
 </span>
 <span class="rightHolder">
-    <button class="login">Bejelentkezés</button>
-    <button class="registration">Regisztráció</button>
+    {% if User is not defined or User is null %}
+        <button class="login">Bejelentkezés</button>
+        <button class="registration">Regisztráció</button>
+    {% else %}
+        {% include 'FrontendLayoutBundle:Header:headerUser.html.twig' %}
+    {% endif %}
 </span>

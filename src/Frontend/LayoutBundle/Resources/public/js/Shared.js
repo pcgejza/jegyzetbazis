@@ -1,6 +1,8 @@
 Shared = {
     
     loadingHtmlImage: null,
+    defaultProfileImageMale: null,
+    defaultProfileImageFemale: null,
     
     init: function(){
         Header.init();

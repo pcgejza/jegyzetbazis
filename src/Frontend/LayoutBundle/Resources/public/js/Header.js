@@ -8,8 +8,10 @@ Header = {
     
     loginButton: null,
     registrationButton: null,
+    headerHolder: null,
     
     init: function(){
+        this.headerHolder = $('body .page .headerHolder');
         this.searchInput = $('#search-on-page');
         this.searchResults = $('.searchHolder .searchResults');
         this.loginButton = $('.rightHolder .login');
@@ -18,6 +20,9 @@ Header = {
     },
     
     bindUIActions: function(){
+        
+        
+        
         this.searchInput.addGray('Keress rá emberekre, tárgyakra, tananyagokra...');
         
         this.searchInput.on({
@@ -90,5 +95,9 @@ Header = {
         }
     },
     
+    setHeader: function(html){
+        this.headerHolder.html(html);
+        this.init();
+    },
     
 }

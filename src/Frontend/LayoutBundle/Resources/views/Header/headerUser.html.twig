@@ -1,0 +1,15 @@
+{% set userSettings = User.getUserSettings() %}
+<span class="userHeaderElement">
+    <span class="userName">{{userSettings.getName()}}</span>
+    <span class="userImage">
+        {% if userSettings.avatarId is null %}
+            {% if userSettings.gender is null or userSettings.gender == 'male' %}
+                <img src="{{asset('images/default_profile_image_male.png')}}">
+            {% else %}
+                <img src="{{asset('images/default_profile_image_female.png')}}">
+            {% endif %}
+        {% else %}
+            {# ide jön az avatar majd ha lesz!!! #}
+        {% endif %}
+    </span>
+</span>

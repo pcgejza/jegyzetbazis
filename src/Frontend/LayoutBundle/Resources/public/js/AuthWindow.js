@@ -5,12 +5,15 @@ AuthWindow = {
     getRevealUrl: null,
     emalCheckUrl: null,
     
+    headerHolder: null,
+    
     openedAuthWindow: false,
     
     PROCESS: [],
     
     init: function(){
         this.authReveal = $('.auth-window');
+        this.headerHolder = $('.page .headerHolder');
     },
     
     show: function(page){
@@ -88,6 +91,7 @@ AuthWindow = {
                 data : postData,
                 success:function(data, textStatus, jqXHR) 
                 {
+                    Header.setHeader(data.header);
                     AuthWindow.hide();
                     AuthWindow.hideLoadingFromForm(registrationForm);
                     InfoPopUp.showInfoPopup({
@@ -291,7 +295,13 @@ AuthWindow = {
                 data : postData,
                 success:function(data, textStatus, jqXHR) 
                 {
-                    AuthWindow.hide();
+                    Header.setHeader(data.header);
+                    //AuthWindow.hide();
+                    if(!data.err){
+                        alert('sikeres belépés...');
+                    }else{
+                        alert('sikertelen belépés, hiba: '+data.err);
+                    }
                    /* AuthWindow.hideLoadingFromForm(loginForm);
                     InfoPopUp.showInfoPopup({
                         type :      'ok',
