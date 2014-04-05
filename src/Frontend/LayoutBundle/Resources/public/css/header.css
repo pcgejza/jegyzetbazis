@@ -11,7 +11,7 @@
 
 .headerHolder .leftHolder{
     position: absolute;
-    left: 10%;
+    left: 0%;
     height: 100%;
     width: 30%;
 }
@@ -115,6 +115,32 @@
     float: right;
     position: absolute;
     top: -2px;
+}
+
+.headerHolder .leftHolder .menu{
+    position: absolute;
+    height: 80%;
+    width: 50%;
+    margin-top: 5px;
+    border-radius: 3px;
+    
+}
+
+.book-icon{
+   float: left;
+   height: 100%;
+   width: 40px;
+    background-image: url('/symfony/web/images/visitors_icon1.png');
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position:center;
+    border-radius: 5px;
+}
+
+
+.book-icon:hover{
+    background-color: #fff;
+    cursor: pointer;
 }
 
 /*

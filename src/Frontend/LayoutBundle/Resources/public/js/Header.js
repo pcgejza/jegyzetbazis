@@ -10,6 +10,7 @@ Header = {
     loginButton: null,
     registrationButton: null,
     headerHolder: null,
+    menuHolder: null,
     
     init: function(){
         this.headerHolder = $('body .page .headerHolder');
@@ -18,6 +19,7 @@ Header = {
         this.loginButton = $('.rightHolder .login');
         this.registrationButton = $('.rightHolder .registration');
         this.headerUserBox = $('.userHeaderElement',this.headerHolder);
+        this.menuHolder = $('.menu',this.headerHolder);
         this.bindUIActions();
     },
     
@@ -57,6 +59,8 @@ Header = {
         if(this.headerUserBox.length > 0){
             this.addQtipToHeader();
         }
+        
+        this.addQtipsToMenu();
     },
     
     showSearchResults: function(){
@@ -122,5 +126,18 @@ Header = {
             }
         });
           
+    },
+    
+    addQtipsToMenu: function(){
+        this.menuHolder.find('.menu-element').each(function(){
+            $(this).qtip({
+            show: 'mouseenter',
+            hide: 'mouseleave',    
+            position: {
+                   my: 'top center',  // Position my top left...
+                   at: 'bottom center', // at the bottom right of...
+               }, 
+            });
+        });
     },
 }
