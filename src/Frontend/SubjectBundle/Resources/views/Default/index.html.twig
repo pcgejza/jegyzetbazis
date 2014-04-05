@@ -23,5 +23,7 @@
 
     {% block contentHolder %}
         {{render(controller('FrontendSubjectBundle:Default:getAllSubjects', {'subject' : subject}))}}
+        <div class='rightHolder'>
         {{render(controller('FrontendSubjectBundle:Default:getSubject', {'subject' : subject}))}}
+        </div>
     {% endblock %}

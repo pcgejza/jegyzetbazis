@@ -1,12 +1,13 @@
 {% if err is not defined %}
+<div class='actualsubject'>
+    <h3>Tantárgyak/</h3><span class='actualSubjectName'></span>
+</div>
 <div class="subjects">
     <div class="subjectsTitle">Tantárgyak</div>
     <div class="subjectsContent">
-        {{ include('FrontendSubjectBundle:Default:oneSubject.html.twig',{'name' : 'Matek1', 'path' : '/matat'} )}}
-        {{ include('FrontendSubjectBundle:Default:oneSubject.html.twig',{'name' : 'Matek2', 'path' : '/matat'} )}}
-        {{ include('FrontendSubjectBundle:Default:oneSubject.html.twig',{'name' : 'Matek3', 'path' : '/matat'} )}}
-        {{ include('FrontendSubjectBundle:Default:oneSubject.html.twig',{'name' : 'Matek4', 'path' : '/matat'} )}}
-        {{ include('FrontendSubjectBundle:Default:oneSubject.html.twig',{'name' : 'Matek5', 'path' : '/matat'} )}}
+       {% for s in Subjects %}
+         {{ include('FrontendSubjectBundle:Default:oneSubject.html.twig',{'name' : s.getName(), 'path' : s.getSlug()} )}}
+       {% endfor %}
     </div>
 </div>
 {% else %}

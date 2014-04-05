@@ -14,7 +14,6 @@ div.subjects{
 
 div.subjects .subjectsTitle{
    font-size: 20px; 
-   color: #ff6600;
 }
 
 div.subjects .subjectsContent{
@@ -28,6 +27,10 @@ div.subjects .subjectsContent li{
     margin-bottom: 5px;
     border-bottom: 1px solid #dd5500;
     font-size: medium;
+}
+
+div.subjects .subjectsContent li.selected{
+
 }
 
 div.subjects .subjectsContent li a:hover{
@@ -76,7 +79,9 @@ div.singleSubjectTabs ul a{
     margin-right: 3px;
 }
 
-div.singleSubject .singleSubjectContent{
+div.singleSubject .singleSubjectContent,
+div.singleSubject .err
+{
     background-color: #fff;
     height: auto;
     padding: 10px;
@@ -85,5 +90,23 @@ div.singleSubject .singleSubjectContent{
 }
 
 div.singleSubjectTabs ul li.active a{ 
-    background-color:#89d;
+    background-color: #89d;
 }
+
+.subjects .actualsubject{
+    display: block;
+    width: 100%;
+   text-align: right;
+}
+
+.subjects .actualsubject h3{
+    display: inline;
+    color: #da4400;
+}
+
+.subjects .actualsubject .actualSubjectName{
+   font-size: 26px;
+    color: #fff;
+    font-weight: bold;
+}
+

@@ -35,6 +35,11 @@ class User extends BaseUser
      */
     protected $userSettings;
     
+    /**
+     * @ORM\OneToMany(targetEntity="\Frontend\LayoutBundle\Entity\UserSettings", mappedBy="user")
+     */
+    protected $subjects;
+    
 
 
     /**
@@ -68,5 +73,38 @@ class User extends BaseUser
     public function getUserSettings()
     {
         return $this->userSettings;
+    }
+
+    /**
+     * Add subjects
+     *
+     * @param \Frontend\LayoutBundle\Entity\UserSettings $subjects
+     * @return User
+     */
+    public function addSubject(\Frontend\LayoutBundle\Entity\UserSettings $subjects)
+    {
+        $this->subjects[] = $subjects;
+
+        return $this;
+    }
+
+    /**
+     * Remove subjects
+     *
+     * @param \Frontend\LayoutBundle\Entity\UserSettings $subjects
+     */
+    public function removeSubject(\Frontend\LayoutBundle\Entity\UserSettings $subjects)
+    {
+        $this->subjects->removeElement($subjects);
+    }
+
+    /**
+     * Get subjects
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSubjects()
+    {
+        return $this->subjects;
     }
 }

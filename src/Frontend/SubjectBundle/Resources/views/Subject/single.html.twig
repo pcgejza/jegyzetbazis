@@ -1,25 +1,62 @@
-{% if err is not defined %}
 <div class="singleSubject">
-    <div class="singleSubjectTabs">
-        <ul>
-            <li class="active"><a class="uploads">Feltöltések</a></li>
-            <li><a class="infos">Tantárgy információk</a></li>
-        </ul>
-    </div>
-    <div class="singleSubjectContent">
-        <div class="uploads">
-        Feltöltések,
-        {% if subject is null %}
-
+{% if err is not defined %}
+    {% if subject is not null %}
+        {% if Subject is not null %}
+               {# FIXME: lehetne szebben is! #}
+            <script>Subjects.setActualSubjectName("{{Subject.name}}");</script>
+                <div class="singleSubjectTabs">
+                    <ul>
+                        <li class="active"><a class="uploads">Feltöltések</a></li>
+                        <li><a class="infos">Tantárgy információk</a></li>
+                    </ul>
+                </div>
+                <div class="singleSubjectContent">
+                    <div class="uploads">
+                        Feltöltések
+                    </div>
+                    <div class="infos" style="display:none">
+                        <h2>Tantárgy információk</h2>
+                        <table>
+                            <tr>
+                                <th>Tantárgy neve</th>
+                                <td>{{Subject.getName()}}</td>
+                            </tr>
+                            <tr>
+                                <th>Tantárgy létrejötte</th>
+                                <td>{{Subject.getInsertDate() | date('Y-m-d h:s:i')}}</td>
+                            </tr>
+                            <tr>
+                                <th>Tantárgy frissítési ideje</th>
+                                <td>
+                                    {% if Subject.getUpdateDate() is not null %}
+                                        {{Subject.getUpdateDate() | date('Y-m-d h:s:i')}}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Tantárgy Tulajdonosa
+                                </th>
+                                <td>
+                                    {% if Subject.getUser() is not null %}
+                                    <a href='#'>{{Subject.getUser().getUserSettings().getName()}}</a>
+                                    {% else %}
+                                        Ismeretlen
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
         {% else %}
-            nem nulla: {{subject}}
+            <div class='err'>Hibás tantárgy lekérdezés a '{{subject}}' url-re</div>
         {% endif %}
-        </div>
-        <div class="infos">
-            Tantárgy információk
-        </div>
-    </div>
-</div>
+    {% else %}
+        <div class='err'>Nincs tárgy kiválasztva</div>
+    {% endif %}
 {% else %}
-Hiba: {{err}}
+    <div class='err'>Hiba: {{err}}</div>
 {% endif %}
+</div>
