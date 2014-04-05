@@ -1,0 +1,25 @@
+{% if err is not defined %}
+<div class="singleSubject">
+    <div class="singleSubjectTabs">
+        <ul>
+            <li class="active"><a class="uploads">Feltöltések</a></li>
+            <li><a class="infos">Tantárgy információk</a></li>
+        </ul>
+    </div>
+    <div class="singleSubjectContent">
+        <div class="uploads">
+        Feltöltések,
+        {% if subject is null %}
+
+        {% else %}
+            nem nulla: {{subject}}
+        {% endif %}
+        </div>
+        <div class="infos">
+            Tantárgy információk
+        </div>
+    </div>
+</div>
+{% else %}
+Hiba: {{err}}
+{% endif %}

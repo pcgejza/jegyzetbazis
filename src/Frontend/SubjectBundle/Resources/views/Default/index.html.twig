@@ -1,0 +1,27 @@
+{% extends "FrontendLayoutBundle:Default:layout.html.twig" %}
+{% block title %}Tantárgyak{% endblock %}
+{% block stylesheets %}
+{{ parent() }}
+    <link rel="stylesheet" href="{{asset('bundles/frontendsubject/css/subjects.css')}}" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{asset('bundles/frontendsubject/js/Subjects.js')}}"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+           Subjects.init(); 
+        });
+    </script>
+{% endblock %}
+    
+{% block body %}
+{{parent()}}
+{% endblock %}
+
+{% block bodyClass %}subjects{% endblock %}
+
+    {% block contentHolder %}
+        {{render(controller('FrontendSubjectBundle:Default:getAllSubjects', {'subject' : subject}))}}
+        {{render(controller('FrontendSubjectBundle:Default:getSubject', {'subject' : subject}))}}
+    {% endblock %}

@@ -153,89 +153,9 @@
     cursor: pointer;
 }
 
-
 /*
-Ez már inkább shared.css
+    az aktuális oldal ki legyen jelölve a fenti menüben
 */
-
-.auth-window.not-loaded{
-    background-image: url('/symfony/web/images/loading1.gif');
-    background-repeat: no-repeat;
-    background-size: 20%;
-    background-position:center; 
+body.subjects  .headerHolder .menu .subjects{
+    background-color: #fff;
 }
-
-.auth-window{
-    width: 700px !important;
-    position: fixed !important;
-    top: 100px !important;
-    border-radius: 3px;
-    padding: 10px !important;
-    left: 45% !important;
-}
-
-.auth-window .exit{
-    width : 30px;
-    height: 30px;
-    position: absolute;
-    top: -15px;
-    right: -15px;
-    background-image: url('/symfony/web/images/ablak_bezarasa_icon.png');
-    background-repeat: no-repeat;
-    background-size: 100%;
-    cursor: pointer;
-}
-
-.auth-window .header ul{
-    float:left;
-    width:100%;
-    padding:0;
-    margin:0;
-    list-style-type:none;
-}
-
-.auth-window .header ul a{
-    float:left;
-    width: 130px;
-    text-decoration:none;
-    font-size: 14px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    text-align: center;
-    color:#fff;
-    font-weight: bold;
-    background-color: #ff6600;
-    padding:0.2em 0.6em;
-    margin-right: 3px;
-}
-
-.auth-window .header ul li {display:inline;}
-.auth-window .header ul li.active a{
-    background-color:#55f;
-}
-
-.auth-window .header ul a:hover{
-    color: #000;
-}
-
-.auth-window .window-content .content{
-    background-color: #fff4ce;
-    border-top: 5px solid #55f;
-    margin-top: 0px;
-}
-
-.auth-window .window-content .header{
-    display: block;
-    height: 28px;
-}
-
-.auth-window .window-content .content .leftHolder{
-    width: 50%;
-    float: left;
-}
-
-.auth-window .window-content .content .rightHolder{
-     width: 50%;
-     float: right;
-}
-

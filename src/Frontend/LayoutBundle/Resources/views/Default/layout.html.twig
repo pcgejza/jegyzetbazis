@@ -29,6 +29,7 @@
                     AuthWindow.getRevealUrl = "{{path('get_auth_window_ajax')}}";
                     AuthWindow.emalCheckUrl = "{{path('security:email-check')}}";
                     AuthWindow.nicknameCheckUrl = "{{path('security:nickname-check')}}";
+                    
                 });
             </script>
         {% endblock %}
@@ -37,12 +38,13 @@
            <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/shared.css') }}" />
            <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/header.css') }}" />
            <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/form.css') }}" />
+            <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/customQtip.css') }}" />
            <link rel="stylesheet"  href="{{ asset('css/foundation.css') }}" />
            <link rel="stylesheet"  href="{{ asset('css/jquery.qtip.min.css') }}" />
         {% endblock %}
     {% endblock %}
     </head>
-    <body>
+    <body class="{% block bodyClass %}{% endblock %}">
     {% block body %}
         <div class="page">
             <div class="headerHolder">

@@ -124,7 +124,8 @@ Header = {
                    target:this.headerUserBox // my target
                }, 
             style: {
-                classes: '',
+                def: false,
+                classes: Shared.qtipStyleClass+" "+Shared.qtipStyleClass2,
                 width: this.headerUserBox.width()
             }
         });

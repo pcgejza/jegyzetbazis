@@ -1,0 +1,14 @@
+.qtip-custom-orange{
+    background-color: #ff6600;
+    color: #fff !important;
+}
+
+.qtip-custom-orange li a{
+    color: #fff !important;
+}
+
+.qtip-custom-orange .qtip-titlebar{
+    color: #fff; 
+    border-color: #ddd;
+    background-color: #ec4100;
+}

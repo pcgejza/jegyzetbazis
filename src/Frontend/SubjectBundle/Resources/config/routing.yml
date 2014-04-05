@@ -1,0 +1,12 @@
+subjects_homepage:
+    pattern:  /tantargyak/
+    defaults: { _controller: FrontendSubjectBundle:Default:index }
+
+get_all_subject:
+    pattern:  /tantargyak/tantargyak-lekerdezese
+    defaults: { _controller: FrontendSubjectBundle:Default:getAllSubjects }
+
+subjects_homepage_as_one_subject:
+    pattern:  /tantargyak/tantargy/{subject}
+    defaults: { _controller: FrontendSubjectBundle:Default:index }
+    

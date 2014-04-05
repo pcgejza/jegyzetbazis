@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Frontend\LayoutBundle\FrontendLayoutBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Gregwar\ImageBundle\GregwarImageBundle(),
+            new Frontend\SubjectBundle\FrontendSubjectBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

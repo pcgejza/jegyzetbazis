@@ -1,0 +1,14 @@
+{% if err is not defined %}
+<div class="subjects">
+    <div class="subjectsTitle">Tantárgyak</div>
+    <div class="subjectsContent">
+        {{ include('FrontendSubjectBundle:Default:oneSubject.html.twig',{'name' : 'Matek1', 'path' : '/matat'} )}}
+        {{ include('FrontendSubjectBundle:Default:oneSubject.html.twig',{'name' : 'Matek2', 'path' : '/matat'} )}}
+        {{ include('FrontendSubjectBundle:Default:oneSubject.html.twig',{'name' : 'Matek3', 'path' : '/matat'} )}}
+        {{ include('FrontendSubjectBundle:Default:oneSubject.html.twig',{'name' : 'Matek4', 'path' : '/matat'} )}}
+        {{ include('FrontendSubjectBundle:Default:oneSubject.html.twig',{'name' : 'Matek5', 'path' : '/matat'} )}}
+    </div>
+</div>
+{% else %}
+    Hiba a tantárgyak lekérdezésekor: {{err}}
+{% endif %}
