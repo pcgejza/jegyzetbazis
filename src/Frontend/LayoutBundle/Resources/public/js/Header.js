@@ -109,10 +109,13 @@ Header = {
     },
     
     addQtipToHeader: function(){
-      console.debug('add qtip to header');
       var h = $('.userHeaderqtip', this.headerUserBox).html();
+      var un = $('.userHeaderElement .userName').html();
        this.headerUserBox.qtip({
-           content: h,
+           content: {
+                text: h,
+                title: un
+            },
             show: 'click',
             hide: 'click',    
             position: {
@@ -124,6 +127,11 @@ Header = {
                 classes: '',
                 width: this.headerUserBox.width()
             }
+        });
+          
+        this.searchInput.qtip({
+         show: 'focus',
+         hide: 'blur'
         });
           
     },

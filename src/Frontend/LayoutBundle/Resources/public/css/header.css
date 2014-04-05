@@ -126,22 +126,33 @@
     
 }
 
-.book-icon{
+.headerHolder .leftHolder .menu .menu-element{
    float: left;
    height: 100%;
    width: 40px;
+   border-radius: 5px;
+   margin-left: 5px;
+}
+
+.book-icon{
     background-image: url('/symfony/web/images/visitors_icon1.png');
     background-repeat: no-repeat;
     background-size: 80%;
     background-position:center;
-    border-radius: 5px;
 }
 
+.book-icon-colorful{
+    background-image: url('/symfony/web/images/books_1.png');
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position:center;
+}
 
-.book-icon:hover{
+.headerHolder .leftHolder .menu .menu-element:hover{
     background-color: #fff;
     cursor: pointer;
 }
+
 
 /*
 Ez már inkább shared.css
