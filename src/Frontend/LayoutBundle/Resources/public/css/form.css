@@ -1,0 +1,122 @@
+
+form.default-form .formLine{
+    
+}
+
+form.default-form .formLine input,
+form.default-form .formLine select
+{
+    border: 1 solid #888;
+    border-radius: 4px;
+    width: 240px;
+}
+
+
+form.default-form .buttons{
+    text-align: center;
+}
+
+form.default-form.mini .buttons{
+    text-align: left;
+}
+
+form.default-form .formLine .error{
+     border: 1px solid #f11;
+}
+
+form.default-form .holders{
+    display: block;
+    height: 280px;
+}
+
+form.default-form .buttons input,
+form.default-form .buttons button
+{
+   border: none;
+   background-color: #ff2427;
+   font-size: 20px;
+   color: #fff;
+   font-weight: bold;
+   height: 30px;
+   border-radius: 5px;
+}
+
+form.default-form .buttons input:hover,
+form.default-form .buttons button:hover
+{
+    background-color: #ff6600;
+    cursor: pointer;
+}
+
+form.default-form .errors{
+    width: 90%;
+    background-image: url('/symfony/web/images/hibauz_icon_1.png');
+    background-repeat: no-repeat;
+    background-size: 10%;
+    background-color: #f88;
+    background-position: 95% center;
+    padding: 10px;
+    color: red;
+    margin-top: 20px;
+    font-weight: bold;
+    padding-right: 33px;
+}
+
+form.default-form .errors ul li{
+    margin-left: 10px;
+}
+
+form.default-form .faulty{
+    background-color: #ff775f;
+    border: 1px solid red;
+}
+
+form.default-form .buttons.loading{
+    background-image: url('/symfony/web/images/loading1.gif');
+    background-repeat: no-repeat;
+    background-size: 5%;
+    background-position:36%;
+}
+
+form.default-form .buttons.loading button,
+form.default-form .buttons.loading input{
+    opacity: 0.3;
+}
+
+form.default-form.mini{
+    height: 180px;
+}
+
+form.default-form.mini .buttons{
+    width: 90%;
+}
+
+form.default-form .formLine.mini{
+    display: inline;
+}
+
+form.default-form .formLine.mini input{
+    float: left;
+    width: 5%;
+}
+
+form.default-form.mini .buttons.loading{
+    background-image: url('/symfony/web/images/loading1.gif');
+    background-repeat: no-repeat;
+    background-size: 13%;
+    background-position:70%;
+}
+
+form.default-form .buttons.loading button,
+form.default-form .buttons.loading input{
+    opacity: 0.3;
+    cursor: auto;
+}
+
+form.default-form.loading input:not([type='submit']){
+    opacity: 0.4;
+}
+
+form.default-form.loading *{
+    cursor: progress !important;
+}

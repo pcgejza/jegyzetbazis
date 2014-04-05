@@ -6,7 +6,7 @@
     <div class="login-error" style="display:none">{{ error|trans({}, 'FOSUserBundle') }}</div>
 {% endif %}
 	{% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-		<form action="{{ path("security:login") }}" method="post" autocomplete="off" class="login-form default-form">
+		<form action="{{ path("security:login") }}" method="post" autocomplete="off" class="login-form default-form mini">
                      <div class="holders">
                         <div class="leftHolder">
                             <div class="formLine">
@@ -21,9 +21,17 @@
                                         <input type="password" id="password" name="_password" class='' />
                                     </div>
                             </div>
+                            <div class="formLine mini">
+                                    <input type="checkbox" id="stayLoggedIn" name="_stay_logged_in" class='' />
+                                    <label class="infieldLabel" for="stayLoggedIn">Maradjon bejelentkezve</label>
+                            </div>
+                            <div class="buttons">
+                                <input type="submit" value="Bejelentkezés" class="login-submit">
+                            </div>
                         </div>
-                        <div class="buttons">
-                            <input type="submit" value="Bejelentkezés" class="login-submit">
+                        <div class="rightHolder">
+                            <div class="errors" style="display:none">
+                            </div>
                         </div>
                      </div>
 		</form>

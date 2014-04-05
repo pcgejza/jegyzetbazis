@@ -96,7 +96,7 @@ AuthWindow = {
                     AuthWindow.hideLoadingFromForm(registrationForm);
                     InfoPopUp.showInfoPopup({
                         type :      'ok',
-                        topText :   'Sikeres regisztráció!'
+                        topText :   'Sikeres regisztráció! Email címedre küldtünk egy megerősítő linket tartalmazó emailt, kérünk, hogy kattints rá a megerősítéshez!'
                     });
                 },
                 error: function(jqXHR, textStatus, errorThrown) 
@@ -133,7 +133,7 @@ AuthWindow = {
         
         var errors = [];
         
-        var errorDiv = this.authReveal.find('.errors');
+        var errorDiv = this.authReveal.find('.registration-form .errors');
         
         name = form.find('.name');
         email = form.find('.email');
@@ -267,10 +267,12 @@ AuthWindow = {
     
     showLoadingToForm: function(form){
         form.find('.buttons').addClass('loading');
+        form.addClass('loading');
     },
     
     hideLoadingFromForm: function(form){
         form.find('.buttons').removeClass('loading');
+        form.removeClass('loading');
     },
     
     // EMAIL ELLENŐRZŐ függvény a karakterekből
@@ -287,6 +289,9 @@ AuthWindow = {
            e.preventDefault();
             var postData = $(this).serializeArray();
             var formURL = $(this).attr("action");
+             AuthWindow.showLoadingToForm(loginForm);
+             
+            var errorDiv = AuthWindow.authReveal.find('.login-form .errors');
             
             $.ajax(
             {
@@ -295,12 +300,19 @@ AuthWindow = {
                 data : postData,
                 success:function(data, textStatus, jqXHR) 
                 {
-                    Header.setHeader(data.header);
-                    //AuthWindow.hide();
+                     AuthWindow.hideLoadingFromForm(loginForm);
                     if(!data.err){
-                        alert('sikeres belépés...');
+                        Header.setHeader(data.header);
+                        AuthWindow.hide();
+                        InfoPopUp.showInfoPopup({
+                            type : 'ok',
+                            topText : 'Sikeres bejelentkezés',
+                            closeTime : 4000
+                        })
                     }else{
-                        alert('sikertelen belépés, hiba: '+data.err);
+                        var oH = "<ul><li>"+data.err+"</li></ul>";
+                        errorDiv.html(oH);
+                        errorDiv.fadeIn();
                     }
                    /* AuthWindow.hideLoadingFromForm(loginForm);
                     InfoPopUp.showInfoPopup({

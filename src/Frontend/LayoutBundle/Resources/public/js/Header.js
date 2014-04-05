@@ -5,6 +5,7 @@ Header = {
     searchResults: [] , // ebben tárolom a keresés eredményeit
     searchURL : null,
     postID: 0,
+    headerUserBox: null,
     
     loginButton: null,
     registrationButton: null,
@@ -16,12 +17,11 @@ Header = {
         this.searchResults = $('.searchHolder .searchResults');
         this.loginButton = $('.rightHolder .login');
         this.registrationButton = $('.rightHolder .registration');
+        this.headerUserBox = $('.userHeaderElement',this.headerHolder);
         this.bindUIActions();
     },
     
     bindUIActions: function(){
-        
-        
         
         this.searchInput.addGray('Keress rá emberekre, tárgyakra, tananyagokra...');
         
@@ -53,6 +53,10 @@ Header = {
         this.registrationButton.click(function(){
             AuthWindow.show('registration');
         });
+        
+        if(this.headerUserBox.length > 0){
+            this.addQtipToHeader();
+        }
     },
     
     showSearchResults: function(){
@@ -100,4 +104,23 @@ Header = {
         this.init();
     },
     
+    addQtipToHeader: function(){
+      console.debug('add qtip to header');
+      var h = $('.userHeaderqtip', this.headerUserBox).html();
+       this.headerUserBox.qtip({
+           content: h,
+            show: 'click',
+            hide: 'click',    
+            position: {
+                   my: 'top center',  // Position my top left...
+                   at: 'bottom center', // at the bottom right of...
+                   target:this.headerUserBox // my target
+               }, 
+            style: {
+                classes: '',
+                width: this.headerUserBox.width()
+            }
+        });
+          
+    },
 }

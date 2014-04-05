@@ -7,8 +7,10 @@
         <meta name="robots" content="all">
         {% block javascripts %}
         <script type="text/javascript" src="{{asset('js/jquery-1.10.2.min.js')}}"></script>
+        <script type="text/javascript" src="{{asset('js/jquery.qtip.min.js')}}"></script>
         <script type="text/javascript" src="{{asset('js/own.jquery.js')}}"></script>
 	 <script type="text/javascript" src="{{asset('js/jquery.foundation.reveal.js')}}"></script>
+	 <script type="text/javascript" src="{{asset('js/jquery.timer.js')}}"></script>
 	<script src="{{ asset('bundles/frontendlayout/js/Shared.js') }}"></script>
         <script src="{{ asset('bundles/frontendlayout/js/Header.js') }}"></script>
         <script src="{{ asset('bundles/frontendlayout/js/AuthWindow.js') }}?v={{ random(2000) }}"></script>
@@ -34,7 +36,9 @@
            <link rel="stylesheet"  href="{{ asset('css/reset.css') }}" />
            <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/shared.css') }}" />
            <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/header.css') }}" />
+           <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/form.css') }}" />
            <link rel="stylesheet"  href="{{ asset('css/foundation.css') }}" />
+           <link rel="stylesheet"  href="{{ asset('css/jquery.qtip.min.css') }}" />
         {% endblock %}
     {% endblock %}
     </head>
