@@ -26,3 +26,7 @@ security:nickname-check:
     pattern:  /regisztracio/nicknev-ellenorzes
     defaults: { _controller: FrontendLayoutBundle:Auth:checkNickname }
 
+visit_refresh:
+    pattern:  /online-statusz-frissites
+    defaults: { _controller: FrontendLayoutBundle:Default:visit }
+

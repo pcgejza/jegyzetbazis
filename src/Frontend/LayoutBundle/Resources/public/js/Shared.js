@@ -6,6 +6,8 @@ Shared = {
     
     qtipStyleClass: null,
     qtipStyleClass2: null,
+    visitActionUrl: null,
+    ip:null,
     
     init: function(){
         Shared.qtipStyleClass = "qtip-custom-orange";
@@ -18,6 +20,14 @@ Shared = {
     
     bindUIActions: function(){
         
-    }
+        var timer = $.timer(function() {
+            Shared.refreshVisit();
+        });
+         timer.set({ time : 1000*5, autostart : true });
+    },
+    
+    refreshVisit: function(){
+        $.post(Shared.visitActionUrl,{ip:Shared.ip});
+    },
     
 }

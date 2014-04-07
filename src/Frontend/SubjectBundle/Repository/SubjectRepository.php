@@ -12,11 +12,12 @@ use Doctrine\ORM\EntityRepository;
 class SubjectRepository extends EntityRepository{
 
     
-    public function getAllSubjects(){
+    public function getAllSubjects($orderBy = 'ASC'){
         return $this->createQueryBuilder('subject')
                 ->select('subject, user, uSettings')
                 ->leftJoin('subject.user', 'user')
                 ->leftJoin('user.userSettings', 'uSettings')
+                ->orderBy('subject.name', $orderBy)
                 ->getQuery()
                 ->getResult();
     }

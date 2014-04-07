@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="File" table="file">
+    <id name="id" type="bigint" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="name" type="string" column="name" length="255" nullable="false"/>
+    <field name="path" type="string" column="path" length="255" nullable="false"/>
+    <field name="uploadedTime" type="datetime" column="uploaded_time" nullable="false"/>
+    <field name="userId" type="integer" column="user_id" nullable="false"/>
+    <field name="downloadCount" type="integer" column="download_count" nullable="false"/>
+    <field name="status" type="boolean" column="status" nullable="false"/>
+  </entity>
+</doctrine-mapping>

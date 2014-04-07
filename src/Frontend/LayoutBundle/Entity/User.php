@@ -36,9 +36,14 @@ class User extends BaseUser
     protected $userSettings;
     
     /**
-     * @ORM\OneToMany(targetEntity="\Frontend\LayoutBundle\Entity\UserSettings", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="\Frontend\SubjectBundle\Entity\Subject", mappedBy="user")
      */
     protected $subjects;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="\Frontend\LayoutBundle\Entity\Visitors", mappedBy="user")
+     */
+    protected $userVisits;
     
 
 
@@ -106,5 +111,38 @@ class User extends BaseUser
     public function getSubjects()
     {
         return $this->subjects;
+    }
+
+    /**
+     * Add userVisits
+     *
+     * @param \Frontend\LayoutBundle\Entity\Visitors $userVisits
+     * @return User
+     */
+    public function addUserVisit(\Frontend\LayoutBundle\Entity\Visitors $userVisits)
+    {
+        $this->userVisits[] = $userVisits;
+
+        return $this;
+    }
+
+    /**
+     * Remove userVisits
+     *
+     * @param \Frontend\LayoutBundle\Entity\Visitors $userVisits
+     */
+    public function removeUserVisit(\Frontend\LayoutBundle\Entity\Visitors $userVisits)
+    {
+        $this->userVisits->removeElement($userVisits);
+    }
+
+    /**
+     * Get userVisits
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUserVisits()
+    {
+        return $this->userVisits;
     }
 }

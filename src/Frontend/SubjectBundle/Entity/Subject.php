@@ -76,6 +76,10 @@ class Subject
      */
     private $status = '1';
 
+    /**
+     * @ORM\OneToMany(targetEntity="\Frontend\SubjectBundle\Entity\SubjectFile", mappedBy="subject")
+     */
+    protected $subjectFile;
 
 
     /**
@@ -270,5 +274,45 @@ class Subject
     public function getSlug()
     {
         return $this->slug;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->subjectFile = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add subjectFile
+     *
+     * @param \Frontend\SubjectBundle\Entity\SubjectFile $subjectFile
+     * @return Subject
+     */
+    public function addSubjectFile(\Frontend\SubjectBundle\Entity\SubjectFile $subjectFile)
+    {
+        $this->subjectFile[] = $subjectFile;
+
+        return $this;
+    }
+
+    /**
+     * Remove subjectFile
+     *
+     * @param \Frontend\SubjectBundle\Entity\SubjectFile $subjectFile
+     */
+    public function removeSubjectFile(\Frontend\SubjectBundle\Entity\SubjectFile $subjectFile)
+    {
+        $this->subjectFile->removeElement($subjectFile);
+    }
+
+    /**
+     * Get subjectFile
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSubjectFile()
+    {
+        return $this->subjectFile;
     }
 }
