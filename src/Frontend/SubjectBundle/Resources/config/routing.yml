@@ -9,4 +9,12 @@ get_all_subject:
 subjects_homepage_as_one_subject:
     pattern:  /tantargyak/tantargy/{subject}
     defaults: { _controller: FrontendSubjectBundle:Default:index }
+
+get_upload_window:
+    pattern:  /tantargyak/fajl-feltolto-ablak-lekerdezes
+    defaults: { _controller: FrontendSubjectBundle:Upload:getUploadWindow }
+
+upload_files:
+    pattern:  /ajax/fajl-feltoltes/
+    defaults: { _controller: FrontendSubjectBundle:Upload:uploadFile }
     

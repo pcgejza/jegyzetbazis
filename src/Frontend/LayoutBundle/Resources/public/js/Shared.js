@@ -23,7 +23,7 @@ Shared = {
         var timer = $.timer(function() {
             Shared.refreshVisit();
         });
-         timer.set({ time : 1000*5, autostart : true });
+         timer.set({ time : 1000*60, autostart : true });
     },
     
     refreshVisit: function(){

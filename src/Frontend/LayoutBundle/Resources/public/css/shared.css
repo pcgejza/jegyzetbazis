@@ -30,6 +30,7 @@ body .page{
     background-repeat: no-repeat;
     background-size: 20%;
     background-position:center; 
+    height: 300px;
 }
 
 .auth-window{
@@ -41,7 +42,7 @@ body .page{
     left: 45% !important;
 }
 
-.auth-window .exit{
+.reveal-modal .exit{
     width : 30px;
     height: 30px;
     position: absolute;
@@ -104,4 +105,12 @@ body .page{
 .auth-window .window-content .content .rightHolder{
      width: 50%;
      float: right;
+}
+
+.reveal-modal.loading-reveal{
+    height: 200px;
+    background-image: url('/symfony/web/images/loading1.gif');
+    background-repeat: no-repeat;
+    background-size: 20%;
+    background-position:center; 
 }

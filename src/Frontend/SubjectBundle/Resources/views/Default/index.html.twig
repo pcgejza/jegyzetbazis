@@ -3,14 +3,19 @@
 {% block stylesheets %}
 {{ parent() }}
     <link rel="stylesheet" href="{{asset('bundles/frontendsubject/css/subjects.css')}}" />
+    <link rel="stylesheet" href="{{asset('bundles/frontendsubject/css/uploadWindow.css')}}" />
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript" src="{{asset('bundles/frontendsubject/js/Subjects.js')}}"></script>
+    <script type="text/javascript" src="{{asset('bundles/frontendsubject/js/UploadWindow.js')}}"></script>
     <script type="text/javascript">
         $(document).ready(function(){
+            UploadWindow.getUploadWindowURL = "{{path('get_upload_window')}}";
+            
            Subjects.init(); 
+           UploadWindow.init(); 
         });
     </script>
 {% endblock %}

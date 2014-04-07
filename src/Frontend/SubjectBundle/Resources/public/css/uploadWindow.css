@@ -1,0 +1,14 @@
+.upload-icon{
+    background-image: url('/symfony/web/images/upload_icon3.png');
+    width: 28px;
+    height: 28px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    position: absolute;
+    cursor: pointer;
+}
+
+.upload-icon:hover{
+    border: 1px solid #fff;
+}
+

@@ -308,7 +308,10 @@ AuthWindow = {
                             type : 'ok',
                             topText : 'Sikeres bejelentkezés',
                             closeTime : 4000
-                        })
+                        });
+                        if(typeof(UploadWindow) != 'undefined'){
+                            UploadWindow.addUploadFilesButton();
+                        }
                     }else{
                         var oH = "<ul><li>"+data.err+"</li></ul>";
                         errorDiv.html(oH);
