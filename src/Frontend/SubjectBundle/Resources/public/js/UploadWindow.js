@@ -4,6 +4,7 @@ UploadWindow = {
     uploadFilesButton: null,
     getUploadWindowURL: null,
     files: null,
+    allSubject: [],
     
     init: function(){
         this.initVariables();
@@ -38,6 +39,20 @@ UploadWindow = {
         
         var formFile = this.uploadWindowReveal.find('form #upload_file');
         var form = this.uploadWindowReveal.find('form');
+        var formSubjects = this.uploadWindowReveal.find('form .subjects');
+        
+        formSubjects.tagsInput({
+            'defaultText':'add...',
+            'height':'100px',
+            'width':'300px',
+        //first attempt,
+            'autocomplete_url': '',
+            'autocomplete' :{
+                'source':UploadWindow.allSubject
+            }
+        });
+
+        
         
         this.uploadWindowReveal.find('.exit').unbind('click');
         this.uploadWindowReveal.find('.exit').bind('click',function(){

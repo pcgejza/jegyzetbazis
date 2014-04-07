@@ -9,6 +9,7 @@
     <div class="subjectsTitle">Tantárgyak</div>
     <div class="subjectsContent">
        {% for s in Subjects %}
+        <script>UploadWindow.allSubject.push('{{s.getName()}}');</script>
          {{ include('FrontendSubjectBundle:Default:oneSubject.html.twig',{'name' : s.getName(), 'path' : s.getSlug()} )}}
        {% endfor %}
     </div>
