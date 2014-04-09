@@ -17,4 +17,8 @@ get_upload_window:
 upload_files:
     pattern:  /ajax/fajl-feltoltes/
     defaults: { _controller: FrontendSubjectBundle:Upload:uploadFile }
+
+upload_one_file_ajax:
+    pattern:  /tantargyak/ajax/fajl-feltoltes/
+    defaults: { _controller: FrontendSubjectBundle:Upload:uploadOneFile }
     

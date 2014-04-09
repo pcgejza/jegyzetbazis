@@ -2,10 +2,12 @@ UploadWindow = {
     
     uploadWindowReveal: null,
     uploadFilesButton: null,
-    getUploadWindowURL: null,
     sendButton: null,
     files: null,
     allSubject: [],
+    
+    uploadFILE_URL: null,
+    getUploadWindowURL: null,
     
     init: function(){
         this.initVariables();

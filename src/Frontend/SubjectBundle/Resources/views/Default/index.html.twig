@@ -18,6 +18,7 @@
         $(document).ready(function(){
            
            UploadWindow.getUploadWindowURL = "{{path('get_upload_window')}}";
+           UploadWindow.uploadFILE_URL = "{{path('upload_one_file_ajax')}}";
             
            Subjects.init(); 
            UploadWindow.init(); 

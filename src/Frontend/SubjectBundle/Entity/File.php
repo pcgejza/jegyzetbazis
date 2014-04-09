@@ -320,7 +320,7 @@ class File
     public function upload(){
         // the file property can be empty if the field is not required
         if (null === $this->getFile()) {
-            return;
+            return false;
         }
 
         // use the original file name here but you should
@@ -338,5 +338,7 @@ class File
 
         // clean up the file property as you won't need it anymore
         $this->file = null;
+        
+        return true;
     }
 }

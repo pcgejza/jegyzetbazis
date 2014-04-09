@@ -12,6 +12,9 @@ UploadCore = {
     ID_COUNTER: 0,
     actualADDcount: 0,
     
+    
+    helperArr: [],
+    
     init: function(uploadFilesInput) {
         this.uploadFilesInput = uploadFilesInput;
         this.bindUIActions();
@@ -19,6 +22,7 @@ UploadCore = {
     resetFiles: function() {
         this.uploadFilesInput.val("");
         this.files = null;
+        this.helperArr = [];
         this.selectedFilesArr = [];
     },
     bindUIActions: function() {
@@ -28,58 +32,13 @@ UploadCore = {
             UploadCore.filesProcessing();
         });
 
-        /*
-         form.submit(function(e){
-         e.preventDefault();
-         uploadFiles(e);
-         });
-         
-         
-         function uploadFiles(event){
-         event.stopPropagation(); // Stop stuff happening
-         event.preventDefault(); // Totally stop stuff happening
-         
-         var data = new FormData();
-         $.each(UploadWindow.files, function(key, value)
-         {
-         data.append("files[]", value);
-         });
-         
-         $.ajax({
-         url: form.attr('action'),
-         type: 'POST',
-         data: data,
-         cache: false,
-         dataType: 'json',
-         processData: false, // Don't process the files
-         contentType: false, // Set content type to false as jQuery will tell the server its a query string request
-         success: function(data, textStatus, jqXHR)
-         {
-         if(typeof data.error === 'undefined')
-         {
-         alert('no error');
-         }
-         else
-         {
-         // Handle errors here
-         console.log('ERRORS: ' + data.error);
-         }
-         },
-         error: function(jqXHR, textStatus, errorThrown)
-         {
-         // Handle errors here
-         console.log('ERRORS: ' + textStatus);
-         // STOP LOADING SPINNER
-         }
-         });
-         }*/
-
     },
     filesProcessing: function() {
         if (UploadCore.files.length > 0) {
             UploadWindow.showMiniLoading();
             UploadCore.actualADDcount = UploadCore.files.length + $('.uploadWindowContent .uploadElements table tbody tr').length;
             $.each(UploadCore.files, function(i, f) {
+                UploadCore.helperArr[i]=f;
                 UploadCore.getFilePathWithFileReader(f, i);
             });
         } else {
@@ -101,7 +60,7 @@ UploadCore = {
                 size: Math.round(UploadCore.files[index].size / 1024),
                 name: UploadCore.files[index].name,
                 type: UploadCore.files[index].type,
-                fileObject: UploadCore.files[index]
+                fileObject: UploadCore.helperArr[index]
             };
             
             var id = ++UploadCore.ID_COUNTER;
@@ -129,6 +88,7 @@ UploadCore = {
                 UploadWindow.sendButton.removeClass('hide');
             }
         };
+        
         reader.readAsDataURL(file);
     },
     getImageByType: function(type) {
@@ -175,9 +135,88 @@ UploadCore = {
         return returnImage;
     },
     uploadToServer: function(){
-        if(this.toSendFilesArr.length > 0){
-            alert('upload!');
-            
+        if(Object.keys(UploadCore.toSendFilesArr).length > 0){
+            function OnProgress(event, position, total, percentComplete)
+            {
+                //Progress bar
+                progressbar.width(percentComplete + '%') //update progressbar percent complete
+                statustxt.html(percentComplete + '%'); //update status text
+                if(percentComplete>50)
+                    {
+                        statustxt.css('color','#fff'); //change status text to white after 50%
+                    }
+           }
+         $.each(UploadCore.toSendFilesArr, function(key, value)
+         {
+            if(typeof($(this)[0].fileObject) !== 'object') return;
+             
+            var data = new FormData();
+            data.append("file", $(this)[0].fileObject);
+            $.ajax({
+                url: UploadWindow.uploadFILE_URL,
+                type: 'POST',
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(data, textStatus, jqXHR){
+                    if(data.success){
+                        console.debug(data.wp);
+                    }else{
+                        console.error('Hiba : '+data.err);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    console.log('ERRORS: ' + textStatus);
+                }
+            });
+         });
+        /*
+         form.submit(function(e){
+         e.preventDefault();
+         uploadFiles(e);
+         });
+         
+         
+         function uploadFiles(event){
+         event.stopPropagation(); // Stop stuff happening
+         event.preventDefault(); // Totally stop stuff happening
+         
+         var data = new FormData();
+         $.each(UploadWindow.files, function(key, value)
+         {
+         data.append("files[]", value);
+         });
+         
+         $.ajax({
+         url: form.attr('action'),
+         type: 'POST',
+         data: data,
+         cache: false,
+         dataType: 'json',
+         processData: false, // Don't process the files
+         contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+         success: function(data, textStatus, jqXHR)
+         {
+         if(typeof data.error === 'undefined')
+         {
+         alert('no error');
+         }
+         else
+         {
+         // Handle errors here
+         console.log('ERRORS: ' + data.error);
+         }
+         },
+         error: function(jqXHR, textStatus, errorThrown)
+         {
+         // Handle errors here
+         console.log('ERRORS: ' + textStatus);
+         // STOP LOADING SPINNER
+         }
+         });
+         }*/
+
         }else{
             alert(' NO UPLOAD!');
         }
