@@ -3,6 +3,7 @@ UploadWindow = {
     uploadWindowReveal: null,
     uploadFilesButton: null,
     getUploadWindowURL: null,
+    sendButton: null,
     files: null,
     allSubject: [],
     
@@ -28,10 +29,11 @@ UploadWindow = {
                $.post(UploadWindow.getUploadWindowURL).done(function(h){
                    UploadWindow.uploadWindowReveal.removeClass('loading-reveal');
                    UploadWindow.uploadWindowReveal.removeClass('not-loaded');
-                   UploadWindow.uploadWindowReveal.html(h);
+                   UploadWindow.uploadWindowReveal.html(h);   
+                   UploadWindow.sendButton = UploadWindow.uploadWindowReveal.find('.uploadAllFiles');
                    UploadWindow.bindWindowActions();
                    UploadCore.init(UploadWindow.uploadWindowReveal.find('form #upload_file'));
-               });
+                });
            }
         });
     },
@@ -64,7 +66,10 @@ UploadWindow = {
             formFile.click();
         });
         
-        
+        this.sendButton.unbind('click');
+        this.sendButton.bind('click', function(){
+            UploadCore.uploadToServer();
+        });
         
     },
     
@@ -100,6 +105,31 @@ UploadWindow = {
                    }, 
             });
         });
-    }
+    },
     
+    showMiniLoading: function(){
+        this.uploadWindowReveal.find('table').css('opacity', '0.4');
+        this.uploadWindowReveal.find('.mini-loading').removeClass('hide');
+    },
+    
+    hideMiniLoading: function(){
+        this.uploadWindowReveal.find('table').css('opacity', '1');
+        this.uploadWindowReveal.find('.mini-loading').addClass('hide');
+    },
+    
+    bindTableElementActions: function(){
+        this.uploadWindowReveal.find('table .removeRow').unbind('click');
+        this.uploadWindowReveal.find('table .removeRow').bind('click', function(){
+            $(this).qtip('destroy');
+            var thisRow = $(this).parents('tr').first();
+            var id = thisRow.data('id');
+            thisRow.hide('slow', function(){ 
+                thisRow.remove(); 
+            });
+            delete UploadCore.toSendFilesArr[id];
+            if(UploadCore.toSendFilesArr.length==0){
+                UploadWindow.sendButton.addClass('hide');
+            }
+        });
+    }
 }

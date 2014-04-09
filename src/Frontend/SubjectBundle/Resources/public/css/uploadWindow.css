@@ -33,7 +33,7 @@
 }
 
 .uploadWindowContent table{
-  width: 100%;
+    width: 100%;
 }
 
 
@@ -49,7 +49,7 @@
 }
 
 .uploadWindowContent table tbody tr{
- 
+
 }
 
 .uploadWindowContent table thead{
@@ -57,7 +57,7 @@
 }
 
 .uploadWindowContent table tbody tr td{
-  width: 200px;
+    width: 200px;
 }
 
 .uploadWindowContent table thead tr th{
@@ -82,4 +82,51 @@
 
 .uploadWindowContent table td[title]:hover{
     background-color: #fcfcca;
+}
+
+.uploadWindowContent .mini-loading{
+    width: 55px;
+    height: 55px;
+    position: absolute;
+    top: 50px;
+    right: 60px;
+    background-image: url('/symfony/web/images/loading1.gif');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position:center; 
+}
+.uploadWindowContent button{
+    cursor: pointer;
+    -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    box-shadow:inset 0px 1px 0px 0px #ffffff;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #cfcf17), color-stop(1, #ffd500) );
+    background:-moz-linear-gradient( center top, #cfcf17 5%, #ffd500 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#cfcf17', endColorstr='#ffd500');
+    background-color:#cfcf17;
+    -webkit-border-top-left-radius:6px;
+    -moz-border-radius-topleft:6px;
+    border-top-left-radius:6px;
+    -webkit-border-top-right-radius:6px;
+    -moz-border-radius-topright:6px;
+    border-top-right-radius:6px;
+    -webkit-border-bottom-right-radius:6px;
+    -moz-border-radius-bottomright:6px;
+    border-bottom-right-radius:6px;
+    -webkit-border-bottom-left-radius:6px;
+    -moz-border-radius-bottomleft:6px;
+    border-bottom-left-radius:6px;
+    text-indent:0;
+    border:1px solid #ffffff;
+    color:#e60000;
+    font-family:arial;
+    font-size:15px;
+    font-weight:bold;
+    font-style:normal;
+    height:50px;
+    line-height:50px;
+    width:100px;
+    text-decoration:none;
+    text-align:center;
+    text-shadow:1px 1px 0px #ffffff;
 }

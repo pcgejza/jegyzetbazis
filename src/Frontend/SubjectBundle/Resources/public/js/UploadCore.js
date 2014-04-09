@@ -77,6 +77,7 @@ UploadCore = {
     },
     filesProcessing: function() {
         if (UploadCore.files.length > 0) {
+            UploadWindow.showMiniLoading();
             UploadCore.actualADDcount = UploadCore.files.length + $('.uploadWindowContent .uploadElements table tbody tr').length;
             $.each(UploadCore.files, function(i, f) {
                 UploadCore.getFilePathWithFileReader(f, i);
@@ -123,6 +124,9 @@ UploadCore = {
             if($('.uploadWindowContent .uploadElements table tbody tr').length == UploadCore.actualADDcount){
                 UploadWindow.addQtipToUploads();
                 UploadCore.resetFiles();
+                UploadWindow.hideMiniLoading();
+                UploadWindow.bindTableElementActions();
+                UploadWindow.sendButton.removeClass('hide');
             }
         };
         reader.readAsDataURL(file);
@@ -170,6 +174,14 @@ UploadCore = {
         returnImage += "' title='"+title+"'>";
         return returnImage;
     },
+    uploadToServer: function(){
+        if(this.toSendFilesArr.length > 0){
+            alert('upload!');
+            
+        }else{
+            alert(' NO UPLOAD!');
+        }
+    }
 }
 function strpos(haystack, needle, offset) {
     //  discuss at: http://phpjs.org/functions/strpos/

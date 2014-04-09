@@ -4,6 +4,8 @@
 <div class="uploadWindowContent">
     <h3>Fájlok feltöltése</h3>
     <a class="upload upload-icon2"></a>
+    <button class='uploadAllFiles hide'>Feltöltés</button>
+    <span class='mini-loading hide'></span>
     <div class="hide">
     {% render(controller('FrontendSubjectBundle:Upload:uploadFile')) %}
     </div>
