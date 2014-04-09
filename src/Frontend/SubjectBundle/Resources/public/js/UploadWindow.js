@@ -89,4 +89,17 @@ UploadWindow = {
         this.uploadWindowReveal.trigger('reveal:close');
     },
     
+    addQtipToUploads: function(){
+        this.uploadWindowReveal.find('table *[title]').each(function(){
+             $(this).qtip({
+                show: 'mouseenter',
+                hide: 'mouseleave',    
+                position: {
+                       my: 'bottom center',  // Position my top left...
+                       at: 'top center', // at the bottom right of...
+                   }, 
+            });
+        });
+    }
+    
 }

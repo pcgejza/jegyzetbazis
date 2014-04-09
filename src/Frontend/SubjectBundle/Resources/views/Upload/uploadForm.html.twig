@@ -1,5 +1,5 @@
 <form action="{{ path('upload_files') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form.file, { 'full_name': form.file.get('full_name') ~ 'files[]', 'attr':{'class': 'file', 'accept': "image/*", 'multiple': 'multiple' } }) }}
+    {{ form_widget(form.file, { 'full_name': form.file.get('full_name') ~ 'files[]', 'attr':{'class': 'file','multiple': 'multiple' } }) }}
     <input type="text" class="subjects">
     <input type="submit">
 </form>

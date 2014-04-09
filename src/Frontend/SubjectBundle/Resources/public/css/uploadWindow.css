@@ -1,3 +1,9 @@
+.upload-window-reveal{
+    top: 10% !important;
+    width:80%;
+    left: 29%;
+}
+
 .upload-icon{
     background-image: url('/symfony/web/images/upload_icon3.png');
     width: 28px;
@@ -5,6 +11,16 @@
     background-size: 100%;
     background-repeat: no-repeat;
     position: absolute;
+    cursor: pointer;
+}
+
+.upload-icon2{
+    background-image: url('/symfony/web/images/upload_icon2.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+    display: block;
     cursor: pointer;
 }
 
@@ -16,7 +32,54 @@
     width: 100px;
 }
 
-.uploadWindowContent{
-    height: 400px;
-    overflow: scroll;
+.uploadWindowContent table{
+  width: 100%;
+}
+
+
+.uploadWindowContent table tbody,
+.uploadWindowContent table thead { 
+    display: block; 
+}
+
+.uploadWindowContent table tbody {
+    height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.uploadWindowContent table tbody tr{
+ 
+}
+
+.uploadWindowContent table thead{
+    width: 100%;
+}
+
+.uploadWindowContent table tbody tr td{
+  width: 200px;
+}
+
+.uploadWindowContent table thead tr th{
+    width: 30%;
+    border: none;
+}
+
+.uploadWindowContent table .removeRow{
+    background-image: url('/symfony/web/images/remove_orange.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 35px;
+    height: 35px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+
+.uploadWindowContent table td[title]{
+    cursor: pointer;
+}
+
+.uploadWindowContent table td[title]:hover{
+    background-color: #fcfcca;
 }
