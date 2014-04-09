@@ -136,32 +136,40 @@ UploadCore = {
     },
     uploadToServer: function(){
         if(Object.keys(UploadCore.toSendFilesArr).length > 0){
-            function OnProgress(event, position, total, percentComplete)
-            {
-                //Progress bar
-                progressbar.width(percentComplete + '%') //update progressbar percent complete
-                statustxt.html(percentComplete + '%'); //update status text
-                if(percentComplete>50)
-                    {
-                        statustxt.css('color','#fff'); //change status text to white after 50%
-                    }
-           }
          $.each(UploadCore.toSendFilesArr, function(key, value)
          {
             if(typeof($(this)[0].fileObject) !== 'object') return;
              
             var data = new FormData();
             data.append("file", $(this)[0].fileObject);
+            UploadCore.addProgressBar(key);
+            var k = key;
             $.ajax({
                 url: UploadWindow.uploadFILE_URL,
                 type: 'POST',
                 data: data,
                 cache: false,
+                
+            //@TODO start here
+                xhr: function() {  // custom xhr
+                    var id = key;
+                    var myXhr = $.ajaxSettings.xhr();
+                    if(myXhr.upload){ // check if upload property exists
+                        myXhr.upload.addEventListener('progress',
+                        function(evt){
+                            UploadCore.updateProgressBar(evt, id)
+                        }
+                        , false); // for handling the progress of the upload
+                    }
+                    return myXhr;
+                },
+                
                 contentType: false,
                 processData: false,
                 success: function(data, textStatus, jqXHR){
                     if(data.success){
                         console.debug(data.wp);
+                        UploadCore.addComplete(k);
                     }else{
                         console.error('Hiba : '+data.err);
                     }
@@ -220,7 +228,29 @@ UploadCore = {
         }else{
             alert(' NO UPLOAD!');
         }
-    }
+    },
+    
+    addProgressBar: function(id) {
+        var progressBar = '<div class="progressBar" progressID="'+id+'"></div>';
+        $('table tr[data-id="'+id+'"] td').last().html(progressBar);
+        $('table tr[data-id="'+id+'"] td .progressBar').progressbar({
+            value: 0
+         });
+    },
+    
+    addComplete: function(id){
+        var ci = '<span class="complete-icon"></div>';
+        $('table tr[data-id="'+id+'"] td').last().html(ci);
+    },
+    
+    updateProgressBar: function(evt,id){
+        if (evt.lengthComputable) {
+                var percentComplete = Math.round( 100 * (evt.loaded / evt.total));
+                 $('table tr[data-id="'+id+'"] td .progressBar').progressbar({
+                    value: percentComplete
+                 });
+        }
+    },
 }
 function strpos(haystack, needle, offset) {
     //  discuss at: http://phpjs.org/functions/strpos/

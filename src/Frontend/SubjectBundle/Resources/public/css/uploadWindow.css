@@ -24,6 +24,16 @@
     cursor: pointer;
 }
 
+.complete-icon{
+    
+    background-image: url('/symfony/web/images/complete_icon.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 45px;
+    height: 45px;
+    display: block;
+}
+
 .upload-icon:hover{
     border: 1px solid #fff;
 }
