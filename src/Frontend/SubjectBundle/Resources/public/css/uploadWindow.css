@@ -12,3 +12,11 @@
     border: 1px solid #fff;
 }
 
+.uploadWindowContent img{
+    width: 100px;
+}
+
+.uploadWindowContent{
+    height: 400px;
+    overflow: scroll;
+}

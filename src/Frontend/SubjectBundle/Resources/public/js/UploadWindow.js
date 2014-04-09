@@ -30,6 +30,7 @@ UploadWindow = {
                    UploadWindow.uploadWindowReveal.removeClass('not-loaded');
                    UploadWindow.uploadWindowReveal.html(h);
                    UploadWindow.bindWindowActions();
+                   UploadCore.init(UploadWindow.uploadWindowReveal.find('form #upload_file'));
                });
            }
         });
@@ -52,8 +53,6 @@ UploadWindow = {
             }
         });
 
-        
-        
         this.uploadWindowReveal.find('.exit').unbind('click');
         this.uploadWindowReveal.find('.exit').bind('click',function(){
             UploadWindow.hide();
@@ -64,58 +63,6 @@ UploadWindow = {
             e.preventDefault();
             formFile.click();
         });
-        
-        formFile.change(prepareUpload);
-
-        function prepareUpload(event)
-        {
-          UploadWindow.files = event.target.files;
-        }
-        
-        form.submit(function(e){
-            e.preventDefault();
-            uploadFiles(e);
-        });
-        
-        
-        function uploadFiles(event){
-            event.stopPropagation(); // Stop stuff happening
-            event.preventDefault(); // Totally stop stuff happening
-
-            var data = new FormData();
-            $.each(UploadWindow.files, function(key, value)
-            {
-                    data.append("files[]", value);
-            });
-    
-            $.ajax({
-                url: form.attr('action'),
-                type: 'POST',
-                data: data,
-                cache: false,
-                dataType: 'json',
-                processData: false, // Don't process the files
-                contentType: false, // Set content type to false as jQuery will tell the server its a query string request
-                success: function(data, textStatus, jqXHR)
-                {
-                        if(typeof data.error === 'undefined')
-                        {
-                                alert('no error');
-                        }
-                        else
-                        {
-                                // Handle errors here
-                                console.log('ERRORS: ' + data.error);
-                        }
-                },
-                error: function(jqXHR, textStatus, errorThrown)
-                {
-                        // Handle errors here
-                        console.log('ERRORS: ' + textStatus);
-                        // STOP LOADING SPINNER
-                }
-            });
-        }
         
         
         
