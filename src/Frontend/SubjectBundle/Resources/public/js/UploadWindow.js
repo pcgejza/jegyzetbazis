@@ -9,6 +9,8 @@ UploadWindow = {
     uploadFILE_URL: null,
     getUploadWindowURL: null,
     
+    updateFilesSubjectsURL: null,
+    
     init: function(){
         this.initVariables();
         this.bindUIActions();
@@ -44,19 +46,22 @@ UploadWindow = {
         
         var formFile = this.uploadWindowReveal.find('form #upload_file');
         var form = this.uploadWindowReveal.find('form');
-        var formSubjects = this.uploadWindowReveal.find('form .subjects');
+        var formSubjects = this.uploadWindowReveal.find('#subjects-textarea');
         
-        formSubjects.tagsInput({
-            'defaultText':'add...',
-            'height':'100px',
-            'width':'300px',
-        //first attempt,
-            'autocomplete_url': '',
-            'autocomplete' :{
-                'source':UploadWindow.allSubject
-            }
+        var sIn = $('.subjectsinput').magicSuggest({
+            resultAsString: true,
+            width: 590,
+            sortOrder: 'name',
+            displayField: 'name',
+            data: UploadWindow.allSubject
         });
-
+        /*
+        
+        $('#ms-input-0').blur(function(){
+          var toSend = sIn.getSelectedItems();
+          UploadCore.uploadSubjects(toSend);
+        });
+*/
         this.uploadWindowReveal.find('.exit').unbind('click');
         this.uploadWindowReveal.find('.exit').bind('click',function(){
             UploadWindow.hide();
@@ -65,12 +70,24 @@ UploadWindow = {
         this.uploadWindowReveal.find('.upload').unbind('click');
         this.uploadWindowReveal.find('.upload').bind('click', function(e){
             e.preventDefault();
-            formFile.click();
+            if(UploadCore.getProcessesLength() == 0){
+                formFile.click();
+            }else{
+                InfoPopUp.showInfoPopup({
+                    topText : "Éppen tart a file feltöltés..."
+                })
+            }
         });
         
         this.sendButton.unbind('click');
         this.sendButton.bind('click', function(){
-            UploadCore.uploadToServer();
+            if(UploadCore.getProcessesLength() == 0){
+                UploadCore.uploadToServer();
+            }else{
+                InfoPopUp.showInfoPopup({
+                    topText : "Éppen tart a file feltöltés..."
+                });
+            }
         });
         
     },
@@ -130,8 +147,10 @@ UploadWindow = {
             });
             delete UploadCore.toSendFilesArr[id];
             if(UploadCore.toSendFilesArr.length==0){
-                UploadWindow.sendButton.addClass('hide');
+                $('.postInputChangeElements').addClass('hide');
             }
         });
-    }
+    },
+    
+    
 }

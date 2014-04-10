@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * File
  *
  * @ORM\Table(name="file")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Frontend\SubjectBundle\Repository\FileRepository")
  */
 class File
 {
@@ -52,6 +52,12 @@ class File
      * @ORM\Column(name="user_id", type="integer", nullable=false)
      */
     private $userId;
+    
+     /**
+     * @ORM\ManyToOne(targetEntity="\Frontend\LayoutBundle\Entity\User", inversedBy="files")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
 
     /**
      * @var integer
@@ -340,5 +346,28 @@ class File
         $this->file = null;
         
         return true;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Frontend\LayoutBundle\Entity\User $user
+     * @return File
+     */
+    public function setUser(\Frontend\LayoutBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Frontend\LayoutBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

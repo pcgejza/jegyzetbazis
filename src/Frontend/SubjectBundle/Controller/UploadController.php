@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Acl\Exception\Exception;
 
 use Frontend\SubjectBundle\Entity\File;
+use Frontend\SubjectBundle\Entity\Subject;
+use Frontend\SubjectBundle\Entity\SubjectFile;
 use Frontend\SubjectBundle\Form\Type\UploadImageFormType;
 
 use \Symfony\Component\HttpFoundation\Request;
@@ -42,6 +44,10 @@ class UploadController extends Controller
     public function uploadOneFileAction(Request $request){
         try{
             $f = $request->files->get('file');
+            $filename = $request->request->get('filename');
+            $subjects = $request->request->get('subjects');
+            
+            $user = $this->get('security.context')->getToken()->getUser();
             
             if($f == NULL){
                 throw new Exception('Null a file!');
@@ -53,10 +59,118 @@ class UploadController extends Controller
             if(!$oneFile->upload())
                 throw new Exception('Hiba a feltöltés során!');
             
+            $filename = strlen($filename) > 0 ? $filename : $oneFile->getPath();
             
-            return new JsonResponse(array('success' => true, 'wp'=>$oneFile->getWebPath()));
+            $oneFile->setName($filename);
+            $oneFile->setUser($user);
+            $oneFile->setUploadedTime(new \DateTime('now'));
+            
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->persist($oneFile);
+            
+            if(sizeof($subjects)>0){
+                $Subjects = $this->getDoctrine()->getRepository('FrontendSubjectBundle:Subject')
+                            ->getSubjectsByNamesArray($subjects);
+                if(sizeof($Subjects) != sizeof($subjects)){
+                    $NewSubjects = array();
+                    foreach($subjects as $sub){
+                        $van = false;
+                        foreach($Subjects as $S){
+                            if($S->getName() == $sub)
+                                $van = true;
+                        }
+                        if(!$van){
+                            $NewSubject = new Subject();
+                            $NewSubject->setName($sub);
+                            $NewSubject->setSlug($sub);
+                            $NewSubject->setUser($user);
+                            $NewSubject->setStatus(0);
+                            $NewSubject->setInsertDate(new \DateTime());
+                            $em->persist($NewSubject);
+                            $NewSubjects[] = $NewSubject;
+                        }
+                    }
+                    $ALLSubjects = array_merge($Subjects, $NewSubjects);
+                }else{
+                    $ALLSubjects = $Subjects;
+                }
+                foreach($ALLSubjects as $sub){
+                    $SubjectFile = new SubjectFile();
+                    $SubjectFile->setFile($oneFile);
+                    $SubjectFile->setSubject($sub);
+                    $em->persist($SubjectFile);
+                }
+            }
+            
+            $em->flush();
+            
+            return new JsonResponse(array(
+                'id' => $oneFile->getId(),
+                'success' => true, 
+                'wp'=>$oneFile->getWebPath(),
+                'path' => $oneFile->getPath()    
+                    ));
         }catch(Exception $ex){
             return new JsonResponse(array('err' => $ex->getMessage()));
+        }
+    }
+    
+    
+    //tantárgy mező módosítás esetén kerül meghívásra
+    public function updateSubjectsAction(Request $request){
+        try{
+            $subject = $request->request->get('subject');
+            $fileIds = $request->request->get('fileIds');
+            $type = $request->request->get('type');
+            
+            $user = $this->get('security.context')->getToken()->getUser();
+            
+            if($subject==null || sizeof($subject) < 1)
+                throw new Exception('Hiba van a subjectNames-el');
+            
+            if($fileIds == null && !is_array($fileIds))
+                throw new Exception('Hiba van a fileIds-el');
+            
+            if($type == null)
+                throw new Exception('Hiba van a type-el');
+            
+            $Files = $this->getDoctrine()->getRepository('FrontendSubjectBundle:File')
+                        ->getFilesByIdsArray($fileIds);
+            
+            $em = $this->getDoctrine()->getEntityManager();
+            
+            $Subject = $this->getDoctrine()->getRepository('FrontendSubjectBundle:Subject')
+                         ->getOneOrNullByName($subject['name']);
+            if($type == 'add'){
+                if($Subject==NULL){
+                     $Subject = new Subject();
+                     $Subject->setName($subject['name']);
+                     $Subject->setSlug($subject['name']);
+                     $Subject->setUser($user);
+                     $Subject->setStatus(0);
+                     $Subject->setInsertDate(new \DateTime());
+                     $em->persist($Subject);
+                }
+                foreach($Files as $f){
+                    $SubjectFile = new SubjectFile();
+                    $SubjectFile->setFile($f);
+                    $SubjectFile->setSubject($Subject);
+                    $em->persist($SubjectFile);
+                }
+            }elseif($type == 'remove'){
+                 $SubjectFiles = $this->getDoctrine()->getRepository('FrontendSubjectBundle:SubjectFile')
+                             ->getSubjectFilesByFilesArrObjAndSubjectObj($Files, $Subject);
+
+                 foreach ($SubjectFiles as $sf){
+                     $em->remove($sf);
+                 }
+            }
+            
+            $em->flush();
+            
+            return new JsonResponse(array());
+        } catch (Exception $ex) {
+            return new JsonResponse(array('err'=>$ex->getMessage()));
         }
     }
 }

@@ -45,6 +45,11 @@ class User extends BaseUser
      */
     protected $userVisits;
     
+    /**
+     * @ORM\OneToMany(targetEntity="\Frontend\SubjectBundle\Entity\File", mappedBy="user")
+     */
+    protected $files;
+    
 
 
     /**
@@ -144,5 +149,38 @@ class User extends BaseUser
     public function getUserVisits()
     {
         return $this->userVisits;
+    }
+
+    /**
+     * Add files
+     *
+     * @param \Frontend\SubjectBundle\Entity\File $files
+     * @return User
+     */
+    public function addFile(\Frontend\SubjectBundle\Entity\File $files)
+    {
+        $this->files[] = $files;
+
+        return $this;
+    }
+
+    /**
+     * Remove files
+     *
+     * @param \Frontend\SubjectBundle\Entity\File $files
+     */
+    public function removeFile(\Frontend\SubjectBundle\Entity\File $files)
+    {
+        $this->files->removeElement($files);
+    }
+
+    /**
+     * Get files
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFiles()
+    {
+        return $this->files;
     }
 }

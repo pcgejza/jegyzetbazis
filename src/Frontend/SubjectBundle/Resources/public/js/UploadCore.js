@@ -12,8 +12,13 @@ UploadCore = {
     ID_COUNTER: 0,
     actualADDcount: 0,
     
+    uploadedFileIDs: [],
+    
+    selectedSubjects: [],
     
     helperArr: [],
+    
+    PROGRESSES: [],
     
     init: function(uploadFilesInput) {
         this.uploadFilesInput = uploadFilesInput;
@@ -85,7 +90,7 @@ UploadCore = {
                 UploadCore.resetFiles();
                 UploadWindow.hideMiniLoading();
                 UploadWindow.bindTableElementActions();
-                UploadWindow.sendButton.removeClass('hide');
+                $('.postInputChangeElements').removeClass('hide');
             }
         };
         
@@ -142,8 +147,15 @@ UploadCore = {
              
             var data = new FormData();
             data.append("file", $(this)[0].fileObject);
+            data.append("filename", $(this)[0].name);
+            
+             $.each(Object.keys(UploadCore.selectedSubjects), function(i, f){
+                    data.append("subjects[]",UploadCore.selectedSubjects[f]);
+             });
+            
             UploadCore.addProgressBar(key);
             var k = key;
+            UploadCore.PROGRESSES[k] = true;
             $.ajax({
                 url: UploadWindow.uploadFILE_URL,
                 type: 'POST',
@@ -167,9 +179,11 @@ UploadCore = {
                 contentType: false,
                 processData: false,
                 success: function(data, textStatus, jqXHR){
+                    UploadCore.afterProgress(k);
                     if(data.success){
                         console.debug(data.wp);
                         UploadCore.addComplete(k);
+                        UploadCore.uploadedFileIDs.push(data.id);
                     }else{
                         console.error('Hiba : '+data.err);
                     }
@@ -249,6 +263,70 @@ UploadCore = {
                  $('table tr[data-id="'+id+'"] td .progressBar').progressbar({
                     value: percentComplete
                  });
+        }
+    },
+    
+    afterProgress: function(progressKey){
+       delete this.PROGRESSES[progressKey];
+       var l = this.getProcessesLength();
+       if(l==0){
+           // nincs már több process
+       }else{
+           console.debug('Még van '+l+'.darab process!');
+       }
+    },
+    
+    getProcessesLength: function(){
+        return Object.keys(this.PROGRESSES).length;
+    },
+    
+    addSubject: function(s){
+        UploadCore.selectedSubjects[s.id] = s.name;
+        if(UploadCore.uploadedFileIDs.length > 0){
+            $.post(UploadWindow.updateFilesSubjectsURL,{
+                subject : s,
+                fileIds : UploadCore.uploadedFileIDs,
+                type : 'add'
+            }).done(function(data){
+                if(!data.err){
+                    console.debug('Sikeres tantárgy frissítés');
+                }else{
+                    console.error('sikertelen frissítés!!!'+data.err);
+                }
+            });
+        }
+    },
+    
+    removeSubject: function(s){
+        delete UploadCore.selectedSubjects[s.id];
+        if(UploadCore.uploadedFileIDs.length > 0){
+            $.post(UploadWindow.updateFilesSubjectsURL,{
+                subject : s,
+                fileIds : UploadCore.uploadedFileIDs,
+                type : 'remove'
+            }).done(function(data){
+                if(!data.err){
+                    console.debug('Sikeres tantárgy frissítés');
+                }else{
+                    console.error('sikertelen frissítés!!!'+data.err);
+                }
+            });
+        }
+    },
+    
+    uploadSubjects: function(s){
+        return;
+        if(UploadCore.uploadedFileIDs.length > 0 && s.length>0){
+            $.post(UploadWindow.updateFilesSubjectsURL,{
+                subjects : s,
+                fileIds : UploadCore.uploadedFileIDs
+            }).done(function(data){
+                if(!data.err){
+                    console.debug('Sikeres tantárgy frissítés');
+                }else{
+                    console.error('sikertelen frissítés!!!'+data.err);
+                }
+            });
         }
     },
 }

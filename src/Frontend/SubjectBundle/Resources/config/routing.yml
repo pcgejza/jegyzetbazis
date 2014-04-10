@@ -21,4 +21,8 @@ upload_files:
 upload_one_file_ajax:
     pattern:  /tantargyak/ajax/fajl-feltoltes/
     defaults: { _controller: FrontendSubjectBundle:Upload:uploadOneFile }
+
+update_files_subjects:
+    pattern:  /tantargyak/ajax/file-feltoltes/tantargyak-modositasa/
+    defaults: { _controller: FrontendSubjectBundle:Upload:updateSubjects }
     

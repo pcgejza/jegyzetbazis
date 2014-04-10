@@ -32,4 +32,35 @@ class SubjectRepository extends EntityRepository{
                 ->getQuery()
                 ->getOneOrNullResult();
     }
+    
+    public function getOneOrNullByName($name){
+          return $this->createQueryBuilder('subject')
+                ->select('subject')
+                ->where('subject.name = :name')
+                ->setParameter('name', $name)
+                ->getQuery()
+                ->getOneOrNullResult();
+    }
+    
+    public function getSubjectsByNamesArray($array){
+            return $this->createQueryBuilder('subject')
+                ->select('subject, user, uSettings')
+                ->where('subject.name IN(:names)')
+                ->leftJoin('subject.user', 'user')
+                ->leftJoin('user.userSettings', 'uSettings')
+                ->setParameter('names', $array)
+                ->getQuery()
+                ->getResult();
+    }
+    
+    public function getSubjectsByIdsArray($array){
+            return $this->createQueryBuilder('subject')
+                ->select('subject, user, uSettings')
+                ->where('subject.id IN(:ids)')
+                ->leftJoin('subject.user', 'user')
+                ->leftJoin('user.userSettings', 'uSettings')
+                ->setParameter('ids', $array)
+                ->getQuery()
+                ->getResult();
+    }
 }

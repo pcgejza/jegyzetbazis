@@ -27,7 +27,7 @@ InfoPopUp = {
                 InfoPopUp.hideInfoPopUp();
                 timer.stop();
             });
-             timer.set({ time : closeTime, autostart : true });
+            timer.set({ time : closeTime, autostart : true });
         }
     },
     

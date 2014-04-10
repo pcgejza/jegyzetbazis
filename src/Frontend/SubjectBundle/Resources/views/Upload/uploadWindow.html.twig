@@ -3,8 +3,11 @@
 <span class="exit"></span>
 <div class="uploadWindowContent">
     <h3>Fájlok feltöltése</h3>
+    <span class="postInputChangeElements hide">
+        Tantárgyak:<input type="text" class="subjectsinput">
+    <button class='uploadAllFiles'>Feltöltés</button>
+    </span>
     <a class="upload upload-icon2"></a>
-    <button class='uploadAllFiles hide'>Feltöltés</button>
     <span class='mini-loading hide'></span>
     <div class="hide">
     {% render(controller('FrontendSubjectBundle:Upload:uploadFile')) %}

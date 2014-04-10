@@ -22,6 +22,9 @@
     height: 25px;
     display: block;
     cursor: pointer;
+    position: absolute;
+    top: 45px;
+    left: 250px;
 }
 
 .complete-icon{
@@ -139,4 +142,12 @@
     text-decoration:none;
     text-align:center;
     text-shadow:1px 1px 0px #ffffff;
+    float: right;
+    display: inline-block;
+}
+
+textarea.subjects{
+    width: 250px;
+    height: 100px;
+    display: inline-block;
 }
