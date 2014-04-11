@@ -17,6 +17,7 @@
         <script src="{{ asset('bundles/frontendlayout/js/InfoPopUp.js') }}?v={{ random(2000) }}"></script>
        <script>
                 $(document).ready(function(){
+                    {% block initJavascripts %}
                     // init objects
                     Shared.init();
                     Shared.defaultProfileImageFemale = "{{asset('images/default_profile_image_female.png')}}";
@@ -31,7 +32,7 @@
                     AuthWindow.getRevealUrl = "{{path('get_auth_window_ajax')}}";
                     AuthWindow.emalCheckUrl = "{{path('security:email-check')}}";
                     AuthWindow.nicknameCheckUrl = "{{path('security:nickname-check')}}";
-                    
+                    {% endblock %}
                 });
             </script>
         {% endblock %}

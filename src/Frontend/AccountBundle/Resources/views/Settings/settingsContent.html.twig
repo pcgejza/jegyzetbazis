@@ -1,0 +1,11 @@
+<div class="tabHeader">
+    <ul class="settingsTabs">
+        <li><a href="javascript:void(0)" class="alabbeallitasok">Alap beállítások</a></li>
+        <li class="active"><a href="javascript:void(0)">Biztonsági beállítások</a></li>
+        <li><a href="javascript:void(0)">Avatár beállítások</a></li>
+        <li><a href="javascript:void(0)">Megjegyzés</a></li>
+    </ul>
+</div>
+<div class="tabContent" page="page">
+    {% render(controller('FrontendAccountBundle:Settings:getSubPage', {'page' : page})) %}
+</div>

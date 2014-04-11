@@ -1,0 +1,29 @@
+{% extends "FrontendLayoutBundle:Default:layout.html.twig" %}
+
+
+{% block title %}Beállítások{% endblock %}
+
+{% block stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" href="{{asset('bundles/frontendaccount/css/settings-shared.css')}}" />
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script type="text/javascript" src="{{asset('bundles/frontendaccount/js/SettingsShared.js')}}"></script>
+{% endblock %}
+
+{% block initJavascripts %}
+    {{parent()}}
+    SettingsShared.init();
+{% endblock %}
+
+{% block bodyClass %}settings{% endblock %}
+
+
+{% block body %}
+{{parent()}}
+{% endblock %}
+{% block contentHolder %}
+    {% include 'FrontendAccountBundle:Settings:settingsContent.html.twig' %}
+{% endblock %}

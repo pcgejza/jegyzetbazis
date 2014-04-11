@@ -1,0 +1,7 @@
+settings_homepage:
+    pattern:  /beallitasok/
+    defaults: { _controller: FrontendAccountBundle:Settings:settingsIndex }
+
+settings_sub_page:
+    pattern:  /beallitasok/{page}.html
+    defaults: { _controller: FrontendAccountBundle:Settings:settingsIndex }
