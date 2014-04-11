@@ -1,0 +1,22 @@
+<div class="uploads">
+    {% if Files is defined and Files is not null %}
+        <table class="subject-files">
+            <tr>
+                <th>Fájl név</th>
+                <th>Fájl</th>
+                <th>Feltöltés dátuma</th>
+                <th>Feltöltő</th>
+            </tr>
+        {% for file in Files %}
+            <tr>
+                <td>{{file.getName}}</td>
+                <td><img src="{{image(getImageByPath(file.getWebPath()))}}" width="140" height="140"></td>
+                <td>{{file.uploadTime | date('Y-m-d h:s:i')}}</td>
+                <td><a href="javascript:void(0)">{% if file.user.userSettings is not null %}{{file.user.username}}{% else %}{{file.user.userSettings.name}}{% endif %}</a></td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        <pre><<<< válassz tantárgyat</pre>
+    {% endif %}
+</div>

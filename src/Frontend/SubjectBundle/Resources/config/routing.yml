@@ -7,7 +7,7 @@ get_all_subject:
     defaults: { _controller: FrontendSubjectBundle:Default:getAllSubjects }
 
 subjects_homepage_as_one_subject:
-    pattern:  /tantargyak/tantargy/{subject}
+    pattern:  /tantargyak/tantargy/{subject}.html
     defaults: { _controller: FrontendSubjectBundle:Default:index }
 
 get_upload_window:

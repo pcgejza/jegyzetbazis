@@ -11,17 +11,7 @@
                     </ul>
                 </div>
                 <div class="singleSubjectContent">
-                    <div class="uploads">
-                        {% if Files is defined and Files is not null %}
-                            {% for file in Files %}
-                               <img src="{{image(file.getWebPath()).zoomCrop(100,100)}}">({{file.uploadTime | date('Y-m-d h:s:i')}})
-                               [Feltöltő : {% if file.user.userSettings is not null %}{{file.user.username}}{% else %}{{file.user.userSettings.name}}{% endif %}]
-                               <br>
-                            {% endfor %}
-                        {% else %}
-                            <pre><<<< válassz tantárgyat</pre>
-                        {% endif %}
-                    </div>
+                    {% include 'FrontendSubjectBundle:Subject:uploads.html.twig' %}
                     <div class="infos" style="display:none">
                         <h2>Tantárgy információk</h2>
                         <table>
