@@ -22,11 +22,25 @@ class SubjectRepository extends EntityRepository{
                 ->getResult();
     }
     
+    public function getAllActiveSubjects($orderBy = 'ASC'){
+        return $this->createQueryBuilder('subject')
+                ->select('subject, user, uSettings')
+                ->where('subject.status = 1')
+                ->leftJoin('subject.user', 'user')
+                ->leftJoin('user.userSettings', 'uSettings')
+                ->orderBy('subject.name', $orderBy)
+                ->getQuery()
+                ->getResult();
+    }
+    
     public function getOneSubjectBySlug($slug){
         return $this->createQueryBuilder('subject')
                 ->select('subject, user, uSettings')
+                ->addSelect('subjectFile, file')
                 ->leftJoin('subject.user', 'user')
                 ->leftJoin('user.userSettings', 'uSettings')
+                ->leftJoin('subject.subjectFile', 'subjectFile')
+                ->leftJoin('subjectFile.file', 'file')
                 ->where('subject.slug = :slug')
                 ->setParameter('slug', $slug)
                 ->getQuery()

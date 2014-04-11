@@ -16,4 +16,20 @@ class FileRepository extends EntityRepository{
                 ->getResult();
     }
     
+    public function getFilesToPageBySubject($Subject, $user, $limit = 10){
+        $Files = $this->createQueryBuilder('file')
+                ->select('file, user, userSettings')
+                ->where('subjectFile.subject = :subject')
+                ->join('file.subjectFile', 'subjectFile')
+                ->leftJoin('file.user', 'user')
+                ->leftJoin('user.userSettings', 'userSettings')
+                ->setParameter('subject', $Subject)
+                ->orderBy('file.uploadedTime', 'DESC')
+                ->setMaxResults($limit)
+                ->getQuery()
+                ->getResult();
+        
+        return $Files;
+    }
+    
 }

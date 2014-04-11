@@ -283,6 +283,13 @@ class File
             : $this->getUploadDir().'/'.$this->path;
     }
 
+    public function getWebPath2()
+    {
+        return null === $this->path
+            ? null
+            : '/symfony/web/'.$this->getUploadDir().'/'.$this->path;
+    }
+
     protected function getUploadRootDir()
     {
         // the absolute directory path where uploaded
