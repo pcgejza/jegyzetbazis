@@ -30,8 +30,19 @@ class SettingsController extends Controller {
         }
         
         return $this->render('FrontendAccountBundle:Settings:index.html.twig',array(
-                'page' => $page
+                'page' => $page,
+                'title' => $this->getSubPageTitle($page)
                 ));
+    }
+    
+    public function getSubPageTitle($page){
+        switch($page){
+            case 'alap-beallitasok': return 'Alap beállítások'; break;
+            case 'biztonsagi-beallitasok': return 'Biztonsági beállítások'; break;
+            case 'avatar-beallitasok': return 'Avatár beállítások'; break;
+            case 'megjegyzes-beallitasok': return 'Megyjezés'; break;
+            default : return null;
+        }
     }
     
     public function getSubPageAction($page = null){
@@ -41,7 +52,7 @@ class SettingsController extends Controller {
         }
         
         switch ($page){
-            case 'alapbeallitasok':
+            case 'alap-beallitasok':
                 return $this->baseSettingsAction();
                 break;
             default: 

@@ -2,6 +2,24 @@
     
 }
 
+.settings{
+    
+}
+
+.settings .titleHolder{
+    margin: 10px;
+}
+
+.settings .titleHolder h3{
+    display: inline;
+    color: #da4400;
+}
+
+.settings .titleHolder .title{
+    font-size: 30px;
+    color: #efe;
+}
+
 .settings .settingsTabs{
     
 }
@@ -38,11 +56,12 @@
 }
 
 .settings .tabHeader{
-    height: 28px;
+    height: 34px;
+    border-bottom: 6px solid #55f;
 }
 
 .settings .tabContent{
-    border-top: 6px solid #55f;
+    /* border-top: 6px solid #55f; */
     background-color: #fff;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -53,5 +72,14 @@
 .settings .tabContent .settingsPage{
     width: 500px;
     margin: auto;
-    margin-top: 20px;
+    padding-top: 20px;
 }
+
+.settings .tabContent.not-loaded{
+    height: 250px;
+    background-image: url('/symfony/web/images/loading1.gif');
+    background-repeat: no-repeat;
+    background-size: 10%;
+    background-position:center; 
+}
+

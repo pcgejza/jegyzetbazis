@@ -1,11 +1,16 @@
-<div class="tabHeader">
-    <ul class="settingsTabs">
-        <li><a href="javascript:void(0)" class="alabbeallitasok">Alap beállítások</a></li>
-        <li class="active"><a href="javascript:void(0)">Biztonsági beállítások</a></li>
-        <li><a href="javascript:void(0)">Avatár beállítások</a></li>
-        <li><a href="javascript:void(0)">Megjegyzés</a></li>
-    </ul>
-</div>
-<div class="tabContent" page="page">
-    {% render(controller('FrontendAccountBundle:Settings:getSubPage', {'page' : page})) %}
+<div class="settingsContent">
+    <div class="titleHolder">
+        <h3>Beállítások / </h3><span class="title">{% if title is not null %}{{title}}{% endif %}</span>
+    </div>
+    <div class="tabHeader">
+        <ul class="settingsTabs">
+            <li{% if page == 'alap-beallitasok' %} class="active"{% endif %}><a href="javascript:void(0)" page="alap-beallitasok">Alap beállítások</a></li>
+            <li{% if page == 'biztonsagi-beallitasok' %} class="active"{% endif %}><a href="javascript:void(0)" page="biztonsagi-beallitasok">Biztonsági beállítások</a></li>
+            <li{% if page == 'avatar-beallitasok' %} class="active"{% endif %}><a href="javascript:void(0)" page="avatar-beallitasok">Avatár beállítások</a></li>
+            <li{% if page == 'megjegyzes' %} class="active"{% endif %}><a href="javascript:void(0)" page="megjegyzes">Megjegyzés</a></li>
+        </ul>
+    </div>
+    <div class="tabContent active" page="{{page}}">
+        {% render(controller('FrontendAccountBundle:Settings:getSubPage', {'page' : page})) %}
+    </div>
 </div>
