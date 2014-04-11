@@ -20,6 +20,8 @@ UploadCore = {
     
     PROGRESSES: [],
     
+    afterFunctions: {},
+    
     init: function(uploadFilesInput) {
         this.uploadFilesInput = uploadFilesInput;
         this.bindUIActions();
@@ -69,7 +71,7 @@ UploadCore = {
             };
             
             var id = ++UploadCore.ID_COUNTER;
-            UploadCore.toSendFilesArr[id] = UploadCore.selectedFilesArr[index];
+            UploadCore.addElementToToSendFilesArr(id, UploadCore.selectedFilesArr[index]);
         
             var s = '<tr data-id="'+id+'">';
              s += '<td title="Kattints az átnevezéshez">' + UploadCore.selectedFilesArr[index].name + '</td>';
@@ -84,7 +86,7 @@ UploadCore = {
             s += '</tr>';
             
             $('.uploadWindowContent .uploadElements').removeClass('hide');
-            $('.uploadWindowContent .uploadElements table tbody').append(s);
+            $('.uploadWindowContent .uploadElements table tbody').prepend(s);
             if($('.uploadWindowContent .uploadElements table tbody tr').length == UploadCore.actualADDcount){
                 UploadWindow.addQtipToUploads();
                 UploadCore.resetFiles();
@@ -143,6 +145,7 @@ UploadCore = {
         if(Object.keys(UploadCore.toSendFilesArr).length > 0){
          $.each(UploadCore.toSendFilesArr, function(key, value)
          {
+            if(value == null) return;
             if(typeof($(this)[0].fileObject) !== 'object') return;
              
             var data = new FormData();
@@ -184,6 +187,10 @@ UploadCore = {
                         console.debug(data.wp);
                         UploadCore.addComplete(k);
                         UploadCore.uploadedFileIDs.push(data.id);
+                        UploadCore.removeElementFromToSendFilesArr(k);
+                        if( aft = UploadCore.getAfterFunctionByProgressID(k)){
+                            aft.func();
+                        }
                     }else{
                         console.error('Hiba : '+data.err);
                     }
@@ -193,51 +200,6 @@ UploadCore = {
                 }
             });
          });
-        /*
-         form.submit(function(e){
-         e.preventDefault();
-         uploadFiles(e);
-         });
-         
-         
-         function uploadFiles(event){
-         event.stopPropagation(); // Stop stuff happening
-         event.preventDefault(); // Totally stop stuff happening
-         
-         var data = new FormData();
-         $.each(UploadWindow.files, function(key, value)
-         {
-         data.append("files[]", value);
-         });
-         
-         $.ajax({
-         url: form.attr('action'),
-         type: 'POST',
-         data: data,
-         cache: false,
-         dataType: 'json',
-         processData: false, // Don't process the files
-         contentType: false, // Set content type to false as jQuery will tell the server its a query string request
-         success: function(data, textStatus, jqXHR)
-         {
-         if(typeof data.error === 'undefined')
-         {
-         alert('no error');
-         }
-         else
-         {
-         // Handle errors here
-         console.log('ERRORS: ' + data.error);
-         }
-         },
-         error: function(jqXHR, textStatus, errorThrown)
-         {
-         // Handle errors here
-         console.log('ERRORS: ' + textStatus);
-         // STOP LOADING SPINNER
-         }
-         });
-         }*/
 
         }else{
             alert(' NO UPLOAD!');
@@ -280,8 +242,32 @@ UploadCore = {
         return Object.keys(this.PROGRESSES).length;
     },
     
+    isProgress: function(){
+        return (this.getProcessesLength()==0) ? false : true;
+    },
+    
+    getAfterFunctionByProgressID: function(pid){
+        return typeof(this.afterFunctions[pid]) == 'undefined' ? null : this.afterFunctions[pid];
+    },
+    
+    addAfterFunction: function(type,func, progresses){
+        $.each(progresses, function(i,a){
+            UploadCore.afterFunctions[i] = {
+                type : type,
+                func : func
+            };
+        });
+    },
+    
     addSubject: function(s){
         UploadCore.selectedSubjects[s.id] = s.name;
+        if(this.isProgress()){
+            var after = function(){
+                UploadCore.addSubject(s);
+            };
+            this.addAfterFunction('subject', after, this.PROGRESSES);
+            return;
+        }
         if(UploadCore.uploadedFileIDs.length > 0){
             $.post(UploadWindow.updateFilesSubjectsURL,{
                 subject : s,
@@ -299,6 +285,13 @@ UploadCore = {
     
     removeSubject: function(s){
         delete UploadCore.selectedSubjects[s.id];
+        if(this.isProgress()){
+            var after = function(){
+                UploadCore.removeSubject(s);
+            };
+            this.addAfterFunction('subject', after,this.PROGRESSES);
+            return;
+        }
         if(UploadCore.uploadedFileIDs.length > 0){
             $.post(UploadWindow.updateFilesSubjectsURL,{
                 subject : s,
@@ -314,21 +307,13 @@ UploadCore = {
         }
     },
     
-    uploadSubjects: function(s){
-        return;
-        if(UploadCore.uploadedFileIDs.length > 0 && s.length>0){
-            $.post(UploadWindow.updateFilesSubjectsURL,{
-                subjects : s,
-                fileIds : UploadCore.uploadedFileIDs
-            }).done(function(data){
-                if(!data.err){
-                    console.debug('Sikeres tantárgy frissítés');
-                }else{
-                    console.error('sikertelen frissítés!!!'+data.err);
-                }
-            });
-        }
+    removeElementFromToSendFilesArr: function(key){
+        delete this.toSendFilesArr[key];
     },
+    
+    addElementToToSendFilesArr: function(key, element){
+        this.toSendFilesArr[key] = element;
+    }
 }
 function strpos(haystack, needle, offset) {
     //  discuss at: http://phpjs.org/functions/strpos/

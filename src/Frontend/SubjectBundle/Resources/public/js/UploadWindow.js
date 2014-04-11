@@ -49,10 +49,11 @@ UploadWindow = {
         var formSubjects = this.uploadWindowReveal.find('#subjects-textarea');
         
         var sIn = $('.subjectsinput').magicSuggest({
-            resultAsString: true,
+            //resultAsString: true,
             width: 590,
             sortOrder: 'name',
             displayField: 'name',
+            expandOnFocus: true,
             data: UploadWindow.allSubject
         });
         /*
@@ -145,7 +146,7 @@ UploadWindow = {
             thisRow.hide('slow', function(){ 
                 thisRow.remove(); 
             });
-            delete UploadCore.toSendFilesArr[id];
+            UploadCore.removeElementFromToSendFilesArr[id];
             if(UploadCore.toSendFilesArr.length==0){
                 $('.postInputChangeElements').addClass('hide');
             }
