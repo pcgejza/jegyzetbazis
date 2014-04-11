@@ -4,6 +4,8 @@ namespace Frontend\AccountBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use Frontend\AccountBundle\Form\Type\BaseSettingsFormType;
+
 class SettingsController extends Controller {
     
     
@@ -68,8 +70,44 @@ class SettingsController extends Controller {
     }
     
     public function baseSettingsAction(){
-        return $this->render('FrontendAccountBundle:Settings:baseSettings.html.twig');
+        $request = $this->get('request');
+        $User = $this->get('security.context')->getToken()->getUser();
+        
+        
+        $BaseSettingsForm = new BaseSettingsFormType();
+        $BaseSettingsForm->setUser($User);
+        
+        $url = $this->generateUrl('base_settings_save');
+        
+        $form = $this->createForm($BaseSettingsForm, null, array(
+            'action' => $url,
+            'method' => 'POST',
+            'attr' => array('class' => 'baseSettingsForm settings-form')
+        ));
+        
+        if($request->getMethod() === 'POST'){   
+            $form->bind($request);
+            if($form->isValid()){
+                $formData = $form->getData();
+                $name = $formData['name'];
+                $gender = $formData['gender'];
+                $UserSettings = $User->getUserSettings();
+                if($UserSettings == NULL){
+                    $UserSettings->setUser($User);
+                }
+                $UserSettings->setName($name);
+                $UserSettings->setGender($gender);
+                $em = $this->getDoctrine()->getEntityManager();
+                $em->persist($UserSettings);
+                $em->flush();
+            }
+        }
+        
+        return $this->render('FrontendAccountBundle:Forms:baseSettingsForm.html.twig',array(
+            'form' => $form->createView()
+        ));
     }
+    
     
     
 }

@@ -5,3 +5,7 @@ settings_homepage:
 settings_sub_page:
     pattern:  /beallitasok/{page}.html
     defaults: { _controller: FrontendAccountBundle:Settings:settingsIndex }
+
+base_settings_save:
+    pattern:  /beallitasok/alap-beallitasok/adatok-mentese
+    defaults: { _controller: FrontendAccountBundle:Settings:baseSettings }

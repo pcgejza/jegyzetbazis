@@ -1,0 +1,32 @@
+form.settings-form div{
+    background-color: #FFDE9D;
+    margin-bottom: 10px;
+    padding:10px;
+    border-radius: 10px;
+}
+
+form.settings-form div label{
+    font-size: 20px;
+}
+
+form.settings-form div input,
+form.settings-form div select{
+    width: 100%;
+    display: inline;
+}
+
+form.settings-form div .date-select select{
+    width: 15%;
+    margin-right: 4px;
+}
+
+form.settings-form div .radio-buttons label{
+    display: inline;
+    margin-right: 20px;
+    font-size: 18px;
+}
+
+form.settings-form div .radio-buttons input{
+    display: inline;
+    width: 10px;
+}

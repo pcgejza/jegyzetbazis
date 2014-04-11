@@ -7,6 +7,7 @@ SettingsShared = {
         this.tab = $('.settings .settingsTabs li');
         
         this.bindUIActions();
+        this.bindLoadNewActions();
     },
     
     bindUIActions: function(){
@@ -38,5 +39,25 @@ SettingsShared = {
         }
         $('.settings .settingsContent .tabContent.active').removeClass('active').fadeOut();
         $('.settings .settingsContent .tabContent[page="'+page+'"]').addClass('active').fadeIn();
+    },
+    
+    
+    bindLoadNewActions: function(){
+        $('.settings form').submit(function(e){
+            e.preventDefault();
+            var postData = $(this).serializeArray();
+            var formURL = $(this).attr("action");
+            $.ajax({
+                url : formURL,
+                type: "POST",
+                data : postData,
+                success:function(data, textStatus, jqXHR){
+                    console.debug('SUCCESS!');
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    console.error('Hiba!!!');
+                }
+            });
+        });
     },
 }
