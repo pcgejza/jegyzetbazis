@@ -8,26 +8,22 @@ use Frontend\AccountBundle\Form\Type\BaseSettingsFormType;
 
 class SettingsController extends Controller {
     
-    
-    public function indexAction($subject = NULL)
-    {
-        if($this->get('request')->getMethod() === 'POST'){
-            return $this->getSubjectAction($subject);
-        }
-        
-        return $this->render('FrontendSubjectBundle:Default:index.html.twig',
-                array('subject'=>$subject));
-    }
-    
-    
-    
     public function settingsIndexAction($page = NULL){
         if(!$this->get('security.context')->isGranted('ROLE_USER')){
             // ha nincs belépve vissza irányítom a főoldalra
             return $this->redirect($this->generateUrl('frontend_index_homepage'));
         }
         
-        if($this->get('request')->getMethod() === 'POST'){
+        if($page == NULL){
+            $url = $this->generateUrl('settings_sub_page' ,array('page'=>'alap-beallitasok'));
+            return $this->redirect($url);
+        }else{
+            if($this->getSubPageTitle($page)==NULL){
+                throw new \ErrorException('Nincs ilyen beállítás oldal!');
+            }
+        }
+        
+        if($this->get('request')->getMethod() === 'GET' && $this->get('request')->query->get('fromAjax') != NULL){
             return $this->getSubPageAction($page);
         }
         
@@ -42,7 +38,7 @@ class SettingsController extends Controller {
             case 'alap-beallitasok': return 'Alap beállítások'; break;
             case 'biztonsagi-beallitasok': return 'Biztonsági beállítások'; break;
             case 'avatar-beallitasok': return 'Avatár beállítások'; break;
-            case 'megjegyzes-beallitasok': return 'Megyjezés'; break;
+            case 'megjegyzes': return 'Megyjezés'; break;
             default : return null;
         }
     }
@@ -56,6 +52,15 @@ class SettingsController extends Controller {
         switch ($page){
             case 'alap-beallitasok':
                 return $this->baseSettingsAction();
+                break;
+            case 'biztonsagi-beallitasok':
+                return $this->safetySettingsAction();
+                break;
+            case 'avatar-beallitasok':
+                return $this->avatarSettingsAction();
+                break;
+            case 'megjegyzes':
+                return $this->commentAction();
                 break;
             default: 
                 return new \Symfony\Component\HttpFoundation\Response('Hiba : Nincs ilyen oldal!');
@@ -72,7 +77,6 @@ class SettingsController extends Controller {
     public function baseSettingsAction(){
         $request = $this->get('request');
         $User = $this->get('security.context')->getToken()->getUser();
-        
         
         $BaseSettingsForm = new BaseSettingsFormType();
         $BaseSettingsForm->setUser($User);
@@ -105,6 +109,132 @@ class SettingsController extends Controller {
         
         return $this->render('FrontendAccountBundle:Forms:baseSettingsForm.html.twig',array(
             'form' => $form->createView()
+        ));
+    }
+    
+    public function safetySettingsAction(){
+        $request = $this->get('request');
+        $User = $this->get('security.context')->getToken()->getUser();
+        
+        /*
+        $BaseSettingsForm = new BaseSettingsFormType();
+        $BaseSettingsForm->setUser($User);
+        
+        $url = $this->generateUrl('base_settings_save');
+        
+        $form = $this->createForm($BaseSettingsForm, null, array(
+            'action' => $url,
+            'method' => 'POST',
+            'attr' => array('class' => 'baseSettingsForm settings-form')
+        ));
+        */
+        if($request->getMethod() === 'POST'){   
+            $form->bind($request);
+            if($form->isValid()){
+                $formData = $form->getData();
+                /*
+                $name = $formData['name'];
+                $gender = $formData['gender'];
+                $UserSettings = $User->getUserSettings();
+                if($UserSettings == NULL){
+                    $UserSettings->setUser($User);
+                }
+                $UserSettings->setName($name);
+                $UserSettings->setGender($gender);
+                $em = $this->getDoctrine()->getEntityManager();
+                $em->persist($UserSettings);
+                $em->flush();
+                 * 
+                 */
+            }
+        }
+        
+        return $this->render('FrontendAccountBundle:Forms:safetySettingsForm.html.twig',array(
+    //        'form' => $form->createView()
+        ));
+    }
+    
+    public function avatarSettingsAction(){
+        $request = $this->get('request');
+        $User = $this->get('security.context')->getToken()->getUser();
+        
+        /*
+        $BaseSettingsForm = new BaseSettingsFormType();
+        $BaseSettingsForm->setUser($User);
+        
+        $url = $this->generateUrl('base_settings_save');
+        
+        $form = $this->createForm($BaseSettingsForm, null, array(
+            'action' => $url,
+            'method' => 'POST',
+            'attr' => array('class' => 'baseSettingsForm settings-form')
+        ));
+        */
+        if($request->getMethod() === 'POST'){   
+           // $form->bind($request);
+           // if($form->isValid()){
+            //    $formData = $form->getData();
+                /*
+                $name = $formData['name'];
+                $gender = $formData['gender'];
+                $UserSettings = $User->getUserSettings();
+                if($UserSettings == NULL){
+                    $UserSettings->setUser($User);
+                }
+                $UserSettings->setName($name);
+                $UserSettings->setGender($gender);
+                $em = $this->getDoctrine()->getEntityManager();
+                $em->persist($UserSettings);
+                $em->flush();
+                 * 
+                 */
+          //  }
+        }
+        
+        return $this->render('FrontendAccountBundle:Forms:avatarSettingsForm.html.twig',array(
+    //        'form' => $form->createView()
+        ));
+    }
+    
+    public function commentAction(){
+        $request = $this->get('request');
+        $User = $this->get('security.context')->getToken()->getUser();
+        
+        /*
+        $BaseSettingsForm = new BaseSettingsFormType();
+        $BaseSettingsForm->setUser($User);
+        
+        $url = $this->generateUrl('base_settings_save');
+        
+        $form = $this->createForm($BaseSettingsForm, null, array(
+            'action' => $url,
+            'method' => 'POST',
+            'attr' => array('class' => 'baseSettingsForm settings-form')
+        ));
+        */
+        if($request->getMethod() === 'POST'){   
+           /*  $form->bind($request);
+            if($form->isValid()){
+                $formData = $form->getData();
+               
+                $name = $formData['name'];
+                $gender = $formData['gender'];
+                $UserSettings = $User->getUserSettings();
+                if($UserSettings == NULL){
+                    $UserSettings->setUser($User);
+                }
+                $UserSettings->setName($name);
+                $UserSettings->setGender($gender);
+                $em = $this->getDoctrine()->getEntityManager();
+                $em->persist($UserSettings);
+                $em->flush();
+                 * 
+            }
+                 */
+        }
+        
+        return $this->render('FrontendAccountBundle:Forms:commentForm.html.twig',array(
+    //        'form' => $form->createView()
         ));
     }
     

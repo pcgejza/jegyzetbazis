@@ -16,6 +16,7 @@
 
 {% block initJavascripts %}
     {{parent()}}
+    SettingsShared.getPageUrl = '{{path('settings_homepage')}}';
     SettingsShared.init();
 {% endblock %}
 

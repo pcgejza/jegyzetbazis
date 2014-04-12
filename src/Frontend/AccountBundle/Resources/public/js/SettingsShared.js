@@ -2,6 +2,7 @@ SettingsShared = {
     
     tab: null,
     
+    getPageUrl: null,
     
     init: function (){
         this.tab = $('.settings .settingsTabs li');
@@ -34,13 +35,19 @@ SettingsShared = {
     },
     
     selectPage: function(page){
+        window.history.pushState(null, null, page+'.html');
+        this.changeTitle($('.settingsTabs li.active a[page="'+page+'"]').html());
         if(!this.isAddedPage(page)){
             this.addEmptyHtmlElementToPage(page);
+            this.getPageContent(page);
         }
         $('.settings .settingsContent .tabContent.active').removeClass('active').fadeOut();
         $('.settings .settingsContent .tabContent[page="'+page+'"]').addClass('active').fadeIn();
     },
     
+    changeTitle: function(value){
+      $('.settings .titleHolder span.title').html(value);  
+    },
     
     bindLoadNewActions: function(){
         $('.settings form').submit(function(e){
@@ -58,6 +65,19 @@ SettingsShared = {
                     console.error('Hiba!!!');
                 }
             });
+        });
+    }, 
+    
+    getPageContent: function(page){
+        var url = this.getPageUrl + page+ '.html';
+        $.ajax({
+            type: 'GET',
+            url: url,
+            data: {fromAjax: true},
+            success: function(data){
+                $('.settings .settingsContent .tabContent[page="'+page+'"]').removeClass('not-loaded').html(data);
+                SettingsShared.bindLoadNewActions();
+            }
         });
     },
 }
