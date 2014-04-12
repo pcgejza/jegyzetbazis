@@ -1,5 +1,14 @@
 <div class="settingsPage">
 {{ form_start(form) }}
     {{ form_errors(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.username) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.birthDay) }}
+    {{ form_row(form.gender) }}
+    {{ form_row(form.password) }}
+    <div class='form-row submit'>
+        {{ form_widget(form.send) }}
+    </div>
 {{ form_end(form) }}
 </div>  

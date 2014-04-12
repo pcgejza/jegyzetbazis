@@ -300,7 +300,7 @@ AuthWindow = {
                 data : postData,
                 success:function(data, textStatus, jqXHR) 
                 {
-                     AuthWindow.hideLoadingFromForm(loginForm);
+                    AuthWindow.hideLoadingFromForm(loginForm);
                     if(!data.err){
                         Header.setHeader(data.header);
                         AuthWindow.hide();

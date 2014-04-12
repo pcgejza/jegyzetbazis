@@ -83,3 +83,21 @@
     background-position:center; 
 }
 
+.settings .tabContent.loading form{
+    opacity: 0.6;
+}
+
+.settings .tabContent.loading{
+    background-image: url('/symfony/web/images/loading1.gif');
+    background-repeat: no-repeat;
+    background-size: 30%;
+    background-position:center;
+}   
+
+.settings .tabContent.successfull{
+    background-image: url('/symfony/web/images/complete_icon.png');
+    background-repeat: no-repeat;
+    background-size: 5%;
+    background-position: 90% 50%;
+}
+

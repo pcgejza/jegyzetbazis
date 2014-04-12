@@ -93,14 +93,34 @@ class SettingsController extends Controller {
             $form->bind($request);
             if($form->isValid()){
                 $formData = $form->getData();
+                
+                
+                // jelszó ellenőrzés
+                $pass = $formData['password'];
+                $encoder_service = $this->get('security.encoder_factory');
+                $encoder = $encoder_service->getEncoder($User);
+                $encoded_pass = $encoder->encodePassword($pass, $User->getSalt());
+             
+                if($User->getPassword() !== $encoded_pass){
+                    return new \Symfony\Component\HttpFoundation\JsonResponse(array(
+                       'err' => 'Rossz a beírt jelszó, az adatok NEM kerültek elmentésre!' 
+                    ));
+                }
+            
+                
                 $name = $formData['name'];
                 $gender = $formData['gender'];
+                $bithDate = $formData['birthDay'];
+                
+                
                 $UserSettings = $User->getUserSettings();
                 if($UserSettings == NULL){
                     $UserSettings->setUser($User);
                 }
                 $UserSettings->setName($name);
                 $UserSettings->setGender($gender);
+                $UserSettings->setBirthDate($bithDate);
+                
                 $em = $this->getDoctrine()->getEntityManager();
                 $em->persist($UserSettings);
                 $em->flush();

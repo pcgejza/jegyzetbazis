@@ -1,6 +1,5 @@
 <?php
 
-/// src/Acme/TaskBundle/Form/Type/CategoryType.php
 namespace Frontend\AccountBundle\Form\Type;
 
 use \Symfony\Component\Form\AbstractType;
@@ -55,6 +54,7 @@ class BaseSettingsFormType extends AbstractType{
         ));
         
         $builder->add('password', 'password', array(
+            'data' => '',
             'required' => true,
             'label' => 'Add meg a jelenlegi jelszavad'
         ));
