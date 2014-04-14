@@ -114,3 +114,7 @@ body .page{
     background-size: 20%;
     background-position:center; 
 }
+
+h2{
+    color: blue;
+}

@@ -1,0 +1,15 @@
+<div class="guest-book-row">
+    <span class="name">
+        {% if name.userSettings is not null %}
+            {{name.userSettings.name}}
+        {% else %}
+            {{name.userName}}   
+        {% endif %}
+    </span>
+    <span class="date">
+        {{date|date('Y-m-d g:i')}}
+    </span>
+    <span class="text">
+        {{text}}
+    </span>
+</div>

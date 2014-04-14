@@ -1,0 +1,23 @@
+<div class="guest-book">
+    <div class="newBooking">
+        <span class="newLabel">Bejegyzés írása</span>
+        <div class="newForm hide">
+            <textarea class="bookingText"></textarea>
+            <button class="sendBooking">Küldés</button>
+            <button class="cancel">Mégse</button>
+        </div>
+    </div>
+    <div class='entries'>
+    {% if bookings|length > 0 %}
+        {% for booking in bookings %}
+            {{ include('FrontendIndexBundle:Guestbook:oneRow.html.twig',{
+            'name' : booking.user,
+            'date' : booking.insertDate,
+            'text' : booking.text
+            }) }}
+        {% endfor %}
+    {% else %}
+        Nincsenek bejegyzések
+    {% endif %}
+    </div>
+</div>

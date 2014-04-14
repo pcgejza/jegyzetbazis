@@ -1,0 +1,18 @@
+.guest-book{
+    background-color: #ffd3ae;
+    padding: 15px;
+}
+
+.guest-book .newBooking{
+    display: block;
+    height: 100px;
+}
+
+.guest-book .newBooking .newLabel{
+    cursor: pointer;
+    padding: 10px;
+    background-color: #ff7418;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 8px;
+}

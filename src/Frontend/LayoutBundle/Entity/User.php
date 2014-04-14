@@ -50,6 +50,11 @@ class User extends BaseUser
      */
     protected $files;
     
+    /**
+     * @ORM\OneToMany(targetEntity="\Frontend\IndexBundle\Entity\GuestBook", mappedBy="user")
+     */
+    protected $scraps;
+    
 
 
     /**
@@ -182,5 +187,38 @@ class User extends BaseUser
     public function getFiles()
     {
         return $this->files;
+    }
+
+    /**
+     * Add scraps
+     *
+     * @param \Frontend\IndexBundle\Entity\GuestBook $scraps
+     * @return User
+     */
+    public function addScrap(\Frontend\IndexBundle\Entity\GuestBook $scraps)
+    {
+        $this->scraps[] = $scraps;
+
+        return $this;
+    }
+
+    /**
+     * Remove scraps
+     *
+     * @param \Frontend\IndexBundle\Entity\GuestBook $scraps
+     */
+    public function removeScrap(\Frontend\IndexBundle\Entity\GuestBook $scraps)
+    {
+        $this->scraps->removeElement($scraps);
+    }
+
+    /**
+     * Get scraps
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getScraps()
+    {
+        return $this->scraps;
     }
 }

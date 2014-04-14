@@ -1,3 +1,11 @@
 frontend_index_homepage:
     pattern:  /
     defaults: { _controller: FrontendIndexBundle:Default:index }
+
+guestbook_homepage:
+    pattern:  /vendegkonyv.html
+    defaults: { _controller: FrontendIndexBundle:Guestbook:guestBook }
+
+send_new_booking:
+    pattern:  /vendegkonyv/uj-bejegyzes-irasa
+    defaults: { _controller: FrontendIndexBundle:Guestbook:newBooking }

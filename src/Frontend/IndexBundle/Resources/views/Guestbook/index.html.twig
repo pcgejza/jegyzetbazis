@@ -1,0 +1,28 @@
+{% extends "FrontendLayoutBundle:Default:layout.html.twig" %}
+{% block title %}Vendégkönyv{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{asset('bundles/frontendindex/css/guestbook.css')}}" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{asset('bundles/frontendindex/js/GuestBook.js')}}"></script>
+{% endblock %}
+    
+{% block initJavascripts %}
+    {{parent()}}
+    GuestBook.sendBookingURL = '{{path("send_new_booking")}}';
+    GuestBook.init();
+{% endblock %}
+
+{% block body %}
+{{parent()}}
+{% endblock %}
+
+{% block bodyClass %}subjects{% endblock %}
+
+{% block contentHolder %}
+    <h2>Vendégkönyv</h2>
+    {% render(controller('FrontendIndexBundle:Guestbook:entries')) %}
+{% endblock %}
