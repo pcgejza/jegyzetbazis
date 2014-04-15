@@ -98,7 +98,9 @@ class UploadController extends Controller
                     $SubjectFile = new SubjectFile();
                     $SubjectFile->setFile($oneFile);
                     $SubjectFile->setSubject($sub);
+                    $sub->setUpdateDate(new \DateTime());
                     $em->persist($SubjectFile);
+                    $em->persist($sub);
                 }
             }
             

@@ -164,8 +164,6 @@ UploadCore = {
                 type: 'POST',
                 data: data,
                 cache: false,
-                
-            //@TODO start here
                 xhr: function() {  // custom xhr
                     var id = key;
                     var myXhr = $.ajaxSettings.xhr();
@@ -184,12 +182,16 @@ UploadCore = {
                 success: function(data, textStatus, jqXHR){
                     UploadCore.afterProgress(k);
                     if(data.success){
-                        console.debug(data.wp);
                         UploadCore.addComplete(k);
                         UploadCore.uploadedFileIDs.push(data.id);
                         UploadCore.removeElementFromToSendFilesArr(k);
                         if( aft = UploadCore.getAfterFunctionByProgressID(k)){
                             aft.func();
+                        }
+                        if(!UploadCore.isProgress()){
+                            if(typeof(Subjects) != 'undefined'){
+                                Subjects.refreshActualPage();
+                            }
                         }
                     }else{
                         console.error('Hiba : '+data.err);
