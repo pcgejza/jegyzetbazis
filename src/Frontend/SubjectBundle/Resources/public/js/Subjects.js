@@ -1,6 +1,7 @@
 Subjects = {
     
     rightHolder: null,
+    PROGRESS: false,
     
     init: function(){
         this.rightHolder = $('.page .contentHolder .rightHolder');
@@ -11,6 +12,7 @@ Subjects = {
         this.bindTabClickActions();
         this.bindSubjectsMenuActions();
         this.addQtips();
+        this.bindSubjectActions();
     },
     
     bindSubjectsMenuActions: function(){
@@ -26,13 +28,26 @@ Subjects = {
           $(this).parents('li').siblings('li.selected').qtip('destroy');
           $(this).parents('li').siblings('li.selected').removeClass('selected');
           $(this).parents('li').addClass('selected');
-          $.post(u).done(function(html){
+          Subjects.getPage(u, 1, name);
+      });
+    },
+    
+    getPage: function(url, page, name){
+          if(this.PROGRESS) return;
+          
+          Subjects.rightHolder.addClass('loading');
+          this.PROGRESS = true;
+          $.post(url,{
+            page : page
+          }).done(function(html){
+             Subjects.rightHolder.removeClass('loading');
              Subjects.rightHolder.html(html);
+             Subjects.PROGRESS = false;
              Subjects.bindTabClickActions();
              Subjects.setActualSubjectName(name);
              Subjects.addQtips();
+             Subjects.bindSubjectActions();
           });
-      });
     },
     
     bindTabClickActions: function(){
@@ -43,7 +58,7 @@ Subjects = {
           if(!$(this).hasClass('active')){
               $(this).siblings('li').removeClass('active');
               $(this).addClass('active');
-              $('.singleSubject .singleSubjectContent div:visible').hide();
+              $('.singleSubject .singleSubjectContent div:visible:eq(0)').hide();
               $('.singleSubject .singleSubjectContent div.'+$(this).find('a').attr('class')).fadeIn();
           } 
        });
@@ -73,4 +88,20 @@ Subjects = {
                 });
         });
     },
+    
+    bindSubjectActions: function(){
+        $('.uploads .paginator .pagination span').click(function(e){
+            e.preventDefault();
+            var u = $(this).find('a').attr('href');
+            var page = u.substr(u.length-1);
+            var url = $('.subjects .subjectsContent li.selected a').attr('href');
+            if(url.length > 1){
+                var name = $('.subjects .subjectsContent li.selected a').html();
+                window.history.pushState(null, null, u);
+                Subjects.getPage(url, page, name);
+            }
+        });
+    },
+    
+    
 }

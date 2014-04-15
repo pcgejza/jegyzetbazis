@@ -1,4 +1,16 @@
 <div class="uploads">
+    <div class="uploadsHeader">
+        <div class="leftHolder">
+            Baloldal
+        </div>
+        <div class="paginator">
+            {{ knp_pagination_render(Files) }}
+        </div>
+        <div class="rightHolder">
+            jobboldal
+        </div>
+    </div>
+    
     {% if Files is defined and Files is not null %}
         <table class="subject-files">
             <tr>

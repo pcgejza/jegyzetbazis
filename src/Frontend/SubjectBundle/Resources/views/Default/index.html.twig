@@ -2,7 +2,7 @@
 {% block title %}Tantárgyak{% endblock %}
 {% block stylesheets %}
 {{ parent() }}
-    <link rel="stylesheet" href="{{asset('bundles/frontendsubject/css/subjects.css')}}" />
+    <link rel="stylesheet" href="{{asset('bundles/frontendsubject/css/subjects.css')}}?rnd={{random(200)}}" />
     <link rel="stylesheet" href="{{asset('css/magicsuggest-1.3.1.css')}}" />
     <link rel="stylesheet" href="{{asset('css/jquery-ui.css')}}" />
     <link rel="stylesheet" href="{{asset('bundles/frontendsubject/css/uploadWindow.css')}}" />
@@ -36,6 +36,6 @@
     {% block contentHolder %}
         {{render(controller('FrontendSubjectBundle:Default:getAllSubjects', {'subject' : subject}))}}
         <div class='rightHolder'>
-        {{render(controller('FrontendSubjectBundle:Default:getSubject', {'subject' : subject}))}}
+        {{render(controller('FrontendSubjectBundle:Default:getSubject', {'subject' : subject, 'page' : page}))}}
         </div>
     {% endblock %}
