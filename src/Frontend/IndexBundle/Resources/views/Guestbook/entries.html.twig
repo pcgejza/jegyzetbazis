@@ -1,5 +1,5 @@
 <div class="guest-book">
-    <div class="newBooking">
+    <div class="newBooking" {% if app.user is null %}style="display : none;"{% endif %}>
         <span class="newLabel">Bejegyzés írása</span>
         <div class="newForm hide">
             <textarea class="bookingText"></textarea>

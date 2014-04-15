@@ -312,6 +312,9 @@ AuthWindow = {
                         if(typeof(UploadWindow) != 'undefined'){
                             UploadWindow.addUploadFilesButton();
                         }
+                        if(typeof(GuestBook) != 'undefined'){
+                            GuestBook.afterLogin();
+                        }
                     }else{
                         var oH = "<ul><li>"+data.err+"</li></ul>";
                         errorDiv.html(oH);

@@ -53,6 +53,10 @@ GuestBook = {
             GuestBook.newButton.removeClass('hide');
             GuestBook.newForm.addClass('hide');
         });
-    }
+    },
+    
+    afterLogin: function(){
+      $('.guest-book .newBooking').fadeIn();  
+    },
     
 }

@@ -159,3 +159,7 @@
 body.subjects  .headerHolder .menu .subjects{
     background-color: #fff;
 }
+
+body.guestbook  .headerHolder .menu .visitors{
+    background-color: #fff;
+}
