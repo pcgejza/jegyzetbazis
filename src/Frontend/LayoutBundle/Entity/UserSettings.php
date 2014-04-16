@@ -91,6 +91,14 @@ class UserSettings
      */
     private $style;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="comment_text", type="string", nullable=true)
+     */
+    private $commentText;
+
+
 
 
     /**
@@ -332,5 +340,28 @@ class UserSettings
     public function getMyProfileVisit()
     {
         return $this->myProfileVisit;
+    }
+
+    /**
+     * Set commentText
+     *
+     * @param string $commentText
+     * @return UserSettings
+     */
+    public function setCommentText($commentText)
+    {
+        $this->commentText = $commentText;
+
+        return $this;
+    }
+
+    /**
+     * Get commentText
+     *
+     * @return string 
+     */
+    public function getCommentText()
+    {
+        return $this->commentText;
     }
 }

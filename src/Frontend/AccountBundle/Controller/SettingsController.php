@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Frontend\AccountBundle\Form\Type\BaseSettingsFormType;
 use Frontend\AccountBundle\Form\Type\SafetySettingsFormType;
+use Frontend\AccountBundle\Form\Type\CommentSettingsFormType;
 use Frontend\LayoutBundle\Entity\UserSettings;
 
 class SettingsController extends Controller {
@@ -223,41 +224,44 @@ class SettingsController extends Controller {
         $request = $this->get('request');
         $User = $this->get('security.context')->getToken()->getUser();
         
-        /*
-        $BaseSettingsForm = new BaseSettingsFormType();
-        $BaseSettingsForm->setUser($User);
+        $CommentSettingsForm = new CommentSettingsFormType();
+        $CommentSettingsForm->setUserSettings($User->getUserSettings());
         
-        $url = $this->generateUrl('base_settings_save');
+        $url = $this->generateUrl('comment_settings_save');
         
-        $form = $this->createForm($BaseSettingsForm, null, array(
+        $form = $this->createForm($CommentSettingsForm, null, array(
             'action' => $url,
             'method' => 'POST',
-            'attr' => array('class' => 'baseSettingsForm settings-form')
+            'attr' => array('class' => 'commentSettingsForm settings-form')
         ));
-        */
+        
         if($request->getMethod() === 'POST'){   
-           /*  $form->bind($request);
+            $form->bind($request);
             if($form->isValid()){
                 $formData = $form->getData();
                
-                $name = $formData['name'];
-                $gender = $formData['gender'];
+                if(!$this->passwordControl($formData['password'], $User)){
+                    return new \Symfony\Component\HttpFoundation\JsonResponse(array(
+                       'err' => 'Rossz a beírt jelszó, az adatok NEM kerültek elmentésre!' 
+                    ));
+                }
+                
+                $commentText = $formData['commentText'];
                 $UserSettings = $User->getUserSettings();
                 if($UserSettings == NULL){
+                    $UserSettings = new UserSettings();
                     $UserSettings->setUser($User);
                 }
-                $UserSettings->setName($name);
-                $UserSettings->setGender($gender);
+                $UserSettings->setCommentText($commentText);
                 $em = $this->getDoctrine()->getEntityManager();
                 $em->persist($UserSettings);
                 $em->flush();
-                 * 
             }
-                 */
+                 
         }
         
         return $this->render('FrontendAccountBundle:Forms:commentForm.html.twig',array(
-    //        'form' => $form->createView()
+            'form' => $form->createView()
         ));
     }
     

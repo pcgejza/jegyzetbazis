@@ -13,3 +13,7 @@ base_settings_save:
 safety_settings_save:
     pattern:  /beallitasok/biztonsagi-beallitasok/adatok-mentese
     defaults: { _controller: FrontendAccountBundle:Settings:safetySettings }
+
+comment_settings_save:
+    pattern:  /beallitasok/komment-beallitasok/adatok-mentese
+    defaults: { _controller: FrontendAccountBundle:Settings:comment }

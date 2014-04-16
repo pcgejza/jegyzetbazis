@@ -1,1 +1,10 @@
-Megjegyzés
+<div class="settingsPage">
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_row(form.commentText) }}
+    {{ form_row(form.password) }}
+    <div class='form-row submit'>
+        {{ form_widget(form.send) }}
+    </div>
+{{ form_end(form) }}
+</div>  
