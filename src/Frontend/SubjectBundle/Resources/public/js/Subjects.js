@@ -2,9 +2,10 @@ Subjects = {
     
     rightHolder: null,
     PROGRESS: false,
+    loadingImageHTML: '<img class="loadingImage" src="/symfony/web/images/loading1.gif">',
     
     init: function(){
-        this.rightHolder = $('.page .contentHolder .rightHolder');
+        this.rightHolder = $('.page .contentHolder .rightHolder:eq(0)');
         this.bindUIActions();
     },
     
@@ -36,11 +37,14 @@ Subjects = {
           if(this.PROGRESS) return;
           
           Subjects.rightHolder.addClass('loading');
+          Subjects.rightHolder.append(Subjects.loadingImageHTML);
+          
           this.PROGRESS = true;
           $.post(url,{
             page : page
           }).done(function(html){
              Subjects.rightHolder.removeClass('loading');
+             Subjects.rightHolder.find('.loadingImage').remove();
              Subjects.rightHolder.html(html);
              Subjects.PROGRESS = false;
              Subjects.bindTabClickActions();

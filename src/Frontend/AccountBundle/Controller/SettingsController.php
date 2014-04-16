@@ -5,6 +5,8 @@ namespace Frontend\AccountBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Frontend\AccountBundle\Form\Type\BaseSettingsFormType;
+use Frontend\AccountBundle\Form\Type\SafetySettingsFormType;
+use Frontend\LayoutBundle\Entity\UserSettings;
 
 class SettingsController extends Controller {
     
@@ -94,27 +96,19 @@ class SettingsController extends Controller {
             if($form->isValid()){
                 $formData = $form->getData();
                 
-                
-                // jelszó ellenőrzés
-                $pass = $formData['password'];
-                $encoder_service = $this->get('security.encoder_factory');
-                $encoder = $encoder_service->getEncoder($User);
-                $encoded_pass = $encoder->encodePassword($pass, $User->getSalt());
-             
-                if($User->getPassword() !== $encoded_pass){
+                if(!$this->passwordControl($formData['password'], $User)){
                     return new \Symfony\Component\HttpFoundation\JsonResponse(array(
                        'err' => 'Rossz a beírt jelszó, az adatok NEM kerültek elmentésre!' 
                     ));
                 }
-            
                 
                 $name = $formData['name'];
                 $gender = $formData['gender'];
                 $bithDate = $formData['birthDay'];
                 
-                
                 $UserSettings = $User->getUserSettings();
                 if($UserSettings == NULL){
+                    $UserSettings = new UserSettings();
                     $UserSettings->setUser($User);
                 }
                 $UserSettings->setName($name);
@@ -136,41 +130,50 @@ class SettingsController extends Controller {
         $request = $this->get('request');
         $User = $this->get('security.context')->getToken()->getUser();
         
-        /*
-        $BaseSettingsForm = new BaseSettingsFormType();
-        $BaseSettingsForm->setUser($User);
+       
+        $SafetySettingsForm = new SafetySettingsFormType();
+        $SafetySettingsForm->setUserSettings($User->getUserSettings());
         
-        $url = $this->generateUrl('base_settings_save');
-        
-        $form = $this->createForm($BaseSettingsForm, null, array(
+        $url = $this->generateUrl('safety_settings_save');
+         
+        $form = $this->createForm($SafetySettingsForm, null, array(
             'action' => $url,
             'method' => 'POST',
-            'attr' => array('class' => 'baseSettingsForm settings-form')
+            'attr' => array('class' => 'safatySettingsForm settings-form')
         ));
-        */
+        
         if($request->getMethod() === 'POST'){   
             $form->bind($request);
             if($form->isValid()){
                 $formData = $form->getData();
-                /*
-                $name = $formData['name'];
-                $gender = $formData['gender'];
+                
+                if(!$this->passwordControl($formData['password'], $User)){
+                    return new \Symfony\Component\HttpFoundation\JsonResponse(array(
+                       'err' => 'Rossz a beírt jelszó, az adatok NEM kerültek elmentésre!' 
+                    ));
+                }
+                
+                $myUploadsVisit = $formData['myUploadsVisit'];
+                $myProfileVisit = $formData['myProfileVisit'];
+                $messageToMe = $formData['messageToMe'];
+                
                 $UserSettings = $User->getUserSettings();
                 if($UserSettings == NULL){
+                    $UserSettings = new UserSettings();
                     $UserSettings->setUser($User);
                 }
-                $UserSettings->setName($name);
-                $UserSettings->setGender($gender);
+                $UserSettings->setMyUploadsVisit($myUploadsVisit);
+                $UserSettings->setMessageToMe($messageToMe);
+                $UserSettings->setMyProfileVisit($myProfileVisit);
+                
                 $em = $this->getDoctrine()->getEntityManager();
                 $em->persist($UserSettings);
                 $em->flush();
-                 * 
-                 */
             }
         }
         
         return $this->render('FrontendAccountBundle:Forms:safetySettingsForm.html.twig',array(
-    //        'form' => $form->createView()
+            'form' => $form->createView()
         ));
     }
     
@@ -258,6 +261,16 @@ class SettingsController extends Controller {
         ));
     }
     
-    
+    private function passwordControl($pass, $User){
+        $encoder_service = $this->get('security.encoder_factory');
+        $encoder = $encoder_service->getEncoder($User);
+        $encoded_pass = $encoder->encodePassword($pass, $User->getSalt());
+
+        if($User->getPassword() !== $encoded_pass){
+            return false;
+        }else{
+            return true;
+        }
+    }
     
 }

@@ -1,1 +1,12 @@
-Biztonsági beállítások
+<div class="settingsPage">
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_row(form.myUploadsVisit) }}
+    {{ form_row(form.myProfileVisit) }}
+    {{ form_row(form.messageToMe) }}
+    {{ form_row(form.password) }}
+    <div class='form-row submit'>
+        {{ form_widget(form.send) }}
+    </div>
+{{ form_end(form) }}
+</div>  

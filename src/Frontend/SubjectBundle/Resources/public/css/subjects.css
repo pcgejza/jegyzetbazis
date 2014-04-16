@@ -111,12 +111,20 @@ div.singleSubjectTabs ul li.active a{
 }
 
 .subjects .rightHolder.loading{
-    opacity: 0.7;
+    opacity:0.6;
+    /*
     background-image: url('/symfony/web/images/loading1.gif');
     background-repeat: no-repeat;
     background-size: 50%;
     background-position:center; 
+    */
     height: 300px;
+}
+
+.subjects .rightHolder.loading img.loadingImage{
+    position: absolute;
+    top: 20%;
+    left: 50%;
 }
 
 

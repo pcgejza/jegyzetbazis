@@ -73,9 +73,16 @@ class UserSettings
     /**
      * @var string
      *
-     * @ORM\Column(name="messsage_to_me", type="string", nullable=true)
+     * @ORM\Column(name="my_profile_visit", type="string", nullable=true)
      */
-    private $messsageToMe;
+    private $myProfileVisit;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="message_to_me", type="string", nullable=true)
+     */
+    private $messageToMe;
 
     /**
      * @var string
@@ -235,26 +242,26 @@ class UserSettings
     }
 
     /**
-     * Set messsageToMe
+     * Set messageToMe
      *
-     * @param string $messsageToMe
+     * @param string $messageToMe
      * @return UserSettings
      */
-    public function setMesssageToMe($messsageToMe)
+    public function setMessageToMe($messageToMe)
     {
-        $this->messsageToMe = $messsageToMe;
+        $this->messageToMe = $messageToMe;
 
         return $this;
     }
 
     /**
-     * Get messsageToMe
+     * Get messageToMe
      *
      * @return string 
      */
-    public function getMesssageToMe()
+    public function getMessageToMe()
     {
-        return $this->messsageToMe;
+        return $this->messageToMe;
     }
 
     /**
@@ -302,5 +309,28 @@ class UserSettings
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set myProfileVisit
+     *
+     * @param string $myProfileVisit
+     * @return UserSettings
+     */
+    public function setMyProfileVisit($myProfileVisit)
+    {
+        $this->myProfileVisit = $myProfileVisit;
+
+        return $this;
+    }
+
+    /**
+     * Get myProfileVisit
+     *
+     * @return string 
+     */
+    public function getMyProfileVisit()
+    {
+        return $this->myProfileVisit;
     }
 }

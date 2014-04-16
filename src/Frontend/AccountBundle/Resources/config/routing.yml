@@ -9,3 +9,7 @@ settings_sub_page:
 base_settings_save:
     pattern:  /beallitasok/alap-beallitasok/adatok-mentese
     defaults: { _controller: FrontendAccountBundle:Settings:baseSettings }
+
+safety_settings_save:
+    pattern:  /beallitasok/biztonsagi-beallitasok/adatok-mentese
+    defaults: { _controller: FrontendAccountBundle:Settings:safetySettings }
