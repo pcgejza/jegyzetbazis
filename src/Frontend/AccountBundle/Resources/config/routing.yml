@@ -17,3 +17,7 @@ safety_settings_save:
 comment_settings_save:
     pattern:  /beallitasok/komment-beallitasok/adatok-mentese
     defaults: { _controller: FrontendAccountBundle:Settings:comment }
+
+profile_show:
+    pattern:  /felhasznalo/{id}
+    defaults: { _controller: FrontendAccountBundle:Show:index }

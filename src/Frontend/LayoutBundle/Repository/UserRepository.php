@@ -14,4 +14,16 @@ class UserRepository extends EntityRepository{
                 ->getQuery()
                 ->getOneOrNullResult();
     }
+    
+    public function findOneUserById($ID){
+        return $this->createQueryBuilder('user')
+                ->select('user')
+                ->addSelect('userSettings')
+                ->where('user.id = :id')
+                ->leftJoin('user.userSettings', 'userSettings')
+                ->setParameter('id', $ID)
+                ->getQuery()
+                ->getOneOrNullResult();
+    }
+    
 }

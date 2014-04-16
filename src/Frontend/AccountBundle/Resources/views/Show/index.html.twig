@@ -1,0 +1,34 @@
+{% extends "FrontendLayoutBundle:Default:layout.html.twig" %}
+
+
+{% block title %}Felhasználó adatainak megtekintése{% endblock %}
+
+{% block stylesheets %}
+    {{parent()}}
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+{% endblock %}
+
+{% block initJavascripts %}
+    {{parent()}}
+{% endblock %}
+
+{% block bodyClass %}show{% endblock %}
+
+
+{% block body %}
+{{parent()}}
+{% endblock %}
+{% block contentHolder %}
+    {% if err is not defined %}
+        {% include 'FrontendAccountBundle:Show:show.html.twig' %}
+    {% else %}
+        Hiba : {{err}}
+        <br>
+        {% if errCode != -1 %}
+            
+        {% endif %}
+    {% endif %}
+{% endblock %}

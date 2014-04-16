@@ -202,6 +202,17 @@ class UserSettings
     {
         return $this->gender;
     }
+    
+    public function getGenderHun()
+    {
+        if($this->gender == 'male'){
+            return 'férfi';
+        }elseif ($this->gender == 'female') {
+            return 'nő';
+        }else{
+            return 'nincs megadva';
+        }
+    }
 
     /**
      * Set birthDate
@@ -224,6 +235,14 @@ class UserSettings
     public function getBirthDate()
     {
         return $this->birthDate;
+    }
+    
+    public function getBirthDateToString(){
+        if($this->birthDate == NULL){
+            return 'Nincs megadva';
+        }else{
+            return $this->birthDate->format('Y-m-d');
+        }
     }
 
     /**

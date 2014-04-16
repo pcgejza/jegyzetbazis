@@ -1,0 +1,18 @@
+{% if User.getUserSettings() %}
+    {% set userSettings = User.getUserSettings() %}
+    {{userSettings.getName()}} adatainak megtekintése
+    <table>
+        <tr>
+            <th>Nem</th>
+            <td>{{userSettings.getGenderHun()}}</td>
+        </tr>
+        <tr>
+            <th>Születési dátum</th>
+            <td>{{userSettings.getBirthDateToString()}}</td>
+        </tr>
+        <tr>
+            <td>Feltöltött fájlok száma</td>
+            <td>{{UploadedFilesCount}}</td>
+        </tr>
+    </table>
+{% endif %}

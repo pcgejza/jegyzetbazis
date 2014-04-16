@@ -45,4 +45,14 @@ class FileRepository extends EntityRepository{
         return $Files;
     }
     
+    public function getFilesCountByUser($User){
+        return $this->createQueryBuilder('file')
+                ->select('COUNT(file.id)')
+                ->where('user = :user')
+                ->join('file.user', 'user')
+                ->setParameter('user', $User)
+                ->getQuery()
+                ->getSingleScalarResult();
+    }
+    
 }
