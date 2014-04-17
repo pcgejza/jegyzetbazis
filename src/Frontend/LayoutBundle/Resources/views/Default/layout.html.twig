@@ -15,6 +15,7 @@
         <script src="{{ asset('bundles/frontendlayout/js/Header.js') }}"></script>
         <script src="{{ asset('bundles/frontendlayout/js/AuthWindow.js') }}?v={{ random(2000) }}"></script>
         <script src="{{ asset('bundles/frontendlayout/js/InfoPopUp.js') }}?v={{ random(2000) }}"></script>
+        <script src="{{ asset('bundles/frontendaccount/js/FriendsShared.js') }}?v={{ random(2000) }}"></script>
        <script>
                 $(document).ready(function(){
                     {% block initJavascripts %}
@@ -32,6 +33,8 @@
                     AuthWindow.getRevealUrl = "{{path('get_auth_window_ajax')}}";
                     AuthWindow.emalCheckUrl = "{{path('security:email-check')}}";
                     AuthWindow.nicknameCheckUrl = "{{path('security:nickname-check')}}";
+                    
+                    FriendsShared.init();
                     {% endblock %}
                 });
             </script>
@@ -39,7 +42,7 @@
         {% block stylesheets %}
            <link rel="stylesheet"  href="{{ asset('css/reset.css') }}" />
            <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/shared.css') }}" />
-           <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/header.css') }}" />
+           <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/header.css') }}?rnd={{random(100)}}" />
            <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/form.css') }}" />
             <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/customQtip.css') }}" />
            <link rel="stylesheet"  href="{{ asset('css/foundation.css') }}" />

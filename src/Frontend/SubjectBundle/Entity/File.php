@@ -301,7 +301,7 @@ class File
     {
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
-        return 'uploads';
+        return 'uploads/'.$this->getUser()->getId();
     }
     
     
@@ -330,7 +330,7 @@ class File
         return $this->file;
     }
     
-    public function upload(){
+    public function upload($user){
         // the file property can be empty if the field is not required
         if (null === $this->getFile()) {
             return false;
@@ -341,13 +341,25 @@ class File
 
         // move takes the target directory and then the
         // target filename to move to
+        
+        $fileOriginal = $this->getFile()->getClientOriginalName();
+        $extraIndex = 1;
+        $this->path = $fileOriginal;
+        $pathInf = pathinfo($this->getAbsolutePath());
+        $fileOriginal = $pathInf['filename'] . "." . $pathInf['extension'];
+
+        while (file_exists($this->getAbsolutePath())) {
+            $fileOriginal = $pathInf['filename'] . "-$extraIndex" . "." . $pathInf['extension'];
+            $extraIndex++;
+            $this->path = $fileOriginal;
+        }
+
         $this->getFile()->move(
-            $this->getUploadRootDir(),
-            $this->getFile()->getClientOriginalName()
+                $this->getUploadRootDir(), $fileOriginal
         );
 
+
         // set the path property to the filename where you've saved the file
-        $this->path = $this->getFile()->getClientOriginalName();
 
         // clean up the file property as you won't need it anymore
         $this->file = null;

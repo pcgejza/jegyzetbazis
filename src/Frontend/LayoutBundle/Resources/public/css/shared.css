@@ -118,3 +118,16 @@ body .page{
 h2{
     color: blue;
 }
+
+.friend-mark-button{
+    -webkit-background-clip: padding-box;
+    background-color: #fff;
+    border: 1px solid #a5a5a5;
+    border-color: rgba(0, 0, 0, .35);
+    -webkit-border-radius: 3px;
+    -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, .1);
+    display: inline-block;
+    padding: 0;
+    white-space: nowrap;
+    cursor: pointer;
+}

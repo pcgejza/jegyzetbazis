@@ -1,0 +1,27 @@
+{% extends "FrontendLayoutBundle:Default:layout.html.twig" %}
+
+
+{% block title %}Barátok{% endblock %}
+
+{% block stylesheets %}
+    {{parent()}}
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+{% endblock %}
+
+{% block initJavascripts %}
+    {{parent()}}
+{% endblock %}
+
+{% block bodyClass %}friends{% endblock %}
+
+
+{% block body %}
+{{parent()}}
+{% endblock %}
+{% block contentHolder %}
+    <h2>Barátok</h2>
+    {% render(controller('FrontendAccountBundle:Friends:getFriends')) %}
+{% endblock %}

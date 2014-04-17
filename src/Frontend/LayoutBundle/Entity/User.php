@@ -55,6 +55,17 @@ class User extends BaseUser
      */
     protected $scraps;
     
+    /**
+     * @ORM\OneToMany(targetEntity="\Frontend\AccountBundle\Entity\Friends", mappedBy="userA")
+     */
+    protected $friendsA;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="\Frontend\AccountBundle\Entity\Friends", mappedBy="userB")
+     */
+    protected $friendsB;
+    
+    
 
 
     /**
@@ -220,5 +231,71 @@ class User extends BaseUser
     public function getScraps()
     {
         return $this->scraps;
+    }
+
+    /**
+     * Add friendsA
+     *
+     * @param \Frontend\AccountBundle\Entity\Friends $friendsA
+     * @return User
+     */
+    public function addFriendsA(\Frontend\AccountBundle\Entity\Friends $friendsA)
+    {
+        $this->friendsA[] = $friendsA;
+
+        return $this;
+    }
+
+    /**
+     * Remove friendsA
+     *
+     * @param \Frontend\AccountBundle\Entity\Friends $friendsA
+     */
+    public function removeFriendsA(\Frontend\AccountBundle\Entity\Friends $friendsA)
+    {
+        $this->friendsA->removeElement($friendsA);
+    }
+
+    /**
+     * Get friendsA
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFriendsA()
+    {
+        return $this->friendsA;
+    }
+
+    /**
+     * Add friendsB
+     *
+     * @param \Frontend\AccountBundle\Entity\Friends $friendsB
+     * @return User
+     */
+    public function addFriendsB(\Frontend\AccountBundle\Entity\Friends $friendsB)
+    {
+        $this->friendsB[] = $friendsB;
+
+        return $this;
+    }
+
+    /**
+     * Remove friendsB
+     *
+     * @param \Frontend\AccountBundle\Entity\Friends $friendsB
+     */
+    public function removeFriendsB(\Frontend\AccountBundle\Entity\Friends $friendsB)
+    {
+        $this->friendsB->removeElement($friendsB);
+    }
+
+    /**
+     * Get friendsB
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFriendsB()
+    {
+        return $this->friendsB;
     }
 }

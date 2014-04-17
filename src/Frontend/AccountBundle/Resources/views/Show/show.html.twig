@@ -1,6 +1,7 @@
 {% if User.getUserSettings() %}
     {% set userSettings = User.getUserSettings() %}
     {{userSettings.getName()}} adatainak megtekintése
+    {% render(controller('FrontendAccountBundle:Friends:getFriendsButtons', {'viewedUser' : User})) %}
     <table>
         <tr>
             <th>Nem</th>
@@ -9,6 +10,10 @@
         <tr>
             <th>Születési dátum</th>
             <td>{{userSettings.getBirthDateToString()}}</td>
+        </tr>
+        <tr>
+            <th>Regisztrált</th>
+            <td>{{time_diff(User.getRegistrationTime())}}</td>
         </tr>
         <tr>
             <td>Feltöltött fájlok száma</td>

@@ -22,7 +22,8 @@
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "gregwar/image-bundle": "dev-master",
         "knplabs/knp-paginator-bundle": "~2.4",
-        "gedmo/doctrine-extensions":      "dev-master"
+        "gedmo/doctrine-extensions":      "dev-master",
+        "knplabs/knp-time-bundle": "~1.2"
     },
     "scripts": {
         "post-install-cmd": [

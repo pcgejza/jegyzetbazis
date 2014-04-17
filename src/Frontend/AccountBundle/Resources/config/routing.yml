@@ -21,3 +21,7 @@ comment_settings_save:
 profile_show:
     pattern:  /felhasznalo/{id}
     defaults: { _controller: FrontendAccountBundle:Show:index }
+
+friends_index:
+    pattern:  /baratok/
+    defaults: { _controller: FrontendAccountBundle:Friends:index }

@@ -55,14 +55,14 @@ class UploadController extends Controller
             
             $oneFile = new File();
             $oneFile->setFile($f);
+            $oneFile->setUser($user);
+            $filename = strlen($filename) > 0 ? $filename : $oneFile->getPath();
+            $oneFile->setName($filename);
             
-            if(!$oneFile->upload())
+            if(!$oneFile->upload($user))
                 throw new Exception('Hiba a feltöltés során!');
             
-            $filename = strlen($filename) > 0 ? $filename : $oneFile->getPath();
             
-            $oneFile->setName($filename);
-            $oneFile->setUser($user);
             $oneFile->setUploadedTime(new \DateTime('now'));
             
             $em = $this->getDoctrine()->getEntityManager();
