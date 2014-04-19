@@ -1,5 +1,28 @@
 {% if FriendsObject is null %}
-    <button class="friend-mark-button friendMarking">Barátnak jelölés</button>
+    <button class="friend-mark-button add friendMarking" userid="{{ViewedUser.id}}">Barátnak jelölés</button>
 {% else %}
-    jelölés törlése VAGY jóváhagyása VAGY elutasítása
+    {% if FriendsObject.getStatus() == 'active' %}
+        <span class="myFriend down-ico" userid="{{ViewedUser.id}}">Barátod</span>
+        <div class="qtip-to-myfriend" userid="{{ViewedUser.id}}" style="display: none;">
+            <a href="javascript:void(0)" class="friendMarking" userid="{{ViewedUser.id}}">Barátság törlése</a>
+        </div>
+        {#
+        <button class="friend-mark-button remove friendMarking" userid="{{ViewedUser.id}}">Barátság törlése</button>
+        #}
+    {% elseif FriendsObject.getStatus() == 'rejected' or FriendsObject.getStatus() == 'selected-rejected'  %}
+        <button class="friend-mark-button add friendMarking" userid="{{ViewedUser.id}}">Barátnak jelölés</button>
+    {% elseif FriendsObject.getStatus() == 'selected' %}
+        {% if FriendsObject.getUserB() == ViewedUser %}
+            <button class="friend-mark-button remove friendMarking" userid="{{ViewedUser.id}}">Jelölés törlése</button>
+           
+        {% else %}  {# 2 gomb kell, jelölés megerősítés és jelelölés törlés
+                    
+                    <button class="friend-mark-button remove friendMarking" userid="{{ViewedUser.id}}">Jelölés visszautasítása</button>
+                    #}
+            <button class="friend-mark-button markMe">Barátnak jelölt</button>
+            
+        {% endif %}
+    {% else %}    
+        NINCS KEZELVE
+    {% endif %}
 {% endif %}

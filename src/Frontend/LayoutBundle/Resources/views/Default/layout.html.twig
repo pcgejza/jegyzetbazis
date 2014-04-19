@@ -34,6 +34,7 @@
                     AuthWindow.emalCheckUrl = "{{path('security:email-check')}}";
                     AuthWindow.nicknameCheckUrl = "{{path('security:nickname-check')}}";
                     
+                    FriendsShared.addOrRemoveURL = "{{path('friends_add_or_remove')}}";
                     FriendsShared.init();
                     {% endblock %}
                 });
@@ -45,6 +46,7 @@
            <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/header.css') }}?rnd={{random(100)}}" />
            <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/form.css') }}" />
             <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/customQtip.css') }}" />
+            <link rel="stylesheet"  href="{{ asset('bundles/frontendaccount/css/friends-shared.css') }}" />
            <link rel="stylesheet"  href="{{ asset('css/foundation.css') }}" />
            <link rel="stylesheet"  href="{{ asset('css/jquery.qtip.min.css') }}" />
         {% endblock %}

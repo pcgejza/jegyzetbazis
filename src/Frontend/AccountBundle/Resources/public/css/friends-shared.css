@@ -1,0 +1,51 @@
+.friend-mark-button,
+.myFriend
+{
+    background-color: rgba(0,0,0,0);
+    border: 2px solid #a5a5a5;
+    border-color: rgba(0, 0, 0, .35);
+    display: inline-block;
+    padding: 5 5 5 35;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 13pt;
+    border-radius: 5px;   
+    color: white;
+}
+
+.friend-mark-button:hover{
+    border-color: rgb(100,100,250);
+}
+
+.friend-mark-button.add{
+    background-repeat: no-repeat;
+    background-position: 1% 1%;
+    background-size: 20%;
+    background-image: url('/symfony/web/bundles/frontendaccount/images/icon_add_person.png');
+}
+
+.friend-mark-button.remove{
+    background-repeat: no-repeat;
+    background-position: 1% 1%;
+    background-size: 16%;
+    background-image: url('/symfony/web/bundles/frontendaccount/images/icon_remove_person.png');
+}
+    
+.friend-mark-button.loading{
+    opacity: 0.8;
+    background-repeat: no-repeat;
+    background-position: 1% 1%;
+    background-size: 22%;
+    background-image: url('/symfony/web/images/loading1.gif');
+}
+
+.down-ico{
+    padding-left: 20px;
+    background-repeat: no-repeat;
+    background-position: 0% 50%;
+    background-image: url('/symfony/web/images/down_icon_mini.png');
+}
+
+.no-bottom-border{
+    border-bottom: none;
+}

@@ -25,3 +25,7 @@ profile_show:
 friends_index:
     pattern:  /baratok/
     defaults: { _controller: FrontendAccountBundle:Friends:index }
+
+friends_add_or_remove:
+    pattern:  /baratok/baratnak-jeloles-modositas
+    defaults: { _controller: FrontendAccountBundle:Friends:friendsAddOrRemove }
