@@ -24,7 +24,7 @@
                 <td>{{file.getName}}</td>
                 <td><img src="{{image(getImageByPath(file.getWebPath()))}}" width="140" height="140"></td>
                 <td>{{file.uploadTime | date('Y-m-d h:s:i')}}</td>
-                <td><a href="javascript:void(0)">{% if file.user.userSettings is not null %}{{file.user.username}}{% else %}{{file.user.userSettings.name}}{% endif %}</a></td>
+                <td><a href="{{path('profile_show', {id : file.user.id})}}">{% if file.user.userSettings is not null %}{{file.user.username}}{% else %}{{file.user.userSettings.name}}{% endif %}</a></td>
             </tr>
         {% endfor %}
         </table>

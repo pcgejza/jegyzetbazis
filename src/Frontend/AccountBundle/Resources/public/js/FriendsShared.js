@@ -9,7 +9,6 @@ FriendsShared = {
     
     bindUIActions: function(){
         this.bindMarkButton();
-        this.addQtipToFriendButtons();
     },
     
     bindMarkButton: function(){
@@ -28,15 +27,16 @@ FriendsShared = {
             thisElement.addClass('friend-mark-button friendMarking');
             FriendsShared.bindMarkButton();
           }
-          
+          thisElement = thisElement.parents('.friend-button-holder').first();
           thisElement.addClass('loading');
           $.post(FriendsShared.addOrRemoveURL, {
               userID : userID,
               type : type
           }).done(function(data){
              if(!data.err){
-                thisElement.html(data.text);
+                thisElement.html(data.buttonHtml);
                 thisElement.removeClass('loading');
+                return; 
                  
                 if(thisElement.hasClass('add')){
                     thisElement.removeClass('add');
@@ -53,34 +53,5 @@ FriendsShared = {
         
     },
     
-    addQtipToFriendButtons: function(){
-       $('.myFriend').each(function(){
-          var uid = $(this).attr('userid');
-          var ht = $('.qtip-to-myfriend[userid="'+uid+'"]').html();
-           $(this).qtip({
-           content: {
-                text: ht,
-            },
-            show: 'click',
-            hide:  {
-              event: 'click'
-            },   
-            position: {
-                   my: 'top center',  // Position my top left...
-                   at: 'bottom center', // at the bottom right of...
-                   target:this.headerUserBox // my target
-               }, 
-            style: {
-                def: false,
-                classes: Shared.qtipStyleClass
-            },
-            events: {
-                render: function(){
-                    FriendsShared.bindMarkButton();
-                }
-            }
-        });
-       });
-    },
     
 }

@@ -1,28 +1,44 @@
+<div class="friend-button-holder">
 {% if FriendsObject is null %}
-    <button class="friend-mark-button add friendMarking" userid="{{ViewedUser.id}}">Barátnak jelölés</button>
+    <button class="friend-mark-button add friendMarking btn btn-default" type="select" userid="{{ViewedUser.id}}">Barátnak jelölés</button>
 {% else %}
     {% if FriendsObject.getStatus() == 'active' %}
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            Barátod <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Üzenet küldése</a></li>
+            <li class="divider"></li>
+            <li><a href="javascript:void(0)" class="friendMarking" userid="{{ViewedUser.id}}" type="reject">Nem a barátom</a></li>
+          </ul>
+        </div>  
+        {#
         <span class="myFriend down-ico" userid="{{ViewedUser.id}}">Barátod</span>
         <div class="qtip-to-myfriend" userid="{{ViewedUser.id}}" style="display: none;">
             <a href="javascript:void(0)" class="friendMarking" userid="{{ViewedUser.id}}">Barátság törlése</a>
         </div>
-        {#
         <button class="friend-mark-button remove friendMarking" userid="{{ViewedUser.id}}">Barátság törlése</button>
         #}
     {% elseif FriendsObject.getStatus() == 'rejected' or FriendsObject.getStatus() == 'selected-rejected'  %}
-        <button class="friend-mark-button add friendMarking" userid="{{ViewedUser.id}}">Barátnak jelölés</button>
+        <button class="friend-mark-button add friendMarking" type="select" userid="{{ViewedUser.id}}">Barátnak jelölés</button>
     {% elseif FriendsObject.getStatus() == 'selected' %}
         {% if FriendsObject.getUserB() == ViewedUser %}
             <button class="friend-mark-button remove friendMarking" userid="{{ViewedUser.id}}">Jelölés törlése</button>
-           
-        {% else %}  {# 2 gomb kell, jelölés megerősítés és jelelölés törlés
-                    
-                    <button class="friend-mark-button remove friendMarking" userid="{{ViewedUser.id}}">Jelölés visszautasítása</button>
-                    #}
-            <button class="friend-mark-button markMe">Barátnak jelölt</button>
-            
+        {% else %}  
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                Barátnak jelölt <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="javascript:void(0)" class="friendMarking" userid="{{ViewedUser.id}}" type="accept">Barátom (jelölés elfogadása)</a></li>
+                <li class="divider"></li>
+                <li><a href="javascript:void(0)" class="friendMarking" userid="{{ViewedUser.id}}" type="reject">Nem a barátom (jelölés elutasítása)</a></li>
+              </ul>
+            </div>  
         {% endif %}
     {% else %}    
         NINCS KEZELVE
     {% endif %}
 {% endif %}
+</div>

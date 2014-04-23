@@ -11,6 +11,7 @@
         <script type="text/javascript" src="{{asset('js/own.jquery.js')}}"></script>
 	 <script type="text/javascript" src="{{asset('js/jquery.foundation.reveal.js')}}"></script>
 	 <script type="text/javascript" src="{{asset('js/jquery.timer.js')}}"></script>
+	<script src="{{ asset('bundles/frontendlayout/js/bootstrap.min.js') }}"></script>
 	<script src="{{ asset('bundles/frontendlayout/js/Shared.js') }}"></script>
         <script src="{{ asset('bundles/frontendlayout/js/Header.js') }}"></script>
         <script src="{{ asset('bundles/frontendlayout/js/AuthWindow.js') }}?v={{ random(2000) }}"></script>
@@ -43,6 +44,8 @@
         {% block stylesheets %}
            <link rel="stylesheet"  href="{{ asset('css/reset.css') }}" />
            <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/shared.css') }}" />
+           <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/bootstrap.min.css') }}" />
+           <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/bootstrap-theme.css') }}" />
            <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/header.css') }}?rnd={{random(100)}}" />
            <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/form.css') }}" />
             <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/customQtip.css') }}" />

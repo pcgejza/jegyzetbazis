@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Frontend\AccountBundle\Entity\Friends;
+use Symfony\Component\Security\Acl\Exception\Exception;
 
 class FriendsController extends Controller{
     
@@ -48,16 +49,21 @@ class FriendsController extends Controller{
         }
     }
     
+
     public function friendsAddOrRemoveAction(){
         try{
             $MyUser = $this->get('security.context')->getToken()->getUser();
             $viewedUserId = $this->get('request')->request->get('userID');
+            $type =  $this->get('request')->request->get('type');
             
             if(!is_object($MyUser))
                 throw new Exception('Nincs bejelentkezve!');
             
             if(!is_numeric($viewedUserId))
                 throw new Exception('Nincs megadva a userID!');
+            
+            if($type == NULL)
+                throw new Exception('Nincs megadva a type!');
             
             $em = $this->getDoctrine()->getEntityManager();
             $viewedUser = $em->getReference('FrontendLayoutBundle:User', $viewedUserId);
@@ -74,35 +80,48 @@ class FriendsController extends Controller{
                 $FriendsObject->setMarkDate(new \DateTime('now'));
                 $text = 'Jelölés törlése';
             }else{
-                if($FriendsObject->getUserA() == $MyUser){
-                    if($FriendsObject->getStatus() == 'selected'){
-                        $text = 'Barátnak jelölés';
-                        $FriendsObject->setStatus('selected-rejected');
-                    }elseif($FriendsObject->getStatus() == 'rejected' || $FriendsObject->getStatus() == 'selected-rejected'){
-                        $text = 'Jelölés törlése';
-                        $FriendsObject->setStatus('selected');
-                    }elseif($FriendsObject->getStatus() == 'active'){
-                        $text = 'Barátnak jelölés';
-                        $FriendsObject->setStatus('selected-rejected');
+                if($type != NULL){
+                    switch($type){
+                        case 'accept': 
+                            $FriendsObject->setStatus('active');
+                            break;
+                        case 'reject': 
+                            $FriendsObject->setStatus('rejected');
+                            break;
+                        case 'select': 
+                            $FriendsObject->setStatus('selected');
+                            break;
+                        default: 
+                            throw new Exception('Nem definiált ez a típus :     '.$type);
+                            break;
                     }
                 }else{
-                    if($FriendsObject->getStatus() == 'selected'){
-                        $text = 'Barátnak jelölés';
-                        $FriendsObject->setStatus('selected-rejected');
-                    }elseif($FriendsObject->getStatus() == 'rejected' || $FriendsObject->getStatus() == 'selected-rejected'){
-                        $text = 'Jelölés törlése';
-                        $FriendsObject->setStatus('selected');
-                    }elseif($FriendsObject->getStatus() == 'active'){
-                        $text = 'Barátnak jelölés';
-                        $FriendsObject->setStatus('selected-rejected');
+                    
+                    throw new Exception('átugrottuk a cuccot');
+                    switch($type){
+                        case 'accept':
+                            $FriendsObject->setStatus('accept');
+                            break;
+                        case 'reject':
+                            $FriendsObject->setStatus('reject');
+                            break;
                     }
                 }
+                
             }
             $em->persist($FriendsObject);
             $em->flush();
             
+            $FriendsObject = $this->getDoctrine()->getRepository('FrontendAccountBundle:Friends')
+                        ->getFriendsStatus($MyUser, $viewedUser);
+            
+            $buttonHtml = $this->renderView('FrontendAccountBundle:Friends:globalFriendsButtons.html.twig',array(
+                'FriendsObject' => $FriendsObject,
+                'ViewedUser' => $viewedUser
+            ));
             
             return new JsonResponse(array(
+                'buttonHtml' => $buttonHtml,
                 'text' => $text
             ));
         } catch (Exception $ex) {
