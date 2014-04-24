@@ -1,0 +1,27 @@
+body.friends{
+    
+}
+
+.friends .friend-object{
+    background-color: rgba(210,100,250, 0.3);
+    display: inline-block;
+    width: 200px;
+    height: 150px;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.friends .friend-object .profile-name-holder{
+    font-size: 13pt;
+    margin-bottom: 3px;
+}
+
+.friends .friend-object .avatar-holder img{
+    float: left;
+}
+
+.friends .friend-object .avatar-holder img{
+    width: 100px;
+    height: 100px;
+}
+

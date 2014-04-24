@@ -42,6 +42,12 @@ class UserSettings
      */
     private $avatarId;
 
+     /**
+     * @ORM\OneToOne(targetEntity="\Frontend\AccountBundle\Entity\Avatar", inversedBy="userSettings")
+     * @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
+     */
+    protected $avatar;
+    
     /**
      * @var integer
      *
@@ -382,5 +388,28 @@ class UserSettings
     public function getCommentText()
     {
         return $this->commentText;
+    }
+
+    /**
+     * Set avatar
+     *
+     * @param \Frontend\AccountBundle\Entity\Avatar $avatar
+     * @return UserSettings
+     */
+    public function setAvatar(\Frontend\AccountBundle\Entity\Avatar $avatar = null)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return \Frontend\AccountBundle\Entity\Avatar 
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
     }
 }

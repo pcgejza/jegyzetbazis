@@ -65,6 +65,11 @@ class User extends BaseUser
      */
     protected $friendsB;
     
+    /**
+     * @ORM\OneToMany(targetEntity="\Frontend\AccountBundle\Entity\Avatar", mappedBy="user")
+     */
+    protected $avatar;
+    
     
 
 
@@ -297,5 +302,38 @@ class User extends BaseUser
     public function getFriendsB()
     {
         return $this->friendsB;
+    }
+
+    /**
+     * Add avatar
+     *
+     * @param \Frontend\AccountBundle\Entity\Avatar $avatar
+     * @return User
+     */
+    public function addAvatar(\Frontend\AccountBundle\Entity\Avatar $avatar)
+    {
+        $this->avatar[] = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Remove avatar
+     *
+     * @param \Frontend\AccountBundle\Entity\Avatar $avatar
+     */
+    public function removeAvatar(\Frontend\AccountBundle\Entity\Avatar $avatar)
+    {
+        $this->avatar->removeElement($avatar);
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
     }
 }

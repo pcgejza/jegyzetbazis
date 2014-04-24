@@ -1,0 +1,20 @@
+<div class="friend-object">
+    <div class="profile-name-holder">
+        {{User.userSettings.getName()}}    
+    </div>
+    <div class="avatar-holder">
+        {% set src = "" %}
+        {% if User.userSettings.getAvatar() is null %}
+            {% if User.userSettings.getGender() == 'male' or User.userSettings.getGender() is null %}
+                {% set src = asset('images/default_profile_image_male.png') %}
+            {% else %}
+                {% set src = asset('images/default_profile_image_female.png') %}
+            {% endif %}
+        {% else %}
+            {% set src = User.userSettings.getAvatar().getPath() %}
+        {% endif %}
+        <img src="{{src}}" alt="Avatár" />
+    </div>
+    <div class="profile-infos-holder"> 
+    </div>
+</div>

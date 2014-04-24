@@ -5,14 +5,17 @@
 
 {% block stylesheets %}
     {{parent()}}
+    <link rel="stylesheet" href="{{asset('bundles/frontendaccount/css/friends-view.css')}}" />
 {% endblock %}
 
 {% block javascripts %}
     {{parent()}}
+    <script src="{{asset('bundles/frontendaccount/js/FriendsView.js')}}"></script>
 {% endblock %}
 
 {% block initJavascripts %}
     {{parent()}}
+    FriendsView.init();
 {% endblock %}
 
 {% block bodyClass %}friends{% endblock %}

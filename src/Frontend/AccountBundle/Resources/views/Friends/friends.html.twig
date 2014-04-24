@@ -1,5 +1,11 @@
 {% if Friends | length > 0 %}
-    Vannak barátaid
+    {% for Friend in Friends %}
+        {% set User = Friend.userA %}
+        {% if User == app.user %}
+            {% set User = Friend.userB %}
+        {% endif %}
+        {% include 'FrontendAccountBundle:Friends:oneFriend.html.twig' %}
+    {% endfor %}
 {% else %}    
     Nincsenek barátaid
 {% endif %}
