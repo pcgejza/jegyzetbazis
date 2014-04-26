@@ -8,6 +8,7 @@ Shared = {
     qtipStyleClass2: null,
     visitActionUrl: null,
     ip:null,
+    uploadAvatarUrl: null,
     
     init: function(){
         Shared.qtipStyleClass = "qtip-custom-orange";

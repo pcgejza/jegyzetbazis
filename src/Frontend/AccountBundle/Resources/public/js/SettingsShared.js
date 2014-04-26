@@ -78,6 +78,9 @@ SettingsShared = {
                        passInput.focus();
                        SettingsShared.addErrorToTextInput(passInput, data.err);
                     }
+                    if(ParentTabContent.attr('page') === 'avatar-beallitasok'){
+                        SettingsAvatar.bindUploadedAvatarsClickActions();
+                    }
                 },
                 error: function(jqXHR, textStatus, errorThrown){
                     console.error('Hiba!!!');

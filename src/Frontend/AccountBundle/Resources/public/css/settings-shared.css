@@ -101,3 +101,50 @@
     background-position: 90% 50%;
 }
 
+.settings .current-selected-avatar{
+    
+}
+
+.settings .uploadedAvatarsHolder{
+    background-color: rgb(130, 130, 130);
+    height: 165px;
+    width: 500px; 
+    overflow-x:scroll;
+    overflow-y: hidden;
+    white-space: nowrap   
+}
+
+.settings .uploadedAvatarsHolder .uploaded-image{
+    margin-right:4px;
+    width:130px; 
+    height:130px;
+    display: inline-block;
+}
+
+.settings .uploadedAvatarsHolder .uploaded-image img{
+    width:120px; 
+    height:120px;
+}
+    
+.settings .uploadedAvatarsHolder .uploaded-image.add-new img{
+    width:90px; 
+    height:90px;
+}
+
+.settings .uploadedAvatarsHolder .uploaded-image.add-new{
+    cursor: pointer;
+}
+
+.settings .current-selected-avatar span{
+    display: block;
+    margin-bottom: 10px;
+}
+
+.settings .current-selected-avatar img{
+    width: 200px;
+    height: 200px;
+}
+
+.settings .uploaded-image{
+    cursor: pointer;
+}

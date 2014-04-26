@@ -14,6 +14,10 @@ safety_settings_save:
     pattern:  /beallitasok/biztonsagi-beallitasok/adatok-mentese
     defaults: { _controller: FrontendAccountBundle:Settings:safetySettings }
 
+avatar_settings_save:
+    pattern:  /beallitasok/avatar-beallitasok/adatok-mentese
+    defaults: { _controller: FrontendAccountBundle:Settings:avatarSettings }
+
 comment_settings_save:
     pattern:  /beallitasok/komment-beallitasok/adatok-mentese
     defaults: { _controller: FrontendAccountBundle:Settings:comment }
@@ -29,3 +33,7 @@ friends_index:
 friends_add_or_remove:
     pattern:  /baratok/baratnak-jeloles-modositas
     defaults: { _controller: FrontendAccountBundle:Friends:friendsAddOrRemove }
+
+avatar_upload_ajax:
+    pattern:  /beallitasok/avatar-beallitasok/avatar-feltoltese
+    defaults: { _controller: FrontendAccountBundle:Settings:uploadAvatarAjax }

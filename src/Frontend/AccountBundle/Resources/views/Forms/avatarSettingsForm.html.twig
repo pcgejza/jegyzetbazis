@@ -1,1 +1,36 @@
-Avatár beállítások
+<script src="{{asset('bundles/frontendaccount/js/SettingsAvatar.js')}}"></script>
+<script>
+    $(document).ready(function(){
+       SettingsAvatar.init();
+    });
+</script>
+<div class="settingsPage">
+ <input type="file" class="uploadAvatarInput hide" />   
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="current-selected-avatar">
+        <span>Jelenleg kiválasztott avatárod:</span>
+        {% if form.avatar.vars.value == '' %}
+            <img alt="Nincs avatár">
+        {% else %}
+            <img src="{{image(form.avatar.vars.value).zoomCrop(200,200).jpeg}}">
+        {% endif %}
+    </div>
+    Szerverre feltöltött avatárjaid
+    <div class="uploadedAvatarsHolder">
+        <div class="uploaded-image add-new">
+            <img src="{{asset('bundles/frontendaccount/images/upload_new_image.png')}}" alt="">
+        </div>
+        <span class="new-files"></span>
+        {% for Avatar in Avatars %}
+            <div class="uploaded-image">
+                <img src="{{image(Avatar.getWebPath()).jpeg}}" avatarid="{{Avatar.id}}" avatar200="{{image(Avatar.getWebPath()).zoomCrop(200,200).jpeg}}">
+            </div>
+        {% endfor %}
+    </div>
+    {{ form_row(form.password) }}
+    <div class='form-row submit'>
+        {{ form_widget(form.send) }}
+    </div>
+{{ form_end(form) }}
+</div>  

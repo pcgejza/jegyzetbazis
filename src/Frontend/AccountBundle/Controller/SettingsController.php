@@ -7,7 +7,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Frontend\AccountBundle\Form\Type\BaseSettingsFormType;
 use Frontend\AccountBundle\Form\Type\SafetySettingsFormType;
 use Frontend\AccountBundle\Form\Type\CommentSettingsFormType;
+use Frontend\AccountBundle\Form\Type\AvatarSettingsFormType;
+
+use Frontend\AccountBundle\Entity\Avatar;
+
 use Frontend\LayoutBundle\Entity\UserSettings;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
+use Symfony\Component\HttpFoundation\Request;
 
 class SettingsController extends Controller {
     
@@ -182,41 +189,89 @@ class SettingsController extends Controller {
         $request = $this->get('request');
         $User = $this->get('security.context')->getToken()->getUser();
         
-        /*
-        $BaseSettingsForm = new BaseSettingsFormType();
-        $BaseSettingsForm->setUser($User);
+        $Avatars = array();
         
-        $url = $this->generateUrl('base_settings_save');
+        $AvatarSettingsForm = new AvatarSettingsFormType();
+        $AvatarSettingsForm->setUser($User);
+        $AvatarSettingsForm->setUserSettings($User->getUserSettings());
         
-        $form = $this->createForm($BaseSettingsForm, null, array(
+        $url = $this->generateUrl('avatar_settings_save');
+        
+        $form = $this->createForm($AvatarSettingsForm, null, array(
             'action' => $url,
             'method' => 'POST',
-            'attr' => array('class' => 'baseSettingsForm settings-form')
+            'attr' => array('class' => 'avatarSettingsForm settings-form')
         ));
-        */
+        
         if($request->getMethod() === 'POST'){   
-           // $form->bind($request);
-           // if($form->isValid()){
-            //    $formData = $form->getData();
-                /*
-                $name = $formData['name'];
-                $gender = $formData['gender'];
+            $form->bind($request);
+            if($form->isValid()){
+                $formData = $form->getData();
+                
+                $avatarId = $formData['avatarId'];
+                
+                $Avatar = $this->getDoctrine()->getRepository('FrontendAccountBundle:Avatar')
+                            ->findOneById($avatarId);
+                
+                if($Avatar === NULL){
+                    return new \Symfony\Component\HttpFoundation\JsonResponse(array(
+                       'err' => 'Hibás az avatar azonosító, az adatok NEM kerültek elmentésre!' 
+                    ));
+                }
+                
+                if($Avatar->getUser() !== $User){
+                    return new \Symfony\Component\HttpFoundation\JsonResponse(array(
+                       'err' => 'EZ AZ AVATÁR NEM A TE TULAJDONOD, az adatok NEM kerültek elmentésre!' 
+                    ));
+                }
+                
+                if(!$this->passwordControl($formData['password'], $User)){
+                    return new \Symfony\Component\HttpFoundation\JsonResponse(array(
+                       'err' => 'Rossz a beírt jelszó, az adatok NEM kerültek elmentésre!' 
+                    ));
+                }
+                
                 $UserSettings = $User->getUserSettings();
                 if($UserSettings == NULL){
                     $UserSettings->setUser($User);
                 }
-                $UserSettings->setName($name);
-                $UserSettings->setGender($gender);
+                
+                $UserSettings->setAvatar($Avatar);
                 $em = $this->getDoctrine()->getEntityManager();
                 $em->persist($UserSettings);
                 $em->flush();
-                 * 
-                 */
-          //  }
+                
+                // azért kell újra, mert akkor nem fogja az új képet megjeleníteni
+                $AvatarSettingsForm = new AvatarSettingsFormType();
+                $AvatarSettingsForm->setUser($User);
+                $AvatarSettingsForm->setUserSettings($User->getUserSettings());
+                
+                $form = $this->createForm($AvatarSettingsForm, null, array(
+                    'action' => $url,
+                    'method' => 'POST',
+                    'attr' => array('class' => 'avatarSettingsForm settings-form')
+                ));
+            }
         }
         
+        $Avatars = $this->getDoctrine()->getRepository('FrontendAccountBundle:Avatar')
+                    ->createQueryBuilder('avatar')
+                    ->select('avatar')
+                    ->addSelect('user')
+                    ->addSelect('userSettings')
+                    ->where('avatar.status = 1')
+                    ->andWhere('user = :user')
+                    ->join('avatar.user', 'user')
+                    ->leftJoin('avatar.userSettings', 'userSettings')
+                    ->orderBy('avatar.insertDate', 'DESC')
+                    ->setParameter('user', $User)
+                    ->getQuery()
+                    ->getResult();
+        $AvatarSettingsForm->setAvatar($User->getUserSettings()->getAvatar());
+        
         return $this->render('FrontendAccountBundle:Forms:avatarSettingsForm.html.twig',array(
-    //        'form' => $form->createView()
+            'form' => $form->createView(),
+            'Avatars' => $Avatars
         ));
     }
     
@@ -274,6 +329,43 @@ class SettingsController extends Controller {
             return false;
         }else{
             return true;
+        }
+    }
+    
+    public function uploadAvatarAjaxAction(Request $request){
+        try{
+            $f = $request->files->get('image');
+            
+            $user = $this->get('security.context')->getToken()->getUser();
+            
+            if($f == NULL){
+                throw new Exception('Null a file!');
+            }
+            
+            $avatar = new Avatar();
+            $avatar->setFile($f);
+            $avatar->setUser($user);
+            
+            if(!$avatar->upload())
+                throw new Exception('Hiba a feltöltés során!');
+            
+            $avatar->setInsertDate(new \DateTime('now'));
+            
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->persist($avatar);
+            $em->flush();
+            
+            $avatarSRC = '/symfony/web/' . $avatar->getWebPath();
+            
+            $avatar200 = $this->get('image.handling')->open($avatar->getWebPath())->zoomCrop(200,200)->jpeg();
+            
+            return new JsonResponse(array(
+                'avatarSRC' => $avatarSRC,
+                'avatar200SRC' => $avatar200,
+                'avatarId' => $avatar->getId()
+                ));
+        } catch (Exception $ex) {
+            return new JsonResponse(array('err' => $ex->getMessage()));
         }
     }
     

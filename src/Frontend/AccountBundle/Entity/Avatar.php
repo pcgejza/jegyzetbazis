@@ -3,6 +3,9 @@
 namespace Frontend\AccountBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+    
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Avatar
@@ -30,7 +33,7 @@ class Avatar
 
      /**
      * @ORM\ManyToOne(targetEntity="\Frontend\LayoutBundle\Entity\User", inversedBy="avatar")
-     * @ORM\JoinColumn(name="user", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
     
@@ -60,6 +63,98 @@ class Avatar
      */
     protected $userSettings;
     
+
+    
+    public function getAbsolutePath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadRootDir().'/'.$this->path;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadDir().'/'.$this->path;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'uploads/avatars/'.$this->getUser()->getId();
+    }
+    
+    
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    private $file;
+
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+    
+    public function upload(){
+        // the file property can be empty if the field is not required
+        if (null === $this->getFile()) {
+            return false;
+        }
+
+        // use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+
+        // move takes the target directory and then the
+        // target filename to move to
+        
+        $fileOriginal = $this->getFile()->getClientOriginalName();
+        $extraIndex = 1;
+        $this->path = $fileOriginal;
+        $pathInf = pathinfo($this->getAbsolutePath());
+        $fileOriginal = $pathInf['filename'] . "." . $pathInf['extension'];
+
+        while (file_exists($this->getAbsolutePath())) {
+            $fileOriginal = $pathInf['filename'] . "-$extraIndex" . "." . $pathInf['extension'];
+            $extraIndex++;
+            $this->path = $fileOriginal;
+        }
+
+        $this->getFile()->move(
+                $this->getUploadRootDir(), $fileOriginal
+        );
+
+
+        // set the path property to the filename where you've saved the file
+
+        // clean up the file property as you won't need it anymore
+        $this->file = null;
+        
+        return true;
+    }
 
 
     /**
@@ -186,41 +281,25 @@ class Avatar
     {
         return $this->user;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->userSettings = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+    
 
     /**
-     * Add userSettings
+     * Set userSettings
      *
      * @param \Frontend\LayoutBundle\Entity\UserSettings $userSettings
      * @return Avatar
      */
-    public function addUserSetting(\Frontend\LayoutBundle\Entity\UserSettings $userSettings)
+    public function setUserSettings(\Frontend\LayoutBundle\Entity\UserSettings $userSettings = null)
     {
-        $this->userSettings[] = $userSettings;
+        $this->userSettings = $userSettings;
 
         return $this;
     }
 
     /**
-     * Remove userSettings
-     *
-     * @param \Frontend\LayoutBundle\Entity\UserSettings $userSettings
-     */
-    public function removeUserSetting(\Frontend\LayoutBundle\Entity\UserSettings $userSettings)
-    {
-        $this->userSettings->removeElement($userSettings);
-    }
-
-    /**
      * Get userSettings
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Frontend\LayoutBundle\Entity\UserSettings 
      */
     public function getUserSettings()
     {
