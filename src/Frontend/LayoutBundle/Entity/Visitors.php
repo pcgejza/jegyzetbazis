@@ -24,9 +24,9 @@ class Visitors
     /**
      * @var string
      *
-     * @ORM\Column(name="ip", type="string", length=255, nullable=false)
+     * @ORM\Column(name="session_id", type="string", length=255, nullable=false)
      */
-    private $ip;
+    private $sessionId;
 
     /**
      * @var integer
@@ -55,6 +55,10 @@ class Visitors
      */
     private $status = '1';
 
+    
+    public function __construct($sessionID){
+        $this->sessionId = $sessionID;
+    }
 
 
     /**
@@ -65,29 +69,6 @@ class Visitors
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set ip
-     *
-     * @param string $ip
-     * @return Visitors
-     */
-    public function setIp($ip)
-    {
-        $this->ip = $ip;
-
-        return $this;
-    }
-
-    /**
-     * Get ip
-     *
-     * @return string 
-     */
-    public function getIp()
-    {
-        return $this->ip;
     }
 
     /**
@@ -180,5 +161,28 @@ class Visitors
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set sessionId
+     *
+     * @param string $sessionId
+     * @return Visitors
+     */
+    public function setSessionId($sessionId)
+    {
+        $this->sessionId = $sessionId;
+
+        return $this;
+    }
+
+    /**
+     * Get sessionId
+     *
+     * @return string 
+     */
+    public function getSessionId()
+    {
+        return $this->sessionId;
     }
 }

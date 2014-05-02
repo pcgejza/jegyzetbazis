@@ -118,3 +118,23 @@ body .page{
 h2{
     color: blue;
 }
+
+.visitorsCount{
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: green;
+    width: 150px;
+    height: 50px;
+    position: fixed;
+    top: 50%;
+    right: -110px;
+    background-image: url('/symfony/web/images/man_icon_mini.png');
+    background-repeat: no-repeat;
+    background-size: 30%;
+    background-position:1% 50%; 
+    font-size: 20pt;
+    color: white;
+    padding-left: 40px;
+    padding-top: 13px;
+    cursor: default;
+}

@@ -4,6 +4,7 @@ namespace Frontend\LayoutBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Frontend\LayoutBundle\Entity\Visitors;
 use \Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
@@ -12,45 +13,44 @@ class DefaultController extends Controller
         return $this->render('FrontendLayoutBundle:Default:index.html.twig', array('name' => $name));
     }
     
-    public function visitAction()
+    public function visitAction(Request $request)
     {
+        $session = $request->getSession();
+        if(!$session->get('sessionID')){
+            //random string generálás
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $randomString = '';
+            for ($i = 0; $i < 20; $i++) {
+                $randomString .= $characters[rand(0, strlen($characters) - 1)];
+            }
+            //sessionID beállítás
+            $session->set('sessionID',$randomString);
+            $Visitors = new Visitors($randomString);
+        }else{
+            $Visitors = $this->getDoctrine()->getRepository('FrontendLayoutBundle:Visitors')
+                        ->findOneBySessionId($session->get('sessionID'));
+        }
+        
         $User = $this->container->get('security.context')->getToken()->getUser();
         $User = (is_object($User)) ? $User : NULL;
         $date = new \DateTime('now');
-        $IP = $this->get('request')->getClientIp();
         
-        if($this->get('request')->getMethod()!=='POST'){
-            $Visitors = new Visitors();
-            $Visitors->setUser($User);
-            $Visitors->setIp($IP);
-            $Visitors->setDate($date);
-        }else{
-            $IP = $this->get('request')->request->get('ip');
-            $Visitors = $this->getDoctrine()->getRepository('FrontendLayoutBundle:Visitors')
-                        ->createQueryBuilder('v')
-                        ->where('v.ip = :ip')
-                        ->setParameter('ip', $IP)
-                        ->setMaxResults(1)
-                        ->orderBy('v.date', 'DESC')
-                        ->getQuery()
-                        ->getSingleResult();
-            $Visitors->setDate($date);
-            
-            $d = $date;
-            $count = $this->getDoctrine()->getRepository('FrontendLayoutBundle:Visitors')
-                    ->createQueryBuilder('v')
-                    ->select('COUNT(DISTINCT v.ip)')
-                    ->where('v.date > :d')
-                    ->setParameter('d', $d->modify("-1 minutes"), \Doctrine\DBAL\Types\Type::DATETIME)
-                    ->getQuery()
-                    ->getSingleScalarResult();
-        }
+        $Visitors->setDate($date);
+        $Visitors->setUser($User);
+        
         $em = $this->getDoctrine()->getEntityManager();
         $em->persist($Visitors);
         $em->flush();
         
-        if($this->get('request')->getMethod()==='POST'){ return new JsonResponse(array('count'=>$count)); }
+        $d = $date;
+        $count = $this->getDoctrine()->getRepository('FrontendLayoutBundle:Visitors')
+                ->createQueryBuilder('v')
+                ->select('COUNT(DISTINCT v.sessionId)')
+                ->where('v.date > :d')
+                ->setParameter('d', $d->modify("-30 seconds"), \Doctrine\DBAL\Types\Type::DATETIME)
+                ->getQuery()
+                ->getSingleScalarResult();
         
-        return new \Symfony\Component\HttpFoundation\Response($IP);
+        return new \Symfony\Component\HttpFoundation\Response($count);
     }
 }

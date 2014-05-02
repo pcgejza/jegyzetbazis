@@ -21,14 +21,46 @@ Shared = {
     
     bindUIActions: function(){
         
+        this.bindVisitActions();
+    },
+    
+    
+    bindVisitActions: function(){
+        
+        this.hideVisitorsCount();
         var timer = $.timer(function() {
             Shared.refreshVisit();
         });
-         timer.set({ time : 1000*60, autostart : true });
+        timer.set({ time : 1000*30, autostart : true });
+        
+        $('.visitorsCount').hover(function(){
+           Shared.showVisitorsCount();
+        }, function(){
+            Shared.hideVisitorsCount();
+        });
+    },
+    
+    hideVisitorsCount: function(){
+        var vDiv = $('.visitorsCount');
+        var $rigthPos = vDiv.css('right');
+        vDiv.animate({
+            'right' : -110
+        }, 100);
+    },
+    
+    showVisitorsCount: function(){
+        var vDiv = $('.visitorsCount');
+        var $rigthPos = vDiv.css('right');
+        vDiv.animate({
+            'right' : -70
+        }, 100);
     },
     
     refreshVisit: function(){
-        $.post(Shared.visitActionUrl,{ip:Shared.ip});
+        $.post(Shared.visitActionUrl, function(data){
+            $('.visitorsCount').html(data);
+        });
     },
+    
     
 }

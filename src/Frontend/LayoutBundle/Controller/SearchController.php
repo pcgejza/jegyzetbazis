@@ -11,8 +11,88 @@ class SearchController extends Controller{
         try{
             $text = $this->get('request')->request->get('text');
             
+            $doctrine = $this->getDoctrine();
+            $queryBuilder = $doctrine->getEntityManager()->createQueryBuilder();
+            
+            $User = $this->get('security.context')->getToken()->getUser();
+            $User = is_object($User) ? $User : NULL;
+           
+            
+            
+            // EMBEREK
+            $UserSettings = $doctrine->getRepository('FrontendLayoutBundle:UserSettings')
+                            ->createQueryBuilder('UserSettings')
+                            ->select('UserSettings.name AS name')
+                            ->addSelect('UserSettings.userId AS userID')
+                            ->where($queryBuilder->expr()->like('LOWER(UserSettings.name)', 'LOWER(:S)')) 
+                            ->andWhere(""
+                         ."(UserSettings.myProfileVisit = 'only_friends' and (userFriendsA.status = 'active' OR userFriendsB.status = 'active'))"
+                         ."OR (UserSettings.myProfileVisit = 'only_users' and :User is not null)"
+                         . " OR (UserSettings.myProfileVisit = 'all' OR UserSettings.myProfileVisit is null)")
+                            ->join('UserSettings.user', 'user')
+                            ->leftJoin('user.friendsA', 'userFriendsA', 'userFriendsA.userB = :User')
+                            ->leftJoin('user.friendsB', 'userFriendsB', 'userFriendsB.userB = :User')
+                            ->setParameter('S', '%'.$text.'%')
+                            ->setParameter('User', $User)
+                            ->orderBy('userFriendsA.id', 'ASC')
+                            ->setMaxResults(5)
+                            ->getQuery()
+                            ->getResult();
+            
+            // Tantárgyak
+            $Subjects = $doctrine->getRepository('FrontendSubjectBundle:Subject')
+                            ->createQueryBuilder('Subject')
+                            ->select('Subject.name AS name')
+                            ->addSelect('Subject.id AS id')
+                            ->where($queryBuilder->expr()->like('LOWER(Subject.name)', 'LOWER(:S)')) 
+                            ->setParameter('S', '%'.$text.'%')
+                            ->getQuery()
+                            ->getResult();
+            
+            // Fájlok
+            $Files = $doctrine->getRepository('FrontendSubjectBundle:File')
+                            ->createQueryBuilder('File')
+                            ->select('File.name AS name')
+                            ->addSelect('File.id AS userID')
+                            ->where($queryBuilder->expr()->like('LOWER(File.name)', 'LOWER(:S)')) 
+                            ->setParameter('S', '%'.$text.'%')
+                            ->getQuery()
+                            ->getResult();
+            
+            $Results['uSettings'] = $UserSettings;
+            $Results['subjects'] = $Subjects;
+            $Results['files'] = $Files;
+            
+            
+            /*
+            $qb = $em->createQueryBuilder;
+
+            $qb->select(array('a', 'c'))
+               ->from('Sdz\BlogBundle\Entity\Article', 'a')
+               ->leftJoin('a.comments', 'c');
+
+            $query = $qb->getQuery();
+            $results = $query->getResult();
+
+          
+            $Results = $qb
+                    ->select('qb AS uS')
+                    ->addSelect('sub AS subject')
+                    ->where($qb->expr()->like('qb.name', ':S')) //EMBEREK
+                //    ->orWhere('')//tantárgyak
+                  //  ->orWhere('')//fájlok
+                    ->leftJoin('FrontendSubjectBundle:Subject', 'sub', 'WITH', 'sub.status = 1')
+                    ->leftJoin('FrontendSubjectBundle:File', 'file', 'WITH', 'file.status = 1')
+                    ->setParameter('S', '%'.$text.'%')
+                    ->getQuery()
+                    ->getResult();
+              */
+            
             return $this->render('FrontendLayoutBundle:Search:searchResults.html.twig',
-                    array('text' => $text));
+                    array(
+                        'text' => $text,
+                        'Results' => $Results
+                    ));
         } catch (Exception $ex) {
             return $this->render('FrontendLayoutBundle:Search:searchResults.html.twig',
                     array('err' => $ex->getMessage()));

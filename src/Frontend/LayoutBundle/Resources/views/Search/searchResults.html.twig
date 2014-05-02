@@ -1,5 +1,48 @@
 {% if err is not defined %}
     Keresési találatok a '{{text}}' kifejezésre: 
+        {% if Results['uSettings']|length > 0 or Results['subjects']|length > 0 or Results['files']|length > 0%}
+            {% if Results['uSettings']|length > 0 %}
+                <div>
+                    <span class="groupTitle">Emberek</span>
+                    {% for UserSettings in Results['uSettings'] %}
+                        <a href="">
+                            <div class="result">
+                                <span class="name">{{UserSettings['name']}}</span>
+                            </div>
+                        </a>
+                        <br>
+                    {% endfor %}
+                </div>
+            {% endif %}
+              {% if Results['subjects']|length > 0 %}
+                <div>
+                    <span class="groupTitle">Tantárgyak</span>
+                    {% for Subject in Results['subjects'] %}
+                        <a href="">
+                            <div class="result">
+                                <span class="name">{{Subject['name']}}</span>
+                            </div>
+                        </a>
+                        <br>
+                    {% endfor %}
+                </div>
+            {% endif %}
+              {% if Results['files']|length > 0 %}
+                <div>
+                    <span class="groupTitle">Fájlok</span>
+                    {% for File in Results['files'] %}
+                        <a href="">
+                            <div class="result">
+                                <span class="name">{{File['name']}}</span>
+                            </div>
+                        </a>
+                        <br>
+                    {% endfor %}
+                </div>
+            {% endif %}
+    {% else %}
+        nincs találat
+    {% endif %}
 {% else %}
     van hiba : {{err}}
 {% endif %}
