@@ -31,7 +31,7 @@ class FileRepository extends EntityRepository{
         
         return $Files;
     }
-    public function getFilesToPageBySubjectQUERY($Subject, $user){
+    public function getFilesToPageBySubjectQUERY($Subject, $user, $filters = array()){
         $Files = $this->createQueryBuilder('file')
                 ->select('file, user, userSettings')
                 ->where('subjectFile.subject = :subject')
@@ -39,10 +39,26 @@ class FileRepository extends EntityRepository{
                 ->leftJoin('file.user', 'user')
                 ->leftJoin('user.userSettings', 'userSettings')
                 ->setParameter('subject', $Subject)
-                ->orderBy('file.uploadedTime', 'DESC')
-                ->getQuery();
+                ->orderBy('file.uploadedTime', 'DESC');
         
-        return $Files;
+       if(isset($filters['sortBy'])&& false){
+           switch($filters['sortBy']){
+               case 'showNew':
+                  // $Files = $Files->orderBy('file.uploadedTime', 'DESC');
+                   break;
+               case 'showOld':
+                    //$Files = $Files->orderBy('file.uploadedTime', 'ASC');
+                   break;
+               case '':
+                   
+                   break;
+               case '':
+                   
+                   break;
+           }
+       }
+        
+        return $Files->getQuery();
     }
     
     public function getFilesCountByUser($User){

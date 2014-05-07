@@ -12,15 +12,19 @@ class DefaultController extends Controller
     public function indexAction($subject = NULL)
     {
         $page = $this->get('request')->query->get('page') ? $this->get('request')->query->get('page') : 1;
+       $sortBy = $this->get('request')->query->get('sortBy') ? $this->get('request')->query->get('sortBy') : null;
+       
         if($this->get('request')->getMethod() === 'POST'){
             $page = $this->get('request')->request->get('page');
-            return $this->getSubjectAction($subject, $page);
+            $sortBy = $this->get('request')->request->get('sortBy');
+            return $this->getSubjectAction($subject, $page, $sortBy);
         }
         
         return $this->render('FrontendSubjectBundle:Default:index.html.twig',
                 array(
                     'subject'=>$subject,
-                    'page' => $page
+                    'page' => $page,
+                    'sortBy' => $sortBy
                     ));
     }
     
@@ -40,7 +44,7 @@ class DefaultController extends Controller
         }
     }
     
-    public function getSubjectAction($subject = null, $page = null){
+    public function getSubjectAction($subject = null, $page = null, $sortBy = null){
         try{
             $Subject = null;
             $Files = null;
@@ -49,9 +53,13 @@ class DefaultController extends Controller
                 $Subject = $this->getDoctrine()->getRepository('FrontendSubjectBundle:Subject')
                             ->getOneSubjectBySlug($subject);
                 
-                $FilesQuery = $this->getDoctrine()->getRepository('FrontendSubjectBundle:File')
-                            ->getFilesToPageBySubjectQUERY($Subject, $User);
+                $filters = array();
+                if($sortBy !== NULL){
+                    $filters['sortBy'] = $sortBy;
+                }
                 
+                $FilesQuery = $this->getDoctrine()->getRepository('FrontendSubjectBundle:File')
+                            ->getFilesToPageBySubjectQUERY($Subject, $User, $filters);
                 
                 $paginator  = $this->get('knp_paginator');
                 $Files = $paginator->paginate($FilesQuery,$page,10);

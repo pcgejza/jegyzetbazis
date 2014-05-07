@@ -7,3 +7,6 @@ services:
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: frontend_user_registration }
+    logger:
+        class:        Frontend\LayoutBundle\Controller\Logger
+        arguments:    ["@doctrine.orm.entity_manager"]

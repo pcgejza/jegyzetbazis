@@ -4,6 +4,7 @@ namespace Frontend\LayoutBundle\Controller;
 use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use \Symfony\Component\Security\Core\Exception;
+use Frontend\LayoutBundle\Controller\Logger;
 
 class SearchController extends Controller{
     
@@ -11,13 +12,21 @@ class SearchController extends Controller{
         try{
             $text = $this->get('request')->request->get('text');
             
+            $sessionID = $this->get('request')->getSession()->get('sessionID');
+            
             $doctrine = $this->getDoctrine();
             $queryBuilder = $doctrine->getEntityManager()->createQueryBuilder();
             
             $User = $this->get('security.context')->getToken()->getUser();
             $User = is_object($User) ? $User : NULL;
            
-            
+            //LOG : FIXME: nem tudom elérni az entity managert!!
+            $Logger = new Logger($this->getDoctrine()->getEntityManager());
+            $Logger ->setUser($User)
+                    ->setSessionID($sessionID)
+                    ->setType('search')
+                    ->setValue($text)
+                    ->exec();
             
             // EMBEREK
             $UserSettings = $doctrine->getRepository('FrontendLayoutBundle:UserSettings')

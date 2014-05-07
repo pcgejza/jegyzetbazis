@@ -46,6 +46,11 @@ class User extends BaseUser
     protected $userVisits;
     
     /**
+     * @ORM\OneToMany(targetEntity="\Frontend\LayoutBundle\Entity\Log", mappedBy="user")
+     */
+    protected $userLogs;
+    
+    /**
      * @ORM\OneToMany(targetEntity="\Frontend\SubjectBundle\Entity\File", mappedBy="user")
      */
     protected $files;
@@ -335,5 +340,38 @@ class User extends BaseUser
     public function getAvatar()
     {
         return $this->avatar;
+    }
+
+    /**
+     * Add userLogs
+     *
+     * @param \Frontend\LayoutBundle\Entity\Log $userLogs
+     * @return User
+     */
+    public function addUserLog(\Frontend\LayoutBundle\Entity\Log $userLogs)
+    {
+        $this->userLogs[] = $userLogs;
+
+        return $this;
+    }
+
+    /**
+     * Remove userLogs
+     *
+     * @param \Frontend\LayoutBundle\Entity\Log $userLogs
+     */
+    public function removeUserLog(\Frontend\LayoutBundle\Entity\Log $userLogs)
+    {
+        $this->userLogs->removeElement($userLogs);
+    }
+
+    /**
+     * Get userLogs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUserLogs()
+    {
+        return $this->userLogs;
     }
 }

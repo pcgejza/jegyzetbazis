@@ -7,7 +7,12 @@
             {{ knp_pagination_render(Files) }}
         </div>
         <div class="rightHolder">
-            jobboldal
+            <select class="sortBy">
+                <option value="showNew">Mutasd az újakat</option>
+                <option value="showOld">Mutasd a régieket</option>
+                <option value="showNameAsc">Rendezd név szerint(növekvő)</option>
+                <option value="showNameDesc">Rendezd név szerint(csökkenő)</option>
+            </select>
         </div>
     </div>
     

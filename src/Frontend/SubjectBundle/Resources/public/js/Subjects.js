@@ -7,6 +7,7 @@ Subjects = {
     init: function(){
         this.rightHolder = $('.page .contentHolder .rightHolder:eq(0)');
         this.bindUIActions();
+        SubjectFilters.bindUIActions();
     },
     
     bindUIActions: function(){
@@ -33,7 +34,7 @@ Subjects = {
       });
     },
     
-    getPage: function(url, page, name){
+    getPage: function(url, page, name, sortBy){
           if(this.PROGRESS) return;
           
           Subjects.rightHolder.addClass('loading');
@@ -41,7 +42,8 @@ Subjects = {
           
           this.PROGRESS = true;
           $.post(url,{
-            page : page
+            page : page,
+            sortBy : typeof(sortBy) === 'undefined' ? null : sortBy
           }).done(function(html){
              Subjects.rightHolder.removeClass('loading');
              Subjects.rightHolder.find('.loadingImage').remove();
@@ -51,6 +53,7 @@ Subjects = {
              Subjects.setActualSubjectName(name);
              Subjects.addQtips();
              Subjects.bindSubjectActions();
+             SubjectFilters.bindUIActions();
           });
     },
     
@@ -116,4 +119,39 @@ Subjects = {
         }
     },
     
+}
+
+function updateQueryStringParameter(uri, key, value) {
+  var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+  var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+  if (uri.match(re)) {
+    return uri.replace(re, '$1' + key + "=" + value + '$2');
+  }
+  else {
+    return uri + separator + key + "=" + value;
+  }
+}
+
+function getURLParameter(name) {
+    return decodeURI(
+        (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+    );
+}
+
+SubjectFilters = {
+    bindUIActions: function(){
+        $('.uploads .sortBy')
+                .unbind('change')
+                .bind('change', function(e){
+                    if(getURLParameter('page') != null){
+                         window.history.pushState(null, null, updateQueryStringParameter(window.location.pathname, 'sortBy', $(this).val())+'&page='+getURLParameter('page'));
+                    }else{
+                        window.history.pushState(null, null, updateQueryStringParameter(window.location.pathname, 'sortBy', $(this).val()));
+                    }
+                    var page = getURLParameter('page')==null ? 1 : getURLParameter('page');
+                    var u = $('.subjects li.selected a').attr('href');
+                    var name = $('.subjects li.selected a').html();
+                    Subjects.getPage(u,name, page, $(this).val());
+                });
+    },
 }

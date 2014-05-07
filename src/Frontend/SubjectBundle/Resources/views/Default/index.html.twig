@@ -36,6 +36,6 @@
     {% block contentHolder %}
         {{render(controller('FrontendSubjectBundle:Default:getAllSubjects', {'subject' : subject}))}}
         <div class='rightHolder'>
-        {{render(controller('FrontendSubjectBundle:Default:getSubject', {'subject' : subject, 'page' : page}))}}
+        {{render(controller('FrontendSubjectBundle:Default:getSubject', {'subject' : subject, 'page' : page, 'sortBy' : sortBy}))}}
         </div>
     {% endblock %}
