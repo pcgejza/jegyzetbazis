@@ -86,11 +86,11 @@ div.singleSubject .err
     height: auto;
     padding: 10px;
     border-radius: 0 0 6px 6px;
-    border-top: 5px solid #89d;
+    border-top: 5px solid #000;
 }
 
 div.singleSubjectTabs ul li.active a{ 
-    background-color: #89d;
+    background-color: #000;
 }
 
 .subjects .actualsubject{
@@ -106,7 +106,7 @@ div.singleSubjectTabs ul li.active a{
 
 .subjects .actualsubject .actualSubjectName{
     font-size: 26px;
-    color: #fff;
+    color: #000;
     font-weight: bold;
 }
 

@@ -33,9 +33,9 @@ form.default-form .buttons input,
 form.default-form .buttons button
 {
    border: none;
-   background-color: #ff2427;
+   background-color: #fff;
    font-size: 20px;
-   color: #fff;
+   color: #000;
    font-weight: bold;
    height: 30px;
    border-radius: 5px;
@@ -44,7 +44,8 @@ form.default-form .buttons button
 form.default-form .buttons input:hover,
 form.default-form .buttons button:hover
 {
-    background-color: #ff6600;
+    background-color: #000;
+    color: #f60;
     cursor: pointer;
 }
 
@@ -119,4 +120,14 @@ form.default-form.loading input:not([type='submit']){
 
 form.default-form.loading *{
     cursor: progress !important;
+}
+
+form.default-form .centerHolder{
+    padding-left: 33%;
+}
+
+form.default-form .centerHolder .buttons{
+    margin-top: 10px;
+    width: 100%;
+    padding-left: 11%;
 }

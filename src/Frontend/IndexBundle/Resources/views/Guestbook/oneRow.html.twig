@@ -1,4 +1,19 @@
-<div class="guest-book-row">
+<div class="comment">
+    <div class="image">
+        {% if name.userSettings is not null and name.userSettings.getAvatar() is not null %}
+            <img src="{{image(name.userSettings.getAvatar().getWebPath()).zoomCrop(100,100).jpeg}}" alt="avatar">
+        {% else %}
+            <img src="{{asset('images/default_profile_image_female.png')}}" alt="avatar">
+        {% endif %}
+    </div>
+    <div class="bubbleHolder">
+        <div class="bubble">
+           {{text}} 
+        </div>
+    </div>
+    
+    
+    {#
     <span class="name">
         {% if name.userSettings is not null %}
             {{name.userSettings.name}}
@@ -12,4 +27,5 @@
     <span class="text">
         {{text}}
     </span>
+    #}
 </div>

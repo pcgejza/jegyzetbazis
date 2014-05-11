@@ -56,8 +56,9 @@
     {% endblock %}
     </head>
     <body class="{% block bodyClass %}{% endblock %}">
+        <div id="bodyBg"></div>
     {% block body %}
-        <div class="page">
+        <div class="page {% block pageClass %}no-background{% endblock %}">
             <div class="visitorsCount">
                 {% render controller('FrontendLayoutBundle:Default:visit') %}
             </div>
@@ -72,7 +73,7 @@
             </div>
             <div class="bottomHolder">
                 {% block bottomHolder %}
-
+                    {% include 'FrontendLayoutBundle:Default:bottom.html.twig' %}
                 {% endblock %}
             </div>
         </div>

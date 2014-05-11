@@ -65,21 +65,21 @@
 
 
 .headerHolder .rightHolder button{
-    margin-top: 7px;
     padding:4px;
-    width: 100px;
+    width: 120px;
     text-align: center;
+    margin-top: 3px;
     border-radius: 7px;
     border: none;
     background-color: #fff;
     font-weight: bold;
-    
+    height: 80%;
 }
 
 .headerHolder .rightHolder button:hover{
     cursor: pointer;
     color:  #ff6600;
-    background-color: #fff;
+    background-color: #000;
 }
 
 .headerHolder .rightHolder button.active{
@@ -167,4 +167,15 @@ body.subjects  .headerHolder .menu .subjects{
 
 body.guestbook  .headerHolder .menu .visitors{
     background-color: #fff;
+}
+
+.leftHolder .headerLogo{
+    position: absolute;
+    left: 8%;
+    width: 180px;
+    height: 40px;
+    background-image: url('/symfony/web/images/jegyzetbazis_logo_kicsi.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: 50% 4%;
 }

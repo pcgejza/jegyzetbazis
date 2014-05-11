@@ -33,6 +33,7 @@
 
 {% block bodyClass %}subjects{% endblock %}
 
+    {% block pageClass %}no-background{% endblock %}
     {% block contentHolder %}
         {{render(controller('FrontendSubjectBundle:Default:getAllSubjects', {'subject' : subject}))}}
         <div class='rightHolder'>
