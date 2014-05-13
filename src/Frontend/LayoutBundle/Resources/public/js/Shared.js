@@ -28,33 +28,30 @@ Shared = {
     
     bindVisitActions: function(){
         
-        this.hideVisitorsCount();
         var timer = $.timer(function() {
             Shared.refreshVisit();
         });
         timer.set({ time : 1000*30, autostart : true });
         
         $('.visitorsCount').hover(function(){
-           Shared.showVisitorsCount();
+           Shared.moveRightTab($(this), 70);
         }, function(){
-            Shared.hideVisitorsCount();
+            Shared.moveRightTab($(this), 110);
+        });
+        
+        $('.downloadsCount').hover(function(){
+           Shared.moveRightTab($(this), 70);
+        }, function(){
+            Shared.moveRightTab($(this), 210);
         });
     },
     
-    hideVisitorsCount: function(){
-        var vDiv = $('.visitorsCount');
+    moveRightTab: function(vDiv, px){
         var $rigthPos = vDiv.css('right');
+        console.log(px);
         vDiv.animate({
-            'right' : -110
-        }, 100);
-    },
-    
-    showVisitorsCount: function(){
-        var vDiv = $('.visitorsCount');
-        var $rigthPos = vDiv.css('right');
-        vDiv.animate({
-            'right' : -70
-        }, 100);
+            'right' : - (px)
+        }, 200);
     },
     
     refreshVisit: function(){

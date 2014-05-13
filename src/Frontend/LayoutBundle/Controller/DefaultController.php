@@ -53,4 +53,14 @@ class DefaultController extends Controller
         
         return new \Symfony\Component\HttpFoundation\Response($count);
     }
+    
+    public function getAllDownloadsCountAction(){
+       $count = $this->getDoctrine()->getRepository('FrontendSubjectBundle:File')
+               ->createQueryBuilder('file')
+               ->select('SUM(file.downloadCount)')
+               ->where('file.status = 1')
+               ->getQuery()
+               ->getSingleScalarResult();
+       return new \Symfony\Component\HttpFoundation\Response($count);
+    }
 }

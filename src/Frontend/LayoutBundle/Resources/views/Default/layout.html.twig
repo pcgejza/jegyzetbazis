@@ -63,6 +63,9 @@
             <div class="visitorsCount">
                 {% render controller('FrontendLayoutBundle:Default:visit') %}
             </div>
+            <div class="downloadsCount">
+                <small>Letöltések :</small> {% render controller('FrontendLayoutBundle:Default:getAllDownloadsCount') %}
+            </div>
             <div class="headerHolder">
                 {% block headerHolder %}
                     {% render controller('FrontendLayoutBundle:Header:getHeader') %}
@@ -72,6 +75,7 @@
                 {% block rightHolder %}
                     <div class="rightFlashInfos">
                         {% render(controller('FrontendLayoutBundle:Top:getTopFiles')) %}
+                        {% render(controller('FrontendLayoutBundle:Top:getTopUsers')) %}
                     </div>
                 {% endblock %}
                 {% block contentHolder %}

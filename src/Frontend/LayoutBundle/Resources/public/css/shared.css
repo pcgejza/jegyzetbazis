@@ -163,6 +163,34 @@ h2{
     cursor: default;
 }
 
+.downloadsCount{
+    z-index: 100;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: #f60;
+    width: 250px;
+    height: 50px;
+    position: fixed;
+    top: 40%;
+    right: -210px;
+    background-image: url('/symfony/web/images/download_icon2.png');
+    background-repeat: no-repeat;
+    background-size: 13%;
+    background-position: 3% 50%; 
+    font-size: 20pt;
+    color: white;
+    padding-left: 40px;
+    padding-top: 13px;
+    cursor: default;
+}
+
+.downloadsCount small{
+    margin-left: 5px;
+    font-size: 11pt;
+}
+
+
+
 .page .big-logo{
     display: block;
     width: 100%;
@@ -239,9 +267,12 @@ h2{
     background-color: #fff;
     border-radius: 5px;
     width: 100%;
+    margin-bottom: 6px;
 }
 
 .rightFlashInfos .miniBox .miniBoxTitle{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     background-color: #f60;
     font-size: 13pt;
     color: #fff;
@@ -253,12 +284,10 @@ h2{
  padding: 5px;   
 }
 
-
 .rightFlashInfos .miniBox .miniBoxContent table{
     width: 100%;   
     border: none;
 }
-
 
 .rightFlashInfos .miniBox .miniBoxContent table td{
     font-size: 10pt;   
