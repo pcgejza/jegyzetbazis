@@ -25,4 +25,8 @@ upload_one_file_ajax:
 update_files_subjects:
     pattern:  /tantargyak/ajax/file-feltoltes/tantargyak-modositasa/
     defaults: { _controller: FrontendSubjectBundle:Upload:updateSubjects }
+
+download_file_url:
+    pattern:  /tantargyak/ajax/file-letoltes
+    defaults: { _controller: FrontendSubjectBundle:Default:downloadFile }
     

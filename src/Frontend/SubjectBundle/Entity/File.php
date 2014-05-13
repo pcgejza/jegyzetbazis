@@ -282,6 +282,10 @@ class File
             ? null
             : $this->getUploadDir().'/'.$this->path;
     }
+    
+    public function getDownloadPath(){
+        return '/symfony/web/'.$this->getWebPath();
+    }
 
     public function getWebPath2()
     {
@@ -388,5 +392,10 @@ class File
     public function getUser()
     {
         return $this->user;
+    }
+    
+    public function incDownloadCount(){
+        $this->downloadCount++;
+        return $this;
     }
 }

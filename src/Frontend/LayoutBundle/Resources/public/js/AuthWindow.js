@@ -307,7 +307,7 @@ AuthWindow = {
                         InfoPopUp.showInfoPopup({
                             topText : 'Sikeres bejelentkezés',
                             text: 'Sikeresen bejelentkeztél az oldalra!',
-                            closeTime : 4000
+                            closeTime : 2
                         });
                         if(typeof(UploadWindow) != 'undefined'){
                             UploadWindow.addUploadFilesButton();

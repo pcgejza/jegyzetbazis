@@ -9,8 +9,7 @@ use Symfony\Component\Security\Acl\Exception\Exception;
 
 class DefaultController extends Controller
 {
-    public function indexAction($subject = NULL)
-    {
+    public function indexAction($subject = NULL){
         $page = $this->get('request')->query->get('page') ? $this->get('request')->query->get('page') : 1;
        $sortBy = $this->get('request')->query->get('sortBy') ? $this->get('request')->query->get('sortBy') : null;
        
@@ -76,6 +75,32 @@ class DefaultController extends Controller
         } catch (Exception $ex) {
             return $this->render('FrontendSubjectBundle:Subject:single.html.twig',
                     array('err' => $ex->getMessage()));
+        }
+    }
+    
+    public function downloadFileAction(){
+        try{
+            $fileId = $this->get('request')->request->get('fileId');
+            
+            if($fileId === NULL || strlen($fileId) < 1)
+                throw new Exception('Hiba a fájl letöltés számlálónál');
+            
+            $File = $this->getDoctrine()->getRepository('FrontendSubjectBundle:File')
+                        ->findOneById($fileId);
+            
+            if($File == NULL){
+                throw new Exception('Nincs ilyen azonosítóju fájl!');
+            }
+            
+            $File->incDownloadCount();
+            
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->persist($File);
+            $em->flush();
+            
+            return new JsonResponse(array());
+        } catch (Exception $ex) {
+            return new JsonResponse(array('err' => $ex->getMessage()));
         }
     }
 }

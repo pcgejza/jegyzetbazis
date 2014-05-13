@@ -21,9 +21,9 @@ InfoPopUp = {
     
     showInfoPopup: function(obj){
         var type = (typeof(obj) == 'undefined' || typeof(obj.type) == 'undefined') ? 'info' : obj.type;
-        var topText = (typeof(obj) == 'undefined' || typeof(obj.topText) == 'undefined') ? 'Címsor' : obj.topText;
+        var topText = (typeof(obj) == 'undefined' || typeof(obj.topText) == 'undefined') ? '' : obj.topText;
         var text = (typeof(obj) == 'undefined' || typeof(obj.text) == 'undefined') ? '' : obj.text;
-        var closeTime = (typeof(obj) == 'undefined' || typeof(obj.closeTime) == 'undefined') ? false : obj.closeTime;
+        var closeTime = (typeof(obj) == 'undefined' || typeof(obj.closeTime) == 'undefined') ? false : obj.closeTime*1000;
         
         this.popupElement.find('.topHolder').html(topText);
         this.popupElement.find('.right').html(text);
@@ -34,7 +34,7 @@ InfoPopUp = {
         
         if(closeTime !== false){
             var timer = $.timer(function() {
-                //InfoPopUp.hideInfoPopUp();
+                InfoPopUp.hideInfoPopUp();
                 timer.stop();
             });
             timer.set({ time : closeTime, autostart : true });
