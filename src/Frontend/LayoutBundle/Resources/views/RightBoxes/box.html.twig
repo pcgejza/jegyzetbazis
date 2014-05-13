@@ -1,0 +1,15 @@
+<div class="miniBox">
+    <div class="miniBoxTitle">{{title}}</div>
+    <div class="miniBoxContent">
+        <table>
+            {% for Element in Elements %}
+            <tr>
+                <td title="{{Element['originalName']}}">
+                    <a href="{{Element['path']}}">{{Element['name']}}</a>
+                </td>
+                <th>{{Element['value']}}</th>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>

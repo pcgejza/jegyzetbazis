@@ -224,3 +224,42 @@ h2{
     width: 30px;
     height: 30px;
 }
+
+/*
+    A jobb oldali dobozokhoz
+*/
+.rightFlashInfos{
+    position: relative;
+    top: 50px;;
+    float: right;
+    width: 15%;
+}
+
+.rightFlashInfos .miniBox{
+    background-color: #fff;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.rightFlashInfos .miniBox .miniBoxTitle{
+    background-color: #f60;
+    font-size: 13pt;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+}
+
+.rightFlashInfos .miniBox .miniBoxContent{
+ padding: 5px;   
+}
+
+
+.rightFlashInfos .miniBox .miniBoxContent table{
+    width: 100%;   
+    border: none;
+}
+
+
+.rightFlashInfos .miniBox .miniBoxContent table td{
+    font-size: 10pt;   
+}

@@ -69,6 +69,11 @@
                 {% endblock %}
             </div>
             <div class="contentHolder">
+                {% block rightHolder %}
+                    <div class="rightFlashInfos">
+                        {% render(controller('FrontendLayoutBundle:Top:getTopFiles')) %}
+                    </div>
+                {% endblock %}
                 {% block contentHolder %}
                 {% endblock %}
             </div>
