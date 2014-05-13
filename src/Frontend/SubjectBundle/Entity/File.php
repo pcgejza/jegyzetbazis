@@ -73,11 +73,25 @@ class File
      */
     private $status = '1';
 
-
     /**
      * @ORM\OneToMany(targetEntity="\Frontend\SubjectBundle\Entity\SubjectFile", mappedBy="file")
      */
     protected $subjectFile;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Subject", inversedBy="files")
+     * @ORM\JoinTable(name="subject_file",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="file_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="subject_id", referencedColumnName="id")
+     *   }
+     * )
+     */
+    protected $subjects;
 
     /**
      * Constructor
@@ -397,5 +411,38 @@ class File
     public function incDownloadCount(){
         $this->downloadCount++;
         return $this;
+    }
+
+    /**
+     * Add subjects
+     *
+     * @param \Frontend\SubjectBundle\Entity\Subject $subjects
+     * @return File
+     */
+    public function addSubject(\Frontend\SubjectBundle\Entity\Subject $subjects)
+    {
+        $this->subjects[] = $subjects;
+
+        return $this;
+    }
+
+    /**
+     * Remove subjects
+     *
+     * @param \Frontend\SubjectBundle\Entity\Subject $subjects
+     */
+    public function removeSubject(\Frontend\SubjectBundle\Entity\Subject $subjects)
+    {
+        $this->subjects->removeElement($subjects);
+    }
+
+    /**
+     * Get subjects
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSubjects()
+    {
+        return $this->subjects;
     }
 }

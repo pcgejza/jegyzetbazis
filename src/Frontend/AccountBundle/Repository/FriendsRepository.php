@@ -35,4 +35,14 @@ class FriendsRepository extends EntityRepository{
                 ->getOneOrNullResult();
     }
     
+    public function isFriends($UserA, $UserB){
+       $f = $this->getFriendsStatus($UserA, $UserB);
+       
+       if($f == NULL) return false;
+       
+       if($f->getStatus() != 'active') return false;
+       else return true;
+       
+    }
+    
 }

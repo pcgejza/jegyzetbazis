@@ -26,7 +26,11 @@ update_files_subjects:
     pattern:  /tantargyak/ajax/file-feltoltes/tantargyak-modositasa/
     defaults: { _controller: FrontendSubjectBundle:Upload:updateSubjects }
 
-download_file_url:
-    pattern:  /tantargyak/ajax/file-letoltes
-    defaults: { _controller: FrontendSubjectBundle:Default:downloadFile }
+file_single:
+    pattern:  /feltoltott-fajlok/{fileid}
+    defaults: { _controller: FrontendSubjectBundle:Default:singleFile }
+
+file_download:
+    pattern:  /feltoltott-fajlok/{fileid}/letoltes
+    defaults: { _controller: FrontendSubjectBundle:Default:fileDownload }
     

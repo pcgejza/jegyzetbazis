@@ -1,0 +1,87 @@
+{% extends "FrontendLayoutBundle:Default:layout.html.twig" %}
+{% block title %}Fájlok - file{% endblock %}
+{% block stylesheets %}
+{{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+    
+{% block body %}
+{{parent()}}
+{% endblock %}
+
+{% block bodyClass %}subjects{% endblock %}
+    {% block pageClass %}no-background{% endblock %}
+    {% block contentHolder %}
+        <div class="whiteContent">
+            {% if File is null %}
+                Hiba: nincs ilyen azonosítóju fájl a rendszerben!
+            {% else %}
+                {% set userSettings = File.getUser().getUserSettings() %}
+                {% set lathatja = true %}
+                {% if userSettings.getMyUploadsVisit() is not null and userSettings.getMyUploadsVisit() != 'all' %}
+                    {% if userSettings.getMyUploadsVisit() == 'only_users' and MyUser is null %}
+                        {% set lathatja = false %}
+                        A felhasználó biztonsági beállításai alapján ezeket az információkat csak bejelentkezett felhasználók láthatják
+                    {% elseif userSettings.getMyUploadsVisit() == 'only_friends' and not isFriends %}
+                        {% set lathatja = false %}
+                         A felhasználó biztonsági beállításai alapján ezeket az információkat csak a barátai láthatják<br>
+                         <a href="{{path('profile_show', {'id': File.getUser().getId()})}}">Ugrás a felhasználó adatlapjára</a>
+                   {% endif %}
+                {% endif %}   
+                {% if lathatja %}    
+                    <h3>Információk a '{{File.getName()}}' nevű fájlról</h3>
+                    <table border='1'>
+                        <tr>
+                            <td>Letöltések száma</td>
+                            <th>{{File.getDownloadCount}} darab</th>
+                        </tr>  
+                        
+                        <tr>
+                            <td>Társítot tantárgyak</td>
+                            <th>
+                                {% set subCts = '-' %}
+                                {% if File.subjects is not null %}
+                                   {% set subCts = '' %}
+                                   {% for Subject in File.subjects %}
+                                      {% set l = '<a href="' ~ path('subjects_homepage_as_one_subject', {'subject' : Subject.getSlug()}) ~ '">' ~ Subject.getName() ~'</a>' %}
+                                      {% set subCts = subCts ~ ' ' ~ l ~ ',' %}
+                                   {% endfor %}
+                                   {% set subCts = subCts | slice(0, (subCts | length )- 1) %}
+                                {% endif %}
+                                {{subCts|raw}}
+                            </th>
+                        </tr>  
+                        
+                        <tr>
+                            <td>Feltöltő</td>
+                            <th>
+                                {% if File.getUser() != MyUser %}
+                                    {% if (userSettings.getMyProfileVisit() is null or userSettings.getMyProfileVisit() == 'all') 
+                                        or (userSettings.getMyProfileVisit() == 'only_users' and MyUser is not null)
+                                        or (userSettings.getMyProfileVisit() == 'only_friends' and isFriends)
+                                    %}
+                                        <a href="{{path('profile_show', {'id': File.getUser().getId()})}}">{{userSettings.getName()}}</a>
+                                    {% else %}
+                                        Névtelen
+                                    {% endif %}
+                                {% else %}
+                                    <a href="{{path('settings_homepage')}}">Én</a>
+                                {% endif %}
+                            </th>
+                        </tr>  
+                        <tr>
+                            <td>Letöltési elérési útja</td>
+                            <th><textarea style="width: 300px; resize: none; cursor: text; height:50px" readonly>{{path('file_download', {fileid : File.getId()})}}</textarea></th>
+                        </tr>
+                        <tr>
+                            <td>Letöltés</td>
+                            <th><a href="{{path('file_download', {fileid : File.getId()})}}" class="download-icon"></a></th>
+                        </tr>
+                    </table>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endblock %}

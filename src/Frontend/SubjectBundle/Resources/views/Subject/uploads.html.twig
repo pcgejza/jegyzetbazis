@@ -23,7 +23,7 @@
                 <th>Fájl</th>
                 <th>Feltöltés dátuma</th>
                 <th>Feltöltő</th>
-                <th>Letöltés</th>
+                <th></th>
             </tr>
         {% for file in Files %}
             <tr>
@@ -32,12 +32,12 @@
                 </td>
                 <td> 
                         <img src="{{image(getImageByPath(file.getWebPath()))}}" alt="{{file.getName()}}" width="140" height="140">
-                   
                 </td>
                 <td>{{file.getUploadedTime() | date('Y-m-d H:i:s')}}</td>
                 <td><a href="{{path('profile_show', {id : file.user.id})}}">{% if file.user.userSettings is not null %}{{file.user.userSettings.getName()}}{% else %}{{file.user.userSettings.name}}{% endif %}</a></td>
                 <td>
-                    <a fileid="{{file.getId()}}" href="{{asset(file.getWebPath())}}" download="{{file.getName()}}" class="download"></a>
+                    <a fileid="{{file.getId()}}" href="{{path('file_download', {'fileid' : file.getId})}}" download="{{file.getName()}}" class="download download-icon"></a>
+                    <a href="{{path('file_single', {'fileid' : file.getId()})}}" class="file-details"></a>
                 </td>
             </tr>
         {% endfor %}

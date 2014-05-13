@@ -15,7 +15,6 @@ Subjects = {
         this.bindSubjectsMenuActions();
         this.addQtips();
         this.bindSubjectActions();
-        this.bindFileDownloadActions();
     },
     
     bindSubjectsMenuActions: function(){
@@ -56,7 +55,6 @@ Subjects = {
              Subjects.addQtips();
              Subjects.bindSubjectActions();
              SubjectFilters.bindUIActions();
-             Subjects.bindFileDownloadActions();
           });
     },
     
@@ -136,36 +134,6 @@ Subjects = {
         window.history.pushState(null, null, URL);
     },
     
-    /*
-     * a fájl letöltés számlálóhoz
-     */
-    bindFileDownloadActions: function(){
-        $('.subject-files TR A.download')
-                .unbind('click')
-                .bind('click', function(e){
-                    var fileId = $(this).attr('fileId');
-                    $.post(Shared.downloadFileURL,{
-                        'fileId' : fileId
-                    }).done(function(d){
-                        if(d.err){
-                            InfoPopUp.showInfoPopup({
-                                type : 'error',
-                                topText : 'Sikertelen fájl letöltés számlálás!',
-                                text : 'Hiba forrása: '+d.err
-                            });
-                        }else{
-                            return;
-                            InfoPopUp.showInfoPopup({
-                                type : 'info',
-                                topText : 'Sikeres fájl letöltés számlálás!',
-                                text : 'Köszönjük hogy letöltésével hozzájárult az oldal fejlődéséhez',
-                                closeTime: 1
-                            });
-                        }
-                    })
-                });
-        
-    }
     
 }
 

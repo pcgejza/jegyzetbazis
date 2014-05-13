@@ -267,7 +267,11 @@ body.subjects .uploads .uploadsHeader{
 }
 
 .subject-files tr a.download{
-    background-image: url('/symfony/web/images/download_icon1.png');
+    margin-bottom: 4px;
+}
+
+.subject-files tr a.file-details{
+    background-image: url('/symfony/web/images/details1.png');
     background-repeat: no-repeat;
     background-position: 50% 50%;
     background-size: 120%;

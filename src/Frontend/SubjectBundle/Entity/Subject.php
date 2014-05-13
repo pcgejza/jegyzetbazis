@@ -82,6 +82,23 @@ class Subject
      */
     protected $subjectFile;
 
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="File", mappedBy="subjects")
+     */
+    protected $files;
+
+ 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->subjectFile = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->files = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -114,6 +131,29 @@ class Subject
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Subject
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**
@@ -255,36 +295,6 @@ class Subject
     }
 
     /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return Subject
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string 
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->subjectFile = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
      * Add subjectFile
      *
      * @param \Frontend\SubjectBundle\Entity\SubjectFile $subjectFile
@@ -315,5 +325,38 @@ class Subject
     public function getSubjectFile()
     {
         return $this->subjectFile;
+    }
+
+    /**
+     * Add files
+     *
+     * @param \Frontend\SubjectBundle\Entity\File $files
+     * @return Subject
+     */
+    public function addFile(\Frontend\SubjectBundle\Entity\File $files)
+    {
+        $this->files[] = $files;
+
+        return $this;
+    }
+
+    /**
+     * Remove files
+     *
+     * @param \Frontend\SubjectBundle\Entity\File $files
+     */
+    public function removeFile(\Frontend\SubjectBundle\Entity\File $files)
+    {
+        $this->files->removeElement($files);
+    }
+
+    /**
+     * Get files
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFiles()
+    {
+        return $this->files;
     }
 }

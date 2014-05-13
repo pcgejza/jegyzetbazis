@@ -4,6 +4,8 @@ namespace Frontend\SubjectBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use \Symfony\Component\HttpFoundation\Response;
+
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Acl\Exception\Exception;
 
@@ -78,29 +80,60 @@ class DefaultController extends Controller
         }
     }
     
-    public function downloadFileAction(){
-        try{
-            $fileId = $this->get('request')->request->get('fileId');
-            
-            if($fileId === NULL || strlen($fileId) < 1)
-                throw new Exception('Hiba a fájl letöltés számlálónál');
-            
-            $File = $this->getDoctrine()->getRepository('FrontendSubjectBundle:File')
-                        ->findOneById($fileId);
-            
-            if($File == NULL){
-                throw new Exception('Nincs ilyen azonosítóju fájl!');
-            }
-            
-            $File->incDownloadCount();
-            
-            $em = $this->getDoctrine()->getEntityManager();
-            $em->persist($File);
-            $em->flush();
-            
-            return new JsonResponse(array());
-        } catch (Exception $ex) {
-            return new JsonResponse(array('err' => $ex->getMessage()));
+    
+    /*
+     * Fájl letöltése ( számlálódik! )
+     */
+    public function fileDownloadAction($fileid){
+        $User = $this->get('security.context')->getToken()->getUser();
+
+        $File = $this->getDoctrine()->getRepository('FrontendSubjectBundle:File')
+                ->findOneById($fileid);
+
+        if(!is_object($File)){
+            throw new \ErrorException('Nincs ilyen fájl!');
         }
+            
+         $filename = $File->getPath();
+         $path = $File->getWebPath();
+            
+        $content = file_get_contents($path);
+
+        $response = new Response();
+
+        $response->headers->set('Content-Type', 'text/csv');
+        $response->headers->set('Content-Disposition', 'attachment; filename="'.$filename);
+
+        $response->setContent($content);
+        
+        $File->incDownloadCount();
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->persist($File);
+        $em->flush();
+        return $response;
+    }
+    
+    
+    public function singleFileAction($fileid){
+        
+        $User = $this->get('security.context')->getToken()->getUser();
+        
+        $User = is_object($User) ? $User : null;
+        
+        $File = $this->getDoctrine()->getRepository('FrontendSubjectBundle:File')
+                    ->getFileById($fileid, $User);
+        
+        $isFriends = false;
+        
+        if(is_object($File) && $User != NULL)
+            $isFriends = $this->getDoctrine()->getRepository('FrontendAccountBundle:Friends')
+                    ->isFriends($User, $File->getUser());
+        
+        return $this->render('FrontendSubjectBundle:Default:SingleFile.html.twig',array(
+            'File' => $File,
+            'isFriends' => $isFriends,
+            'MyUser'=>$User
+        ));
     }
 }
