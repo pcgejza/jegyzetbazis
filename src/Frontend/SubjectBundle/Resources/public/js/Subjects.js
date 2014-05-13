@@ -25,11 +25,12 @@ Subjects = {
       oneSubject.bind('click',function(e){
           e.preventDefault();
           var u = $(this).attr('href');
-          window.history.pushState(null, null, u);
           var name = $(this).html();
           $(this).parents('li').siblings('li.selected').qtip('destroy');
           $(this).parents('li').siblings('li.selected').removeClass('selected');
           $(this).parents('li').addClass('selected');
+          
+          Subjects.updateUrl(true);
           Subjects.getPage(u, 1, name);
       });
     },
@@ -102,9 +103,13 @@ Subjects = {
             var u = $(this).find('a').attr('href');
             var page = u.substr(u.length-1);
             var url = $('.subjects .subjectsContent li.selected a').attr('href');
+            
+            $('.paginator .pagination span').removeClass('current');
+            $(this).addClass('current');
+            
             if(url.length > 1){
                 var name = $('.subjects .subjectsContent li.selected a').html();
-                window.history.pushState(null, null, u);
+                Subjects.updateUrl();
                 Subjects.getPage(url, page, name);
             }
         });
@@ -117,6 +122,16 @@ Subjects = {
             var page = $('.uploads .paginator .pagination .current').html();
             Subjects.getPage(u, page, name);
         }
+    },
+    
+    updateUrl: function(newPage){
+        var URL = $('.subjectsContent li.selected a').attr('href');
+        if(newPage!==true){
+           var page = ($('.paginator .pagination SPAN.current').length>0) ?  ($('.paginator .pagination SPAN.current a').length>0) ? parseInt($('.paginator .pagination SPAN.current a').html()):  parseInt($('.paginator .pagination SPAN.current').html()) : 1;
+           var sort = $('.rightHolder .sortBy').val();
+           URL += "?page="+page+"&sortBy="+sort;
+        }
+        window.history.pushState(null, null, URL);
     },
     
 }
@@ -143,15 +158,11 @@ SubjectFilters = {
         $('.uploads .sortBy')
                 .unbind('change')
                 .bind('change', function(e){
-                    if(getURLParameter('page') != null){
-                         window.history.pushState(null, null, updateQueryStringParameter(window.location.pathname, 'sortBy', $(this).val())+'&page='+getURLParameter('page'));
-                    }else{
-                        window.history.pushState(null, null, updateQueryStringParameter(window.location.pathname, 'sortBy', $(this).val()));
-                    }
+                    Subjects.updateUrl();
                     var page = getURLParameter('page')==null ? 1 : getURLParameter('page');
                     var u = $('.subjects li.selected a').attr('href');
                     var name = $('.subjects li.selected a').html();
-                    Subjects.getPage(u,name, page, $(this).val());
+                    Subjects.getPage(u,page, name, $(this).val());
                 });
     },
 }

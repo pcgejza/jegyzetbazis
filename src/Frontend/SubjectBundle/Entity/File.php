@@ -44,7 +44,7 @@ class File
      *
      * @ORM\Column(name="uploaded_time", type="datetime", nullable=false)
      */
-    private $uploadedTime = 'CURRENT_TIMESTAMP';
+    private $uploadedTime;
 
     /**
      * @var integer

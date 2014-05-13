@@ -43,12 +43,11 @@ class RegistrationFormType extends BaseType
                'class' => 'nickname')
         ));
         
-        $builder->add('university','choice', array(
-            'label' => 'Melyik egyetemre jársz?',
+        $builder->add('school','text', array(
+            'label' => 'Milyen egyetemre/középiskolába jársz?',
+            'attr' => array('class' => 'school-area'),
            'required' => false,
-            'mapped' => false,
-            'expanded' => false,
-            'multiple' => false
+            'mapped' => false
         ));
         
     }

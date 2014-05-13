@@ -9,6 +9,7 @@
                 <img src="{{asset('images/default_profile_image_female.png')}}">
             {% endif %}
         {% else %}
+             <img src="{{image(userSettings.getAvatar().getWebPath()).zoomCrop(30,30).jpeg}}">
             {# ide jön az avatar majd ha lesz!!! #}
         {% endif %}
     </span>

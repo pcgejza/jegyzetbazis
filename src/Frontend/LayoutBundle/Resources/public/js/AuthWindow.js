@@ -305,8 +305,8 @@ AuthWindow = {
                         Header.setHeader(data.header);
                         AuthWindow.hide();
                         InfoPopUp.showInfoPopup({
-                            type : 'ok',
                             topText : 'Sikeres bejelentkezés',
+                            text: 'Sikeresen bejelentkeztél az oldalra!',
                             closeTime : 4000
                         });
                         if(typeof(UploadWindow) != 'undefined'){

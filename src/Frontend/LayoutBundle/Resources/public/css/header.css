@@ -25,7 +25,7 @@
 
 .headerHolder .rightHolder{
     position: absolute;
-    left: 70%;
+    left: 75%;
     height: 100%;
     width: 20%;
 }
@@ -129,6 +129,7 @@
     margin-top: 5px;
     border-radius: 3px;
     
+    margin-left: 5%;
 }
 
 .headerHolder .leftHolder .menu .menu-element{
@@ -172,10 +173,15 @@ body.guestbook  .headerHolder .menu .visitors{
 .leftHolder .headerLogo{
     position: absolute;
     left: 8%;
-    width: 180px;
+    width: 50%;
     height: 40px;
     background-image: url('/symfony/web/images/jegyzetbazis_logo_kicsi.png');
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: 50% 4%;
+}
+
+.headerHolder .userHeaderElement .userImage IMG{
+    width: 30px;
+    height: 30px;
 }

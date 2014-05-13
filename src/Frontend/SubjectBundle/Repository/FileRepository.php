@@ -41,19 +41,19 @@ class FileRepository extends EntityRepository{
                 ->setParameter('subject', $Subject)
                 ->orderBy('file.uploadedTime', 'DESC');
         
-       if(isset($filters['sortBy'])&& false){
+       if(isset($filters['sortBy'])){
            switch($filters['sortBy']){
                case 'showNew':
-                  // $Files = $Files->orderBy('file.uploadedTime', 'DESC');
+                   $Files = $Files->orderBy('file.uploadedTime', 'DESC');
                    break;
                case 'showOld':
-                    //$Files = $Files->orderBy('file.uploadedTime', 'ASC');
+                    $Files = $Files->orderBy('file.uploadedTime', 'ASC');
                    break;
-               case '':
-                   
+               case 'showNameAsc':
+                   $Files = $Files->orderBy('file.name', 'ASC');
                    break;
-               case '':
-                   
+               case 'showNameDesc':
+                   $Files = $Files->orderBy('file.name', 'DESC');
                    break;
            }
        }

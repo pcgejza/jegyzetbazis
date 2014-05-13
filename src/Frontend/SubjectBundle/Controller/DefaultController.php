@@ -49,25 +49,28 @@ class DefaultController extends Controller
             $Subject = null;
             $Files = null;
             $User = $this->get('security.context')->getToken()->getUser();
+            $request = $this->get('request');
+            
+                $filters = array();
             if($subject != null){
                 $Subject = $this->getDoctrine()->getRepository('FrontendSubjectBundle:Subject')
                             ->getOneSubjectBySlug($subject);
                 
-                $filters = array();
                 if($sortBy !== NULL){
                     $filters['sortBy'] = $sortBy;
                 }
-                
                 $FilesQuery = $this->getDoctrine()->getRepository('FrontendSubjectBundle:File')
                             ->getFilesToPageBySubjectQUERY($Subject, $User, $filters);
                 
                 $paginator  = $this->get('knp_paginator');
                 $Files = $paginator->paginate($FilesQuery,$page,10);
             }
+            
             return $this->render('FrontendSubjectBundle:Subject:single.html.twig',
                     array(
                         'subject'=> $subject,
                         'Subject' => $Subject,
+                        'filters' => $filters,
                         'Files' => $Files
                     ));
         } catch (Exception $ex) {
