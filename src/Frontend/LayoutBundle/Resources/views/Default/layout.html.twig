@@ -17,7 +17,8 @@
         <script src="{{ asset('bundles/frontendlayout/js/AuthWindow.js') }}?v={{ random(2000) }}"></script>
         <script src="{{ asset('bundles/frontendlayout/js/InfoPopUp.js') }}?v={{ random(2000) }}"></script>
         <script src="{{ asset('bundles/frontendaccount/js/FriendsShared.js') }}?v={{ random(2000) }}"></script>
-       <script>
+        <script type="text/javascript" src="{{asset('js/jquery-ui.js')}}"></script>
+        <script>
                 $(document).ready(function(){
                     {% block initJavascripts %}
                     // init objects
@@ -42,8 +43,9 @@
             </script>
         {% endblock %}
         {% block stylesheets %}
-           <link rel="stylesheet"  href="{{ asset('css/reset.css') }}" />
-           <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/shared.css') }}" />
+           <link rel="stylesheet"  href="{{ asset('css/reset.css') }}" /> 
+           <link rel="stylesheet" href="{{asset('css/jquery-ui.css')}}" />
+            <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/shared.css') }}" />
            <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/popup.css') }}" />
            <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/bootstrap.min.css') }}" />
            <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/bootstrap-theme.css') }}" />

@@ -36,7 +36,7 @@ class Log
     private $userId;
     
      /**
-     * @ORM\ManyToOne(targetEntity="\Frontend\LayoutBundle\Entity\User", inversedBy="userLogs")
+     * @ORM\ManyToOne(targetEntity="\Frontend\AccountBundle\Entity\User", inversedBy="userLogs")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
@@ -192,10 +192,10 @@ class Log
     /**
      * Set user
      *
-     * @param \Frontend\LayoutBundle\Entity\User $user
+     * @param \Frontend\AccountBundle\Entity\User $user
      * @return Log
      */
-    public function setUser(\Frontend\LayoutBundle\Entity\User $user = null)
+    public function setUser(\Frontend\AccountBundle\Entity\User $user = null)
     {
         $this->user = $user;
 
@@ -205,7 +205,7 @@ class Log
     /**
      * Get user
      *
-     * @return \Frontend\LayoutBundle\Entity\User 
+     * @return \Frontend\AccountBundle\Entity\User 
      */
     public function getUser()
     {

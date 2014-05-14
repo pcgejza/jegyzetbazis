@@ -1,0 +1,7 @@
+parameters:
+#    frontend_messaging.example.class: Frontend\MessagingBundle\Example
+
+services:
+#    frontend_messaging.example:
+#        class: %frontend_messaging.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

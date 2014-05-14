@@ -9,7 +9,7 @@ body{
     left: 0px;
     position: absolute;
     z-index: -1;
-    background-image: url('/symfony/web/images/hatterek/sarga_hatter2.png');
+    background-image: url('/jegyzetbazis/web/images/hatterek/sarga_hatter2.png');
 }
 
 .page{
@@ -19,7 +19,7 @@ body{
 }
 
 body .page{
-    background-image: url('/symfony/web/images/orange_bg1.png');
+    background-image: url('/jegyzetbazis/web/images/orange_bg1.png');
     padding: 10px;
     border-radius: 10px;
     display: table;
@@ -40,7 +40,7 @@ body .page.no-background{
 }
 
 .auth-window.not-loaded{
-    background-image: url('/symfony/web/images/loading1.gif');
+    background-image: url('/jegyzetbazis/web/images/loading1.gif');
     background-repeat: no-repeat;
     background-size: 20%;
     background-position:center; 
@@ -62,7 +62,7 @@ body .page.no-background{
     position: absolute;
     top: -15px;
     right: -15px;
-    background-image: url('/symfony/web/images/ablak_bezarasa_icon.png');
+    background-image: url('/jegyzetbazis/web/images/ablak_bezarasa_icon.png');
     background-repeat: no-repeat;
     background-size: 100%;
     cursor: pointer;
@@ -105,7 +105,7 @@ body .page.no-background{
 }
 
 .auth-window .window-content .content{
-    background-image: url('/symfony/web/images/hatterek/sarga_hatter2.png');
+    background-image: url('/jegyzetbazis/web/images/hatterek/sarga_hatter2.png');
     border-top: 5px solid #000;
     margin-top: 0px;
     padding: 10px;
@@ -133,7 +133,7 @@ body .page.no-background{
 
 .reveal-modal.loading-reveal{
     height: 200px;
-    background-image: url('/symfony/web/images/loading1.gif');
+    background-image: url('/jegyzetbazis/web/images/loading1.gif');
     background-repeat: no-repeat;
     background-size: 20%;
     background-position:center; 
@@ -152,7 +152,7 @@ h2{
     position: fixed;
     top: 50%;
     right: -110px;
-    background-image: url('/symfony/web/images/man_icon_mini.png');
+    background-image: url('/jegyzetbazis/web/images/man_icon_mini.png');
     background-repeat: no-repeat;
     background-size: 30%;
     background-position:1% 50%; 
@@ -173,7 +173,7 @@ h2{
     position: fixed;
     top: 40%;
     right: -210px;
-    background-image: url('/symfony/web/images/download_icon2.png');
+    background-image: url('/jegyzetbazis/web/images/download_icon2.png');
     background-repeat: no-repeat;
     background-size: 13%;
     background-position: 3% 50%; 
@@ -195,7 +195,7 @@ h2{
     display: block;
     width: 100%;
     height: 180px;
-    background-image: url('/symfony/web/images/jegyzetbazis_logo_nagy.png');
+    background-image: url('/jegyzetbazis/web/images/jegyzetbazis_logo_nagy.png');
     background-size: 50%;
     background-repeat: no-repeat;
     background-position: 50% 4%;
@@ -244,7 +244,7 @@ h2{
 }
 
 .download-icon{
-    background-image: url('/symfony/web/images/download_icon1.png');
+    background-image: url('/jegyzetbazis/web/images/download_icon1.png');
     background-repeat: no-repeat;
     background-position: 50% 50%;
     background-size: 120%;

@@ -110,33 +110,33 @@ UploadCore = {
                         case 'pdf':
                             {
                                 title = "pdf fájl";
-                                returnImage += '/symfony/web/images/pdf_icon.png';
+                                returnImage += '/jegyzetbazis/web/images/pdf_icon.png';
                                 break;
                             }
                         case 'docx':
                         case 'doc':
                             {
                                 title = "Dokumentum fájl";
-                                returnImage += '/symfony/web/images/doc_icon.png';
+                                returnImage += '/jegyzetbazis/web/images/doc_icon.png';
                                 break;
                             }
                         default:
                             title = "Ismeretlen fájl";
-                            returnImage += '/symfony/web/images/file_icon.png';
+                            returnImage += '/jegyzetbazis/web/images/file_icon.png';
                     }
                     break;
                 }
             case 'audio':
                 title = "Audió fájl";
-                returnImage += '/symfony/web/images/audio_icon.png';
+                returnImage += '/jegyzetbazis/web/images/audio_icon.png';
                 break;
             case 'video':
                 title = "Videó fájl";
-                returnImage += '/symfony/web/images/video_icon.png';
+                returnImage += '/jegyzetbazis/web/images/video_icon.png';
                 break;
             default:
                 title = "Ismeretlen fájl";
-                returnImage += '/symfony/web/images/file_icon.png';
+                returnImage += '/jegyzetbazis/web/images/file_icon.png';
         }
         returnImage += "' title='"+title+"'>";
         return returnImage;

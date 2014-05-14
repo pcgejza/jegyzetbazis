@@ -27,6 +27,8 @@ Header = {
         
         this.searchInput.addGray('Keress rá emberekre, tárgyakra, tananyagokra...');
         
+        /**
+         * 
         this.searchInput.on({
             keydown: function(c){
                 console.debug(c.keyCode);
@@ -47,6 +49,7 @@ Header = {
                 Header.hideSearchResults();
             }
         });
+         */
         
         this.loginButton.click(function(){
             AuthWindow.show('login');
@@ -61,6 +64,9 @@ Header = {
         }
         
         this.addQtipsToMenu();
+        
+        
+        this.addAutocompleteToSearch();
     },
     
     showSearchResults: function(){
@@ -148,5 +154,59 @@ Header = {
                }, 
             });
         });
+    },
+    
+    addAutocompleteToSearch: function(){
+        
+         $('#search-header').autocomplete({
+            source: function (request, response) { 
+                $.ajax({
+                    url: Header.searchURL, 
+                    data: { text: request.term, maxResults: 10 },
+                    dataType: "json",
+                    type: 'POST',
+                    success: function (data) {
+                        response($.map(data, function (item) { 
+                            return {
+                                name: item.name,
+                                val : item.val
+                            };
+                        }))
+                    }
+                })
+            }
+        }).data("ui-autocomplete")._renderItem = function (ul, item) {
+            
+            var inner_html = '<a>Ez egy sor</a>';
+            return $("<li></li>")
+                    .data("item.autocomplete", item)
+                    .append(inner_html)
+                    .appendTo(ul);
+        };
+        
+        
+        
+        
+       
+        
+        return;
+        
+      this.searchInput.autocomplete({
+        source: function( request, response ) {
+            $.ajax({
+              url: Header.searchURL,
+              dataType: "json",
+              data: {
+                text : request.term
+              },
+              success: function( data ) {
+                  return data;
+              }
+            });
+        },
+      minLength: 2}).data("ui-autocomplete")._renderItem = function (ul, item) {
+            return item;
+        };
+    
     },
 }

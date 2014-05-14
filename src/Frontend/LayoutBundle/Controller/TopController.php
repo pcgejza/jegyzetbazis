@@ -52,7 +52,7 @@ class TopController extends Controller{
        $User = $this->get('security.context')->getToken()->getUser();
        $User = is_object($User) ? $User : null;
        
-       $Users = $this->getDoctrine()->getRepository('FrontendLayoutBundle:User')
+       $Users = $this->getDoctrine()->getRepository('FrontendAccountBundle:User')
                ->createQueryBuilder('user')
                ->select('user.id AS userId')
                ->addSelect('userSettings.name AS userName')

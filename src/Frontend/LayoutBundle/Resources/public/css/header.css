@@ -35,7 +35,7 @@
     height: 25px;
     width: 400px;
     font-size: 16px;
-    background-image: url('/symfony/web/images/search2.png');
+    background-image: url('/jegyzetbazis/web/images/search2.png');
     background-repeat: no-repeat;
     background-position: 100% 20%;
     background-size: 20px;
@@ -141,14 +141,14 @@
 }
 
 .book-icon{
-    background-image: url('/symfony/web/images/visitors_icon1.png');
+    background-image: url('/jegyzetbazis/web/images/visitors_icon1.png');
     background-repeat: no-repeat;
     background-size: 80%;
     background-position:center;
 }
 
 .book-icon-colorful{
-    background-image: url('/symfony/web/images/books_1.png');
+    background-image: url('/jegyzetbazis/web/images/books_1.png');
     background-repeat: no-repeat;
     background-size: 80%;
     background-position:center;
@@ -175,7 +175,7 @@ body.guestbook  .headerHolder .menu .visitors{
     left: 8%;
     width: 50%;
     height: 40px;
-    background-image: url('/symfony/web/images/jegyzetbazis_logo_kicsi.png');
+    background-image: url('/jegyzetbazis/web/images/jegyzetbazis_logo_kicsi.png');
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: 50% 4%;

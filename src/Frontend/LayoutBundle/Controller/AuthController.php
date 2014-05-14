@@ -8,8 +8,8 @@ use \Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Acl\Exception\Exception;
 
 use Frontend\LayoutBundle\Form\Type\RegistrationFormType;
-use Frontend\LayoutBundle\Entity\User;
-use Frontend\LayoutBundle\Entity\UserSettings;
+use Frontend\AccountBundle\Entity\User;
+use Frontend\AccountBundle\Entity\UserSettings;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 use FOS\UserBundle\Controller\SecurityController as BaseController;
@@ -29,7 +29,7 @@ class AuthController extends Controller{
                 $email = $form['email'];
                 $nickname = $form['nickname'];
                 $password = $form['password']['first'];
-                $university = $form['university'];
+                $school = $form['school'];
                 $username = (strlen($nickname)>0) ? $nickname : $email;
 
                 $user = new User();
@@ -104,7 +104,7 @@ class AuthController extends Controller{
         try{
             $email = $this->get('request')->request->get('email');
             
-            $cnt = $this->getDoctrine()->getRepository('FrontendLayoutBundle:User')
+            $cnt = $this->getDoctrine()->getRepository('FrontendAccountBundle:User')
                     ->createQueryBuilder('c')
                     ->select('count(c.id)')
                     ->where('c.email = :email')
@@ -124,7 +124,7 @@ class AuthController extends Controller{
         try{
             $nickname = $this->get('request')->request->get('nickname');
             
-            $cnt = $this->getDoctrine()->getRepository('FrontendLayoutBundle:User')
+            $cnt = $this->getDoctrine()->getRepository('FrontendAccountBundle:User')
                     ->createQueryBuilder('c')
                     ->select('count(c.id)')
                     ->where('c.username = :nickname')

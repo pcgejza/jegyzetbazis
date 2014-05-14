@@ -5,7 +5,7 @@ SettingsAvatar = {
     uploadNewAvatarButton: null,
     uploadedAvatarsHolder: null,
     loadingBoxHTML: '<div class="uploaded-image loading">'
-                    +'<img src="/symfony/web/images/loading1.gif">'
+                    +'<img src="/jegyzetbazis/web/images/loading1.gif">'
                     +'</div>',
     uploadID: 0,
     

@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new Frontend\AccountBundle\FrontendAccountBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Knp\Bundle\TimeBundle\KnpTimeBundle(),
+            new Frontend\MessagingBundle\FrontendMessagingBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

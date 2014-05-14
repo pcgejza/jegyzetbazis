@@ -51,7 +51,7 @@ form.default-form .buttons button:hover
 
 form.default-form .errors{
     width: 90%;
-    background-image: url('/symfony/web/images/hibauz_icon_1.png');
+    background-image: url('/jegyzetbazis/web/images/hibauz_icon_1.png');
     background-repeat: no-repeat;
     background-size: 10%;
     background-color: #f88;
@@ -73,7 +73,7 @@ form.default-form .faulty{
 }
 
 form.default-form .buttons.loading{
-    background-image: url('/symfony/web/images/loading1.gif');
+    background-image: url('/jegyzetbazis/web/images/loading1.gif');
     background-repeat: no-repeat;
     background-size: 5%;
     background-position:36%;
@@ -102,7 +102,7 @@ form.default-form .formLine.mini input{
 }
 
 form.default-form.mini .buttons.loading{
-    background-image: url('/symfony/web/images/loading1.gif');
+    background-image: url('/jegyzetbazis/web/images/loading1.gif');
     background-repeat: no-repeat;
     background-size: 13%;
     background-position:70%;

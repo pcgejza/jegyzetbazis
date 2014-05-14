@@ -66,7 +66,7 @@ class FriendsController extends Controller{
                 throw new Exception('Nincs megadva a type!');
             
             $em = $this->getDoctrine()->getEntityManager();
-            $viewedUser = $em->getReference('FrontendLayoutBundle:User', $viewedUserId);
+            $viewedUser = $em->getReference('FrontendAccountBundle:User', $viewedUserId);
                 
             $FriendsObject = $this->getDoctrine()->getRepository('FrontendAccountBundle:Friends')
                         ->getFriendsStatus($MyUser, $viewedUser);

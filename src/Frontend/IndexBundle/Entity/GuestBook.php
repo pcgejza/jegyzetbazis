@@ -29,7 +29,7 @@ class GuestBook
     private $userId;
     
      /**
-     * @ORM\ManyToOne(targetEntity="\Frontend\LayoutBundle\Entity\User", inversedBy="scraps")
+     * @ORM\ManyToOne(targetEntity="\Frontend\AccountBundle\Entity\User", inversedBy="scraps")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
@@ -162,10 +162,10 @@ class GuestBook
     /**
      * Set user
      *
-     * @param \Frontend\LayoutBundle\Entity\User $user
+     * @param \Frontend\AccountBundle\Entity\User $user
      * @return GuestBook
      */
-    public function setUser(\Frontend\LayoutBundle\Entity\User $user)
+    public function setUser(\Frontend\AccountBundle\Entity\User $user)
     {
         $this->user = $user;
 
@@ -175,7 +175,7 @@ class GuestBook
     /**
      * Get user
      *
-     * @return \Frontend\LayoutBundle\Entity\User 
+     * @return \Frontend\AccountBundle\Entity\User 
      */
     public function getUser()
     {

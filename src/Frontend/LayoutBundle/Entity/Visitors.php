@@ -36,7 +36,7 @@ class Visitors
     private $userId;
 
      /**
-     * @ORM\ManyToOne(targetEntity="\Frontend\LayoutBundle\Entity\User", inversedBy="userVisits")
+     * @ORM\ManyToOne(targetEntity="\Frontend\AccountBundle\Entity\User", inversedBy="userVisits")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
@@ -143,10 +143,10 @@ class Visitors
     /**
      * Set user
      *
-     * @param \Frontend\LayoutBundle\Entity\User $user
+     * @param \Frontend\AccountBundle\Entity\User $user
      * @return Visitors
      */
-    public function setUser(\Frontend\LayoutBundle\Entity\User $user = null)
+    public function setUser(\Frontend\AccountBundle\Entity\User $user = null)
     {
         $this->user = $user;
 
@@ -156,7 +156,7 @@ class Visitors
     /**
      * Get user
      *
-     * @return \Frontend\LayoutBundle\Entity\User 
+     * @return \Frontend\AccountBundle\Entity\User 
      */
     public function getUser()
     {

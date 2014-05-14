@@ -21,15 +21,16 @@ class SearchController extends Controller{
             $User = is_object($User) ? $User : NULL;
            
             //LOG : FIXME: nem tudom elérni az entity managert!!
+            /*
             $Logger = new Logger($this->getDoctrine()->getEntityManager());
             $Logger ->setUser($User)
                     ->setSessionID($sessionID)
                     ->setType('search')
                     ->setValue($text)
                     ->exec();
-            
+            */
             // EMBEREK
-            $UserSettings = $doctrine->getRepository('FrontendLayoutBundle:UserSettings')
+            $UserSettings = $doctrine->getRepository('FrontendAccountBundle:UserSettings')
                             ->createQueryBuilder('UserSettings')
                             ->select('UserSettings.name AS name')
                             ->addSelect('UserSettings.userId AS userID')
@@ -72,7 +73,6 @@ class SearchController extends Controller{
             $Results['subjects'] = $Subjects;
             $Results['files'] = $Files;
             
-            
             /*
             $qb = $em->createQueryBuilder;
 
@@ -96,6 +96,16 @@ class SearchController extends Controller{
                     ->getQuery()
                     ->getResult();
               */
+            
+            
+            return new \Symfony\Component\HttpFoundation\JsonResponse(array(
+               'results' => array(
+                   array('name' => 'géza', 'val' => 'timi'),
+                   array('name' => 'géza2', 'val' => 'timi2'),
+                   array('name' => 'géza3', 'val' => 'timi3'),
+                   array('name' => 'géza4', 'val' => 'timi4'),
+               ) 
+            ));
             
             return $this->render('FrontendLayoutBundle:Search:searchResults.html.twig',
                     array(

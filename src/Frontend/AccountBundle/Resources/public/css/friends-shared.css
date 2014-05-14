@@ -21,14 +21,14 @@
     background-repeat: no-repeat;
     background-position: 1% 1%;
     background-size: 20%;
-    background-image: url('/symfony/web/bundles/frontendaccount/images/icon_add_person.png');
+    background-image: url('/jegyzetbazis/web/bundles/frontendaccount/images/icon_add_person.png');
 }
 
 .friend-mark-button.remove{
     background-repeat: no-repeat;
     background-position: 1% 1%;
     background-size: 16%;
-    background-image: url('/symfony/web/bundles/frontendaccount/images/icon_remove_person.png');
+    background-image: url('/jegyzetbazis/web/bundles/frontendaccount/images/icon_remove_person.png');
 }
     
 .friend-mark-button.loading{
@@ -36,14 +36,14 @@
     background-repeat: no-repeat;
     background-position: 1% 1%;
     background-size: 22%;
-    background-image: url('/symfony/web/images/loading1.gif');
+    background-image: url('/jegyzetbazis/web/images/loading1.gif');
 }
 
 .down-ico{
     padding-left: 20px;
     background-repeat: no-repeat;
     background-position: 0% 50%;
-    background-image: url('/symfony/web/images/down_icon_mini.png');
+    background-image: url('/jegyzetbazis/web/images/down_icon_mini.png');
 }
 
 .no-bottom-border{

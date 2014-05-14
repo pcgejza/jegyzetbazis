@@ -2,7 +2,7 @@ Subjects = {
     
     rightHolder: null,
     PROGRESS: false,
-    loadingImageHTML: '<img class="loadingImage" src="/symfony/web/images/loading1.gif">',
+    loadingImageHTML: '<img class="loadingImage" src="/jegyzetbazis/web/images/loading1.gif">',
     
     init: function(){
         this.rightHolder = $('.page .contentHolder .rightHolder:eq(0)');

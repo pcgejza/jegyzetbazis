@@ -11,7 +11,7 @@ use Frontend\AccountBundle\Form\Type\AvatarSettingsFormType;
 
 use Frontend\AccountBundle\Entity\Avatar;
 
-use Frontend\LayoutBundle\Entity\UserSettings;
+use Frontend\AccountBundle\Entity\UserSettings;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -355,7 +355,7 @@ class SettingsController extends Controller {
             $em->persist($avatar);
             $em->flush();
             
-            $avatarSRC = '/symfony/web/' . $avatar->getWebPath();
+            $avatarSRC = '/jegyzetbazis/web/' . $avatar->getWebPath();
             
             $avatar200 = $this->get('image.handling')->open($avatar->getWebPath())->zoomCrop(200,200)->jpeg();
             

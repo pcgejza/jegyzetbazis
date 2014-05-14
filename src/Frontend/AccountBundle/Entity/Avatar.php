@@ -32,7 +32,7 @@ class Avatar
     private $userId;
 
      /**
-     * @ORM\ManyToOne(targetEntity="\Frontend\LayoutBundle\Entity\User", inversedBy="avatar")
+     * @ORM\ManyToOne(targetEntity="\Frontend\AccountBundle\Entity\User", inversedBy="avatar")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
@@ -59,7 +59,7 @@ class Avatar
     private $status = '1';
     
     /**
-     * @ORM\OneToOne(targetEntity="\Frontend\LayoutBundle\Entity\UserSettings", mappedBy="avatar")
+     * @ORM\OneToOne(targetEntity="\Frontend\AccountBundle\Entity\UserSettings", mappedBy="avatar")
      */
     protected $userSettings;
     
@@ -262,10 +262,10 @@ class Avatar
     /**
      * Set user
      *
-     * @param \Frontend\LayoutBundle\Entity\User $user
+     * @param \Frontend\AccountBundle\Entity\User $user
      * @return Avatar
      */
-    public function setUser(\Frontend\LayoutBundle\Entity\User $user = null)
+    public function setUser(\Frontend\AccountBundle\Entity\User $user = null)
     {
         $this->user = $user;
 
@@ -275,7 +275,7 @@ class Avatar
     /**
      * Get user
      *
-     * @return \Frontend\LayoutBundle\Entity\User 
+     * @return \Frontend\AccountBundle\Entity\User 
      */
     public function getUser()
     {
@@ -286,10 +286,10 @@ class Avatar
     /**
      * Set userSettings
      *
-     * @param \Frontend\LayoutBundle\Entity\UserSettings $userSettings
+     * @param \Frontend\AccountBundle\Entity\UserSettings $userSettings
      * @return Avatar
      */
-    public function setUserSettings(\Frontend\LayoutBundle\Entity\UserSettings $userSettings = null)
+    public function setUserSettings(\Frontend\AccountBundle\Entity\UserSettings $userSettings = null)
     {
         $this->userSettings = $userSettings;
 
@@ -299,7 +299,7 @@ class Avatar
     /**
      * Get userSettings
      *
-     * @return \Frontend\LayoutBundle\Entity\UserSettings 
+     * @return \Frontend\AccountBundle\Entity\UserSettings 
      */
     public function getUserSettings()
     {

@@ -29,7 +29,7 @@ class Friends
     private $userIdA;
     
      /**
-     * @ORM\ManyToOne(targetEntity="\Frontend\LayoutBundle\Entity\User", inversedBy="friendsA")
+     * @ORM\ManyToOne(targetEntity="\Frontend\AccountBundle\Entity\User", inversedBy="friendsA")
      * @ORM\JoinColumn(name="user_id_a", referencedColumnName="id")
      */
     protected $userA;
@@ -42,7 +42,7 @@ class Friends
     private $userIdB;
     
      /**
-     * @ORM\ManyToOne(targetEntity="\Frontend\LayoutBundle\Entity\User", inversedBy="friendsB")
+     * @ORM\ManyToOne(targetEntity="\Frontend\AccountBundle\Entity\User", inversedBy="friendsB")
      * @ORM\JoinColumn(name="user_id_b", referencedColumnName="id")
      */
     protected $userB;
@@ -168,10 +168,10 @@ class Friends
     /**
      * Set userA
      *
-     * @param \Frontend\LayoutBundle\Entity\User $userA
+     * @param \Frontend\AccountBundle\Entity\User $userA
      * @return Friends
      */
-    public function setUserA(\Frontend\LayoutBundle\Entity\User $userA = null)
+    public function setUserA(\Frontend\AccountBundle\Entity\User $userA = null)
     {
         $this->userA = $userA;
 
@@ -181,7 +181,7 @@ class Friends
     /**
      * Get userA
      *
-     * @return \Frontend\LayoutBundle\Entity\User 
+     * @return \Frontend\AccountBundle\Entity\User 
      */
     public function getUserA()
     {
@@ -191,10 +191,10 @@ class Friends
     /**
      * Set userB
      *
-     * @param \Frontend\LayoutBundle\Entity\User $userB
+     * @param \Frontend\AccountBundle\Entity\User $userB
      * @return Friends
      */
-    public function setUserB(\Frontend\LayoutBundle\Entity\User $userB = null)
+    public function setUserB(\Frontend\AccountBundle\Entity\User $userB = null)
     {
         $this->userB = $userB;
 
@@ -204,7 +204,7 @@ class Friends
     /**
      * Get userB
      *
-     * @return \Frontend\LayoutBundle\Entity\User 
+     * @return \Frontend\AccountBundle\Entity\User 
      */
     public function getUserB()
     {

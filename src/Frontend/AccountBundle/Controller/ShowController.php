@@ -8,7 +8,7 @@ use Symfony\Component\Security\Acl\Exception\Exception;
 class ShowController extends Controller {
     
     public function indexAction($id){
-        $User = $this->getDoctrine()->getRepository('FrontendLayoutBundle:User')
+        $User = $this->getDoctrine()->getRepository('FrontendAccountBundle:User')
                         ->findOneUserById($id);
         try{
             

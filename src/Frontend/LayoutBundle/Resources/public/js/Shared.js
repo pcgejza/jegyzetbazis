@@ -48,7 +48,6 @@ Shared = {
     
     moveRightTab: function(vDiv, px){
         var $rigthPos = vDiv.css('right');
-        console.log(px);
         vDiv.animate({
             'right' : - (px)
         }, 200);

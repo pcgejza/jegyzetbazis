@@ -5,7 +5,7 @@
 }
 
 .upload-icon{
-    background-image: url('/symfony/web/images/upload_icon3.png');
+    background-image: url('/jegyzetbazis/web/images/upload_icon3.png');
     width: 28px;
     height: 28px;
     background-size: 100%;
@@ -15,7 +15,7 @@
 }
 
 .upload-icon2{
-    background-image: url('/symfony/web/images/upload_icon2.png');
+    background-image: url('/jegyzetbazis/web/images/upload_icon2.png');
     background-size: 100%;
     background-repeat: no-repeat;
     width: 25px;
@@ -29,7 +29,7 @@
 
 .complete-icon{
     
-    background-image: url('/symfony/web/images/complete_icon.png');
+    background-image: url('/jegyzetbazis/web/images/complete_icon.png');
     background-size: 100%;
     background-repeat: no-repeat;
     width: 45px;
@@ -79,7 +79,7 @@
 }
 
 .uploadWindowContent table .removeRow{
-    background-image: url('/symfony/web/images/remove_orange.png');
+    background-image: url('/jegyzetbazis/web/images/remove_orange.png');
     background-size: 100%;
     background-repeat: no-repeat;
     width: 35px;
@@ -103,7 +103,7 @@
     position: absolute;
     top: 50px;
     right: 60px;
-    background-image: url('/symfony/web/images/loading1.gif');
+    background-image: url('/jegyzetbazis/web/images/loading1.gif');
     background-repeat: no-repeat;
     background-size: 100%;
     background-position:center; 

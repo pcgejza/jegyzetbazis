@@ -31,7 +31,7 @@
                     {{file.getName}}
                 </td>
                 <td> 
-                        <img src="{{image(getImageByPath(file.getWebPath()))}}" alt="{{file.getName()}}" width="140" height="140">
+                        <img src="{{image(getImageByPath(file.getWebPath())).jpeg}}" alt="{{file.getName()}}" width="140" height="140">
                 </td>
                 <td>{{file.getUploadedTime() | date('Y-m-d H:i:s')}}</td>
                 <td><a href="{{path('profile_show', {id : file.user.id})}}">{% if file.user.userSettings is not null %}{{file.user.userSettings.getName()}}{% else %}{{file.user.userSettings.name}}{% endif %}</a></td>
