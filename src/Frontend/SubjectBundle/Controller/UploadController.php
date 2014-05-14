@@ -82,7 +82,10 @@ class UploadController extends Controller
                         if(!$van){
                             $NewSubject = new Subject();
                             $NewSubject->setName($sub);
-                            $NewSubject->setSlug($sub);
+                            
+                            $slug = strtolower($sub);
+                            // FIXME: A gedmo valamiért nem működik..
+                            $NewSubject->setSlug($slug);
                             $NewSubject->setUser($user);
                             $NewSubject->setStatus(0);
                             $NewSubject->setInsertDate(new \DateTime());
@@ -147,7 +150,6 @@ class UploadController extends Controller
                 if($Subject==NULL){
                      $Subject = new Subject();
                      $Subject->setName($subject['name']);
-                     $Subject->setSlug($subject['name']);
                      $Subject->setUser($user);
                      $Subject->setStatus(0);
                      $Subject->setInsertDate(new \DateTime());

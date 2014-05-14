@@ -13,6 +13,7 @@
 	 <script type="text/javascript" src="{{asset('js/jquery.timer.js')}}"></script>
 	<script src="{{ asset('bundles/frontendlayout/js/bootstrap.min.js') }}"></script>
 	<script src="{{ asset('bundles/frontendlayout/js/Shared.js') }}"></script>
+        <script src="{{ asset('bundles/frontendsearch/js/Search.js') }}"></script>
         <script src="{{ asset('bundles/frontendlayout/js/Header.js') }}"></script>
         <script src="{{ asset('bundles/frontendlayout/js/AuthWindow.js') }}?v={{ random(2000) }}"></script>
         <script src="{{ asset('bundles/frontendlayout/js/InfoPopUp.js') }}?v={{ random(2000) }}"></script>
@@ -38,6 +39,8 @@
                     
                     FriendsShared.addOrRemoveURL = "{{path('friends_add_or_remove')}}";
                     FriendsShared.init();
+                    
+                    Search.init();
                     {% endblock %}
                 });
             </script>
@@ -46,6 +49,7 @@
            <link rel="stylesheet"  href="{{ asset('css/reset.css') }}" /> 
            <link rel="stylesheet" href="{{asset('css/jquery-ui.css')}}" />
             <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/shared.css') }}" />
+            <link rel="stylesheet"  href="{{ asset('bundles/frontendsearch/css/search.css') }}" />
            <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/popup.css') }}" />
            <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/bootstrap.min.css') }}" />
            <link rel="stylesheet"  href="{{ asset('bundles/frontendlayout/css/bootstrap-theme.css') }}" />

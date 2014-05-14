@@ -1,0 +1,25 @@
+#search-header{
+    margin-top: 8px;
+    height: 25px;
+    width: 400px;
+    font-size: 16px;
+    background-image: url('/jegyzetbazis/web/images/search2.png');
+    background-repeat: no-repeat;
+    background-position: 100% 20%;
+    background-size: 20px;
+}
+
+
+#search-header.loading{
+    background-image: url('/jegyzetbazis/web/images/loading1.gif');
+    background-repeat: no-repeat;
+    background-position: 100% 20%;
+    background-size: 20px;
+}  
+
+.ui-autocomplete-category {
+    font-weight: bold;
+    padding: .2em .4em;
+    margin: .8em 0 .2em;
+    line-height: 1.5;
+  }

@@ -45,6 +45,7 @@ class AuthController extends Controller{
                 $em->flush();
                 
                 
+            return $this->loginSet($User);
                 $header = $this->loginSet($user);
             }
 
@@ -83,6 +84,8 @@ class AuthController extends Controller{
                 throw new Exception('Rossz a beírt jelszó!');
             }
             
+            return $this->loginSet($User);
+            
             $header = $this->loginSet($User);
             
             return new JsonResponse(array('header' => $header));
@@ -96,6 +99,9 @@ class AuthController extends Controller{
         $context = $this->get('security.context');
         $context->setToken($token);
 
+        
+        return $this->redirect($this->generateUrl('frontend_index_homepage'));
+        
         return $this->renderView('FrontendLayoutBundle:Header:header.html.twig',
                 array('User'=>$User));
     }

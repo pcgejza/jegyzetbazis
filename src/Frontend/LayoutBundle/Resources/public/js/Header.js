@@ -158,6 +158,21 @@ Header = {
     
     addAutocompleteToSearch: function(){
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        return;
          $('#search-header').autocomplete({
             source: function (request, response) { 
                 $.ajax({
@@ -175,7 +190,7 @@ Header = {
                     }
                 })
             }
-        }).data("ui-autocomplete")._renderItem = function (ul, item) {
+        }).data("autocomplete")._renderItem = function (ul, item) {
             
             var inner_html = '<a>Ez egy sor</a>';
             return $("<li></li>")

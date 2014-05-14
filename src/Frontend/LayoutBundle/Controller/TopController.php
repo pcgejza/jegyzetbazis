@@ -57,9 +57,16 @@ class TopController extends Controller{
                ->select('user.id AS userId')
                ->addSelect('userSettings.name AS userName')
                ->addSelect("(SELECT COUNT(f.id) FROM FrontendSubjectBundle:File f WHERE f.status = 1 and f.user = user) AS uploadCount")
+               ->where(
+                    "(userSettings.myUploadsVisit is null OR userSettings.myUploadsVisit = 'all') OR "
+                    ."(userSettings.myUploadsVisit = 'only_users' and :myUser is not null) OR "
+                    ."(userSettings.myUploadsVisit = 'only_friends' and (friendsA.status = 'active' or friendsB.status = 'active'))")
                ->setMaxResults(5)
                ->join('user.userSettings', 'userSettings')
+               ->leftJoin('user.friendsA', 'friendsA', 'WITH', 'friendsA.userB = :myUser')
+               ->leftJoin('user.friendsB', 'friendsB', 'WITH', 'friendsB.userA = :myUser')
                ->orderBy('uploadCount', 'DESC')
+               ->setParameter('myUser', $User)
                ->getQuery()
                ->getResult();
        

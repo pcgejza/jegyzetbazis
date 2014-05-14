@@ -1,0 +1,3 @@
+frontend_header_search_autocomplete:
+    pattern: /kereses/autocomplete/
+    defaults: { _controller: FrontendSearchBundle:Default:mainSearchAutocomplete }

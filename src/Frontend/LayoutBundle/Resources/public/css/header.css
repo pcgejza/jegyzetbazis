@@ -6,7 +6,7 @@
     width: 100%;
     height: 40px;
     text-align: center;
-    z-index: 1000;
+    z-index: 100;
 }
 
 .headerHolder .leftHolder{
@@ -30,16 +30,6 @@
     width: 20%;
 }
 
-#search-on-page{
-    margin-top: 8px;
-    height: 25px;
-    width: 400px;
-    font-size: 16px;
-    background-image: url('/jegyzetbazis/web/images/search2.png');
-    background-repeat: no-repeat;
-    background-position: 100% 20%;
-    background-size: 20px;
-}
 
 .searchResults{
     background-color: white;
