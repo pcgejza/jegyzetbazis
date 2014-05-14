@@ -1,0 +1,26 @@
+{% if Files | length > 0 %}
+    <table>
+        <tr>
+            <th>Fájl név</th>
+            <th>Fájlhoz társított tantárgyak</th>
+        </tr>
+    {% for File in Files %}
+        <tr>
+            <td>
+                <a href="{{path('file_single', {'fileid' : File.id})}}">
+                    {{File.name}}
+                </a>
+            </td>
+            <td>
+                {% for Subject in File.getSubjects() %}
+                    <a href="{{path('subjects_homepage_as_one_subject', {'subject':Subject.slug})}}">
+                        {{Subject.getName()}}
+                    </a>,
+                {% endfor %}
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}    
+    A felhasználó nem töltött fel fájlokat
+{% endif %}

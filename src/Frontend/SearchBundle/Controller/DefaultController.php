@@ -60,7 +60,7 @@ class DefaultController extends Controller
                             ->select('UserSettings.name AS name')
                             ->addSelect('UserSettings.userId AS userID')
                             ->where($queryBuilder->expr()->like('LOWER(UserSettings.name)', 'LOWER(:S)')) 
-                            ->andWhere("user != :User") // saját magamra ne lehessen rákeresni...
+                            //->andWhere("user != :User") // saját magamra ne lehessen rákeresni...
                             ->andWhere(""
                          ."(UserSettings.myProfileVisit = 'only_friends' and (userFriendsA.status = 'active' OR userFriendsB.status = 'active'))"
                          ."OR (UserSettings.myProfileVisit = 'only_users' and :User is not null)"

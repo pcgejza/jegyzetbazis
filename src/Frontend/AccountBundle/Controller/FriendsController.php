@@ -33,12 +33,14 @@ class FriendsController extends Controller{
         }
     }
     
-    public function getFriendsButtonsAction($viewedUser){
+    public function getFriendsButtonsAction($viewedUser, $FriendsObject = null){
         try{
             $MyUser = $this->get('security.context')->getToken()->getUser();
             
-            $FriendsObject = $this->getDoctrine()->getRepository('FrontendAccountBundle:Friends')
+            if($FriendsObject == null){
+                $FriendsObject = $this->getDoctrine()->getRepository('FrontendAccountBundle:Friends')
                         ->getFriendsStatus($MyUser, $viewedUser);
+            }
             
             return $this->render('FrontendAccountBundle:Friends:globalFriendsButtons.html.twig',array(
                 'FriendsObject' => $FriendsObject,

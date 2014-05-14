@@ -96,5 +96,21 @@ class FileRepository extends EntityRepository {
 
         return $File;
     }
+    
+    public function getFilesByUser($User){
+           $Files = $this->createQueryBuilder('file')
+                ->select('file')
+                ->addSelect('subjects')
+                ->where('user = :User')
+                ->andWhere('file.status = 1')
+                ->leftJoin('file.subjects', 'subjects', 'WITH', 'subjects.status = 1')
+                ->join('file.user', 'user')
+                ->leftJoin('user.userSettings', 'userSettings')
+                ->setParameter('User', $User)
+                ->getQuery()
+                ->getResult();
+
+        return $Files;
+    }
 
 }

@@ -1,0 +1,37 @@
+<div class='bigUserDiv'>
+    <div class='avatarHolder'>
+        {% if uS.getAvatar() is null %}
+            {% if uS.getGender() is null or uS.getGender() == 'male' %}
+                <img src='{{asset('images/default_profile_image_male.png')}}'>
+            {% else %}
+                <img src='{{asset('images/default_profile_image_female.png')}}'>
+            {% endif %}
+        {% else %}
+            <img src='{{image(uS.getAvatar().getWebPath()).zoomCrop(100,100).jpeg}}' alt='{{us.getAvatar().getWebPath()}}'>
+        {% endif %}
+    </div>
+    <div class='infosHolder'>
+        <span class='name'>{{uS.name}}</span>
+        <span class='gender' title="Felhasználó neme">{{uS.getGenderHun()}}</span>
+        <span class='birthDate' title="Felhasználó születési dátuma">
+            {% if uS.getBirthDate() is not null %}
+                {{uS.getBirthDate() | date('Y-m-d')}}
+            {% else %}
+                -
+            {% endif %}
+        </span>
+        <span class='lastActive' title="Utoljára online">
+            {% if lastActive is not null %}
+                {{lastActive.date | date('Y-m-d H:i:s')}}
+            {% else %}
+                -
+            {% endif %}
+        </span>
+        {% if FriendsObject is defined %}
+             {% render(controller('FrontendAccountBundle:Friends:getFriendsButtons', {'viewedUser' : User, 'FriendsObject' : FriendsObject})) %}
+        {% else %}
+             {% render(controller('FrontendAccountBundle:Friends:getFriendsButtons', {'viewedUser' : User})) %}
+        {% endif %}
+         
+    </div>
+</div>

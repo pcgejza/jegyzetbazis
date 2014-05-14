@@ -1,23 +1,48 @@
 {% if User.getUserSettings() %}
     {% set userSettings = User.getUserSettings() %}
-    {{userSettings.getName()}} adatainak megtekintése
-    {% render(controller('FrontendAccountBundle:Friends:getFriendsButtons', {'viewedUser' : User})) %}
-    <table>
-        <tr>
-            <th>Nem</th>
-            <td>{{userSettings.getGenderHun()}}</td>
-        </tr>
-        <tr>
-            <th>Születési dátum</th>
-            <td>{{userSettings.getBirthDateToString()}}</td>
-        </tr>
+    {{include('FrontendAccountBundle:Widget:bigUserDiv.html.twig', {'uS' : userSettings, 'user' : User}) }}
+    
+    <div class="universal-tabs">
+        <div class="universal-tabs-header">
+            <ul>
+                <li class="active"><a href="javascript:void(0)" tab="user-datas">Felhasználó további adatai</a></li>
+                <li><a href="javascript:void(0)" tab="uploaded-files">Felhasználó feltöltött fájljai</a></li>
+            </ul>
+        </div>
+        <div class="universal-tabs-content">
+            <div class="user-datas tab active">
+          
+             <table>
         <tr>
             <th>Regisztrált</th>
-            <td>{{time_diff(User.getRegistrationTime())}}</td>
+            <td>{{User.getRegistrationTime()|date('Y-m-d H:i:s')}}</td>
+        </tr>
+        <tr>
+            <th>Barátok száma</th>
+            <td>{{friendsCount}}</td>
         </tr>
         <tr>
             <td>Feltöltött fájlok száma</td>
             <td>{{UploadedFilesCount}}</td>
         </tr>
     </table>
-{% endif %}
+            
+            </div>
+            <div class="uploaded-files tab">
+                {% if userSettings.getMyUploadsVisit() == 'all' 
+                    or userSettings.getMyUploadsVisit() is null 
+                    or (userSettings.getMyUploadsVisit() == 'only_users' and MyUser is not null)
+                    or (userSettings.getMyUploadsVisit() == 'only_friends' and (FriendsObject is not null and FriendsObject.status == 'active')) %}
+                {% render controller('FrontendAccountBundle:Show:getUploadFiles', {'User' : User}) %}
+                {% else %}
+                    A felhasználó nem engedélyezte számodra a feltöltött fájljainak a megtekintését, mivel
+                    {% if userSettings.getMyUploadsVisit() == 'only_users' %}
+                        csak bejelentkezett felhasználóknak van joguk megtekinteni (a felhasználó beállításai alapján)
+                    {% elseif userSettings.getMyUploadsVisit() == 'only_friends' %}
+                        a felhasználó csak a barátainak engedélyezte a feltöltött fájljainak a megtekintését
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endif %}

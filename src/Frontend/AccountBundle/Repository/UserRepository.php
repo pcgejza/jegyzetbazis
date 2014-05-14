@@ -19,8 +19,10 @@ class UserRepository extends EntityRepository{
         return $this->createQueryBuilder('user')
                 ->select('user')
                 ->addSelect('userSettings')
+                ->addSelect('avatar')
                 ->where('user.id = :id')
                 ->leftJoin('user.userSettings', 'userSettings')
+                ->leftJoin('userSettings.avatar', 'avatar')
                 ->setParameter('id', $ID)
                 ->getQuery()
                 ->getOneOrNullResult();

@@ -45,7 +45,7 @@ class AuthController extends Controller{
                 $em->flush();
                 
                 
-            return $this->loginSet($User);
+            return $this->loginSet($user);
                 $header = $this->loginSet($user);
             }
 

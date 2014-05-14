@@ -17,10 +17,19 @@ class User extends BaseUser
      */
     protected $id;
 
+    
+    /**
+     * @var \DateTime
+     * 
+     * @ORM\Column(name="registration_time", type="datetime", nullable=true)
+     */
+    private $registrationTime;
+    
     public function __construct()
     {
         parent::__construct();
         // your own logic
+        $this->registrationTime = new \DateTime('now');
     }
     
     
@@ -373,5 +382,28 @@ class User extends BaseUser
     public function getUserLogs()
     {
         return $this->userLogs;
+    }
+
+    /**
+     * Set registrationTime
+     *
+     * @param \DateTime $registrationTime
+     * @return User
+     */
+    public function setRegistrationTime($registrationTime)
+    {
+        $this->registrationTime = $registrationTime;
+
+        return $this;
+    }
+
+    /**
+     * Get registrationTime
+     *
+     * @return \DateTime 
+     */
+    public function getRegistrationTime()
+    {
+        return $this->registrationTime;
     }
 }

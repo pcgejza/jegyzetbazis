@@ -292,3 +292,62 @@ h2{
 .rightFlashInfos .miniBox .miniBoxContent table td{
     font-size: 10pt;   
 }
+
+.bigUserDiv{
+    height: 220px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 15px;
+    width: 50%;
+    margin-bottom: 20px;
+}
+
+.bigUserDiv .avatarHolder{
+    display: inline;
+    float: left;
+}
+
+.bigUserDiv .avatarHolder img{
+    width: 200px;
+    height: 200px;
+}
+
+.bigUserDiv .infosHolder{
+    margin-left: 10px;
+    height: 100%;
+    width: 58%;
+    font-size: 13pt;
+    display: inline-block;
+    padding: 5px;
+}
+
+.bigUserDiv .infosHolder SPAN{
+   display: block;
+   margin-top: 10px;
+   padding-left: 30px;
+   font-size: 14pt;
+}
+
+.bigUserDiv .infosHolder .name{
+    font-size: 18pt;
+    color: #f60;
+    padding-left: 0px;
+}
+
+.bigUserDiv .infosHolder .gender{
+    background-image: url('/jegyzetbazis/web/images/gender_icon1.png');
+    background-repeat: no-repeat;
+    background-size: 10%;
+}
+
+.bigUserDiv .infosHolder .birthDate{
+    background-image: url('/jegyzetbazis/web/images/birth_icon1.png');
+    background-repeat: no-repeat;
+    background-size: 10%;
+}
+.bigUserDiv .infosHolder .lastActive{
+    background-image: url('/jegyzetbazis/web/images/online_icon1.png');
+    background-repeat: no-repeat;
+    background-size: 8%;
+}
+

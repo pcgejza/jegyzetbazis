@@ -1,6 +1,5 @@
 .friend-mark-button,
-.myFriend
-{
+.myFriend{
     background-color: rgba(0,0,0,0);
     border: 2px solid #a5a5a5;
     border-color: rgba(0, 0, 0, .35);
@@ -10,7 +9,6 @@
     cursor: pointer;
     font-size: 13pt;
     border-radius: 5px;   
-    color: white;
 }
 
 .friend-mark-button:hover{

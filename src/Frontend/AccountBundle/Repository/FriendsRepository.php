@@ -45,4 +45,17 @@ class FriendsRepository extends EntityRepository{
        
     }
     
+    public function getAllActiveFriendsCount($User){
+        $count = $this->createQueryBuilder('friend')
+                ->select('COUNT(friend.id)')
+                ->where("friend.status = 'active'")
+                ->andWhere('(friend.userA = :user OR friend.userB = :user)')
+                ->setParameter('user', $User)
+                ->getQuery()
+                ->getSingleScalarResult();
+        
+        
+        return $count;
+    }
+    
 }
