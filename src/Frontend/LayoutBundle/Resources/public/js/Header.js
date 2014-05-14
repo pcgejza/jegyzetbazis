@@ -1,9 +1,5 @@
 Header = {
     
-    searchInput: null,
-    searchResults: null,
-    searchResults: [] , // ebben tárolom a keresés eredményeit
-    searchURL : null,
     postID: 0,
     headerUserBox: null,
     
@@ -14,8 +10,6 @@ Header = {
     
     init: function(){
         this.headerHolder = $('body .page .headerHolder');
-        this.searchInput = $('#search-on-page');
-        this.searchResults = $('.searchHolder .searchResults');
         this.loginButton = $('.rightHolder .login');
         this.registrationButton = $('.rightHolder .registration');
         this.headerUserBox = $('.userHeaderElement',this.headerHolder);
@@ -24,32 +18,6 @@ Header = {
     },
     
     bindUIActions: function(){
-        
-        this.searchInput.addGray('Keress rá emberekre, tárgyakra, tananyagokra...');
-        
-        /**
-         * 
-        this.searchInput.on({
-            keydown: function(c){
-                console.debug(c.keyCode);
-            },
-            keyup: function(c){
-                var thisVal = $(this).val();
-                var thisValLength = thisVal.length;
-                
-                if(thisValLength > 0){
-                    Header.showSearchResults();
-                    Header.search(thisVal);
-                }else{
-                    Header.hideSearchResults();
-                }
-            },
-            focusout: function(){
-                Header.searchInput.val('');
-                Header.hideSearchResults();
-            }
-        });
-         */
         
         this.loginButton.click(function(){
             AuthWindow.show('login');
@@ -66,47 +34,6 @@ Header = {
         this.addQtipsToMenu();
         
         
-        this.addAutocompleteToSearch();
-    },
-    
-    showSearchResults: function(){
-        this.searchResults.removeClass('hide');
-    },
-    
-    hideSearchResults: function(){
-        this.searchResults.addClass('hide');
-    },
-    
-    addHtmlToSearchResults: function(html){
-        this.searchResults.html(html);
-    },
-    
-    showLoadingToSearchResults: function(){
-        if(!this.searchResults.hasClass('loading')){
-            this.addHtmlToSearchResults(Shared.loadingHtmlImage);
-            this.searchResults.addClass('loading');
-        }
-    },
-    
-    hideLoadingFromSearchResults : function(){
-        this.searchResults.removeClass('loading');
-    },
-    
-    search: function(text){
-        Header.showLoadingToSearchResults();
-        if(typeof(Header.searchResults[text]) == 'undefined'){
-            $.post(Header.searchURL, {text : text}).done(
-                function(h){
-                    Header.searchResults[text] = h;
-                    if(Header.searchInput.val() == text){
-                        Header.hideLoadingFromSearchResults();
-                        Header.addHtmlToSearchResults(Header.searchResults[text]);
-                    }
-            });
-        }else{
-            Header.hideLoadingFromSearchResults();
-            Header.addHtmlToSearchResults(Header.searchResults[text]); 
-        }
     },
     
     setHeader: function(html){
@@ -136,10 +63,6 @@ Header = {
             }
         });
           
-        this.searchInput.qtip({
-         show: 'focus',
-         hide: 'blur'
-        });
           
     },
     
@@ -154,74 +77,5 @@ Header = {
                }, 
             });
         });
-    },
-    
-    addAutocompleteToSearch: function(){
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        return;
-         $('#search-header').autocomplete({
-            source: function (request, response) { 
-                $.ajax({
-                    url: Header.searchURL, 
-                    data: { text: request.term, maxResults: 10 },
-                    dataType: "json",
-                    type: 'POST',
-                    success: function (data) {
-                        response($.map(data, function (item) { 
-                            return {
-                                name: item.name,
-                                val : item.val
-                            };
-                        }))
-                    }
-                })
-            }
-        }).data("autocomplete")._renderItem = function (ul, item) {
-            
-            var inner_html = '<a>Ez egy sor</a>';
-            return $("<li></li>")
-                    .data("item.autocomplete", item)
-                    .append(inner_html)
-                    .appendTo(ul);
-        };
-        
-        
-        
-        
-       
-        
-        return;
-        
-      this.searchInput.autocomplete({
-        source: function( request, response ) {
-            $.ajax({
-              url: Header.searchURL,
-              dataType: "json",
-              data: {
-                text : request.term
-              },
-              success: function( data ) {
-                  return data;
-              }
-            });
-        },
-      minLength: 2}).data("ui-autocomplete")._renderItem = function (ul, item) {
-            return item;
-        };
-    
     },
 }

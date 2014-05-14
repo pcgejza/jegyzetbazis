@@ -30,8 +30,7 @@
                     Shared.uploadAvatarUrl = "{{path('avatar_upload_ajax')}}";
                   
                     Shared.loadingHtmlImage = "<img src='{{asset('images/loading1.gif')}}' class='loading'>";
-                    Header.searchURL = "{{path('search_ajax')}}";
-                    AuthWindow.init();
+                 AuthWindow.init();
                     
                     AuthWindow.getRevealUrl = "{{path('get_auth_window_ajax')}}";
                     AuthWindow.emalCheckUrl = "{{path('security:email-check')}}";
