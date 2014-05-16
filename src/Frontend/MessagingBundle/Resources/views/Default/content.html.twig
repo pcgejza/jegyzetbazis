@@ -1,0 +1,38 @@
+<div class="messages">
+    <div class="messagesMenu">{{getPage}}
+        <ul>
+            <li{% if page == 'new' %} class="active"{% endif %}>
+                <a href="javascript:void(0)" page="newMessage">Új üzenet írása</a>
+            </li>
+            <li{% if page == 'received' %} class="active"{% endif %}>
+                <a href="{{path('messaging_homepage')}}" getp="received" page="receivedMessages">Beérkezett üzenetek</a>
+            </li>
+            <li{% if page == 'sent' %} class="active"{% endif %}>
+                <a href="{{path('messaging_homepage')}}" getp="sent" page="sentMessages">Elküldött üzenetek</a>
+            </li>
+            <li{% if page == 'deleted' %} class="active"{% endif %}>
+                <a href="{{path('messaging_homepage')}}" getp="deleted" page="deletedMessages">Törölt üzenetek</a>
+            </li>
+        </ul>
+    </div>
+    <div class="messagesList">
+        <div class="p newMessage{% if page == 'new' %} active{% endif %}">
+            új üzenet
+        </div>
+        <div class="p receivedMessages{% if page == 'received' %} active{% endif %}">
+            {% if page == 'received' %}
+                {% render(controller('FrontendMessagingBundle:Default:getPage', {page : page})) %}
+            {% endif %}
+        </div>
+        <div class="p sentMessages{% if getPage == 'sent' %} active{% endif %}">
+            {% if getPage == 'sent' %}
+                {% render(controller('FrontendMessagingBundle:Default:getPage', {page : page})) %}
+            {% endif %}
+        </div>
+        <div class="p deletedMessages{% if page == 'deleted' %} active{% endif %}">
+            {% if page == 'deleted' %}
+                {% render(controller('FrontendMessagingBundle:Default:getPage', {page : page})) %}
+            {% endif %}
+        </div>
+    </div>
+</div>

@@ -14,12 +14,12 @@
         {% endif %}
     </span>
     <div class="userHeaderqtip" style="display: none;">
-        <li class="settings"><a href="{{path('settings_homepage')}}">Beállítások</a></li>
+        <li><a href="{{path('settings_homepage')}}">Beállítások</a></li>
         <div class="line"></div>
-        <li class="messages"><a href="#">Üzenetek</a></li>
+        <li><a href="{{path('messaging_homepage')}}">Üzenetek</a></li>
         <div class="line"></div>
-        <li class="friends"><a href="{{path('friends_index')}}">Barátok</a></li>
+        <li><a href="{{path('friends_index')}}">Barátok</a></li>
         <div class="line"></div>
-        <li class="logout"><a href="{{path('fos_user_security_logout')}}">Kijelentkezés</a></li>
+        <li><a href="{{path('fos_user_security_logout')}}">Kijelentkezés</a></li>
     </div>
 </span>

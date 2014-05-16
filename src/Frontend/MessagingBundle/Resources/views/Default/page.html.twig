@@ -1,0 +1,16 @@
+{% if err is not defined %}
+    <h3>
+    {% if page == 'received' %}
+        Beérkezett üzenetek
+    {% elseif page == 'sent' %}
+        Elküldött üzenetek
+    {% else %}    
+        Törölt üzenetek
+    {% endif %}
+    </h3>
+    <div class="list">
+        {% render(controller('FrontendMessagingBundle:Default:getMoreMessages', { page : page })) %} 
+    </div>
+{% else %}
+    Hiba : {{err}}
+{% endif %}

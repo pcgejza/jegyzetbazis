@@ -1,7 +1,7 @@
 #search-header{
     margin-top: 8px;
     height: 25px;
-    width: 400px;
+    max-width: 60%;
     font-size: 16px;
     background-image: url('/jegyzetbazis/web/images/search2.png');
     background-repeat: no-repeat;
@@ -22,4 +22,4 @@
     padding: .2em .4em;
     margin: .8em 0 .2em;
     line-height: 1.5;
-  }
+}

@@ -18,6 +18,9 @@ Shared = {
         Header.init();
         InfoPopUp.init();
         this.bindUIActions();
+        
+        Sizer.init();
+        
     },
     
     bindUIActions: function(){
@@ -58,5 +61,45 @@ Shared = {
             $('.visitorsCount').html(data);
         });
     },
+    
+}
+
+Sizer = {
+    
+    maxWidth : null,
+    
+    init: function(){
+        this.maxWidth = window.screen.width;
+        this.maxHeight = window.screen.height;
+        
+        
+        $(window).resize(function() {
+            Sizer.resize();
+        });
+        
+        this.resize();
+        
+        //$('BODY .headerHolder').css('max')
+        
+    },
+    
+    resize: function(){
+        var innerWidth = $(window).innerWidth();
+        var innerHeigtht = $(window).innerHeight();
+        
+        var widthOnPercentages = 100 * (innerWidth/this.maxWidth);
+        var heightOnPercentages = 100 * (innerHeigtht/this.maxHeight);
+        
+        if(widthOnPercentages<70){
+            $('BODY .headerHolder').css('width', 0.70*this.maxWidth);
+            $('BODY .page').css('width', 0.70* (0.8*this.maxWidth) );
+        }else{
+            $('BODY .headerHolder').css('width', '100%');
+            $('BODY .page').css('width', '80%');
+        }
+        
+        $('BODY .rightTab').css('height', 55* (heightOnPercentages/100) );
+      
+    }
     
 }

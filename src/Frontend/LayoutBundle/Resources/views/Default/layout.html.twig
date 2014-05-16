@@ -5,6 +5,9 @@
         <title>{% block title %}{% endblock %}</title>
         <meta name="keywords" content="Tantárgy, tananyag, Huzynets Erik" />
         <meta name="robots" content="all">
+        
+        <LINK REL="SHORTCUT ICON" HREF="{{asset('images/favico.png')}}">
+        
         {% block javascripts %}
         <script type="text/javascript" src="{{asset('js/jquery-1.10.2.min.js')}}"></script>
         <script type="text/javascript" src="{{asset('js/jquery.qtip.min.js')}}"></script>
@@ -65,10 +68,10 @@
         <div id="bodyBg"></div>
     {% block body %}
         <div class="page {% block pageClass %}no-background{% endblock %}">
-            <div class="visitorsCount">
+            <div class="visitorsCount rightTab">
                 {% render controller('FrontendLayoutBundle:Default:visit') %}
             </div>
-            <div class="downloadsCount">
+            <div class="downloadsCount rightTab">
                 <small>Letöltések :</small> {% render controller('FrontendLayoutBundle:Default:getAllDownloadsCount') %}
             </div>
             <div class="headerHolder">

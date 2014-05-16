@@ -72,6 +72,7 @@ class DefaultController extends Controller
                             ->setParameter('User', $User)
                             ->orderBy('userFriendsA.id', 'ASC')
                             ->addOrderBy('userFriendsB.id', 'ASC')
+                            ->groupBy('UserSettings')
                             ->setMaxResults(5)
                             ->getQuery()
                             ->getResult();

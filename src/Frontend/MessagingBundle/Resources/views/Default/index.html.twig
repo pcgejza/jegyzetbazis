@@ -1,1 +1,29 @@
-Hello {{ name }}!
+{% extends "FrontendLayoutBundle:Default:layout.html.twig" %}
+
+
+{% block title %}Üzenetek{% endblock %}
+
+{% block stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" href="{{asset('bundles/frontendmessaging/css/messaging-shared.css')}}" />
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script type="text/javascript" src="{{asset('bundles/frontendmessaging/js/MessagingShared.js')}}"></script>
+{% endblock %}
+
+{% block initJavascripts %}
+    {{parent()}}
+    MessagingShared.init();
+{% endblock %}
+
+{% block bodyClass %}messaging{% endblock %}
+
+{% block body %}
+{{parent()}}
+{% endblock %}
+{% block contentHolder %}
+    <h2>Üzenetek</h2>
+    {% render(controller('FrontendMessagingBundle:Default:content', {getPage : getPage})) %}
+{% endblock %}

@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Symfony\Component\HttpFoundation\Request;
 
-class SettingsController extends Controller {
+class SettingsController extends Controller{
     
     public function settingsIndexAction($page = NULL){
         if(!$this->get('security.context')->isGranted('ROLE_USER')){
