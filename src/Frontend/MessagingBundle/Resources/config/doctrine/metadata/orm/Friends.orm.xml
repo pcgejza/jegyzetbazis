@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Friends" table="friends">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="userIdA" type="integer" column="user_id_a" nullable="false"/>
+    <field name="userIdB" type="integer" column="user_id_b" nullable="false"/>
+    <field name="markDate" type="datetime" column="mark_date" nullable="false"/>
+    <field name="status" type="string" column="status" nullable="false"/>
+  </entity>
+</doctrine-mapping>

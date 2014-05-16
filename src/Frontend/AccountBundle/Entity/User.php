@@ -84,6 +84,16 @@ class User extends BaseUser
      */
     protected $avatar;
     
+    /**
+     * @ORM\OneToMany(targetEntity="\Frontend\MessagingBundle\Entity\Message", mappedBy="userA")
+     */
+    protected $messageA;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="\Frontend\MessagingBundle\Entity\Message", mappedBy="userB")
+     */
+    protected $messageB;
+    
     
 
 

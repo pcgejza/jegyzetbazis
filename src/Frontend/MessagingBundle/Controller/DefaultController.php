@@ -71,11 +71,19 @@ class DefaultController extends Controller
     public function getMoreMessagesAction($page = null){
         $request = $this->get('request');
         try{
+            $User = $this->get('security.context')->getToken()->getUser();
             
             if($request->isMethod('POST')){
                 
             }else{
-                return $this->render('FrontendMessagingBundle:Default:more.html.twig');
+                
+                
+                $Messages = $this->getDoctrine()->getRepository('FrontendMessagingBundle:Message')
+                            ->getMessagesByUser($User, 0, 10, $page);
+                
+                return $this->render('FrontendMessagingBundle:Default:more.html.twig', array(
+                    'Messages' => $Messages
+                ));
             }
         } catch (Exception $ex) {
             if($request->isMethod('POST')){

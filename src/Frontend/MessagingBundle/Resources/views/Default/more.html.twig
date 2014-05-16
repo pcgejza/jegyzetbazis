@@ -1,1 +1,11 @@
-További üzentek....
+{% if err is not defined %}
+   {% if Messages | length > 0 %}
+       {% for Message in Messages %}
+           <div>Üzenet feladója : {{Message.getUserA().getUserSettings().getName()}} : {{Message.getText()}}</div>
+       {% endfor %}
+   {% else %}
+       Nincs több üzeneted!
+   {% endif %}
+{% else %}
+   Hiba : {{err}}
+{% endif %}
