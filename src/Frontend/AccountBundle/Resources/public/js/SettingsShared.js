@@ -53,12 +53,13 @@ SettingsShared = {
         $('.settings form').submit(function(e){
             e.preventDefault();
             var ParentTabContent = $(this).parents('.tabContent').first();
+            
             if(ParentTabContent.hasClass('loading') || !SettingsShared.isValidForm($(this))) return;
             ParentTabContent.removeClass('successfull');
             var postData = $(this).serializeArray();
             var formURL = $(this).attr("action");
             var allInputs = $(this).find('input');
-            var passInput = ParentTabContent.find('input[type="password"]');
+            var passInput = ParentTabContent.find('input[type="password"]').last();
             SettingsShared.removeErrorFromInput(passInput);
             ParentTabContent.addClass('loading');
             allInputs.attr('readonly', 'readonly');
@@ -87,6 +88,7 @@ SettingsShared = {
                 }
             });
         });
+        
     }, 
     
     addErrorToTextInput: function(input, error){
@@ -135,6 +137,26 @@ SettingsShared = {
                      SettingsShared.removeErrorFromInput(date);
             }
             
+            return ret;
+        }else if(form.hasClass('changePassword')){
+            var p1 = form.find('INPUT.pass1');
+            var p2 = form.find('INPUT.pass2');
+            var ret = true;
+                    
+            if(p1.val().length < 6){
+                ret = false;
+                SettingsShared.addErrorToTextInput(p1, 'A jelszó minimum 6 karakter hosszú legyen!');
+            }else{
+                SettingsShared.removeErrorFromInput(p1);
+            }
+                    
+            if(p1.val() != p2.val()){
+                ret = false;
+                SettingsShared.addErrorToTextInput(p2, 'A jelszavak nem egyeznek!');
+            }else{
+                SettingsShared.removeErrorFromInput(p2);
+            }
+                   
             return ret;
         }else{
             return true;

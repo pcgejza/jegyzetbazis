@@ -8,6 +8,7 @@ use Frontend\AccountBundle\Form\Type\BaseSettingsFormType;
 use Frontend\AccountBundle\Form\Type\SafetySettingsFormType;
 use Frontend\AccountBundle\Form\Type\CommentSettingsFormType;
 use Frontend\AccountBundle\Form\Type\AvatarSettingsFormType;
+use Frontend\AccountBundle\Form\Type\ChangePasswordFormType;
 
 use Frontend\AccountBundle\Entity\Avatar;
 
@@ -47,6 +48,7 @@ class SettingsController extends Controller{
         switch($page){
             case 'alap-beallitasok': return 'Alap beállítások'; break;
             case 'biztonsagi-beallitasok': return 'Biztonsági beállítások'; break;
+            case 'jelszo-valtoztatas': return 'Jelszó megváltoztatása'; break;
             case 'avatar-beallitasok': return 'Avatár beállítások'; break;
             case 'megjegyzes': return 'Megyjezés'; break;
             default : return null;
@@ -65,6 +67,9 @@ class SettingsController extends Controller{
                 break;
             case 'biztonsagi-beallitasok':
                 return $this->safetySettingsAction();
+                break;
+            case 'jelszo-valtoztatas':
+                return $this->changePasswordAction();
                 break;
             case 'avatar-beallitasok':
                 return $this->avatarSettingsAction();
@@ -316,6 +321,55 @@ class SettingsController extends Controller{
         }
         
         return $this->render('FrontendAccountBundle:Forms:commentForm.html.twig',array(
+            'form' => $form->createView()
+        ));
+    }
+    
+    public function changePasswordAction(){
+        $request = $this->get('request');
+        $User = $this->get('security.context')->getToken()->getUser();
+        
+        $ChangePasswordForm = new ChangePasswordFormType();
+        
+        $url = $this->generateUrl('change_pass_save');
+        
+        $form = $this->createForm($ChangePasswordForm, null, array(
+            'action' => $url,
+            'method' => 'POST',
+            'attr' => array('class' => 'changePassword settings-form')
+        ));
+        
+        if($request->getMethod() === 'POST'){   
+            $form->bind($request);
+            if($form->isValid()){
+                $formData = $form->getData();
+               
+                if(!$this->passwordControl($formData['password'], $User)){
+                    return new \Symfony\Component\HttpFoundation\JsonResponse(array(
+                       'err' => 'Rossz a beírt jelszó, az adatok NEM kerültek elmentésre!' 
+                    ));
+                }
+                
+                $pass = $formData['pass1'];
+                
+                if(strlen($pass)<6){
+                    return new \Symfony\Component\HttpFoundation\JsonResponse(array(
+                       'err' => 'A jelszó kevesebb mint 6 karakter' 
+                    ));
+                }
+                $em = $this->getDoctrine()->getEntityManager();		
+
+                $User->setPlainPassword($pass);
+                $User->setConfirmationToken(NULL);
+                $User->setPasswordRequestedAt(NULL);
+                $userManager = $this->container->get('fos_user.user_manager');
+                $userManager->updateUser($User);
+                
+            }
+                 
+        }
+        
+        return $this->render('FrontendAccountBundle:Forms:changePasswordForm.html.twig',array(
             'form' => $form->createView()
         ));
     }

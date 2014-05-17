@@ -186,12 +186,12 @@ class AuthController extends Controller{
                     if(strlen($pass)<6 || $pass == NULL)
                         throw new Exception('Hiba a jelszó változtatás során : a jelszó null vagy 6 karakternél rövidebb!');
                     
+                    
                     $User->setPlainPassword($pass);
                     $User->setForgotPassCode(NULL);
-                    $em = $this->getDoctrine()->getEntityManager();
-                    $em->persist($User);
-                    $em->flush();
-                    
+                    $User->setPasswordRequestedAt(NULL);
+                    $userManager = $this->container->get('fos_user.user_manager');
+                    $userManager->updateUser($User);
                    
                     $message = \Swift_Message::newInstance()
                       ->setSubject('Sikeres jelszó változtatás!')

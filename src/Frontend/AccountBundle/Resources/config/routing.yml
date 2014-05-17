@@ -30,6 +30,10 @@ settings_sub_page:
     pattern:  /beallitasok/{page}.html
     defaults: { _controller: FrontendAccountBundle:Settings:settingsIndex }
 
+change_pass_save:
+    pattern:  /beallitasok/jelszo-valtoztatas/adatok-mentese
+    defaults: { _controller: FrontendAccountBundle:Settings:changePassword }
+
 base_settings_save:
     pattern:  /beallitasok/alap-beallitasok/adatok-mentese
     defaults: { _controller: FrontendAccountBundle:Settings:baseSettings }
