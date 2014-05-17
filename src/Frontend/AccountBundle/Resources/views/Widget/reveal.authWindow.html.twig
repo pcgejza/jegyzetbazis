@@ -19,7 +19,7 @@
                 {% render controller('FOSUserBundle:Registration:register') %}
             </div>
         </div>
-        <div class="login" {% if page != 'login' %}style="display:none"{% endif %}>
+        <div class="login" {% if page != 'login' %}style="display:none"{% endif %} style="height: 300px">
             <h3>Bejelentkezés</h3>
             <div class="d">
                  {% render controller('FOSUserBundle:Security:login') %}

@@ -25,7 +25,7 @@ class HeaderController extends Controller{
             $Schools = $this->getDoctrine()->getRepository('FrontendAccountBundle:School')
                         ->getAllActiveSchools();
             
-            $html = $this->renderView('FrontendLayoutBundle:Widgets:reveal.authWindow.html.twig',
+            $html = $this->renderView('FrontendAccountBundle:Widget:reveal.authWindow.html.twig',
                     array(
                         'Schools' => $Schools,
                         'page' => $page
