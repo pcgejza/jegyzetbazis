@@ -111,6 +111,12 @@ body .page.no-background{
     padding: 10px;
 }
 
+body .contentHolder .leftText{
+    width: 82%;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #fff;
+}
 
 .auth-window .window-content .content h3{
     text-align: center;
@@ -351,3 +357,14 @@ h2{
     background-size: 8%;
 }
 
+.whiteBG{
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    border: 2px solid #f60;
+}
+
+.pageError{
+    font-size: 20pt;
+    color: #f33;
+}

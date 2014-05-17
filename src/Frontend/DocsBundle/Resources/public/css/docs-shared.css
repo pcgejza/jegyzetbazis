@@ -1,0 +1,15 @@
+.docs .contentHolder .headInfo{
+    font-size: 25pt;
+}
+.docs .contentHolder .headInfo .dok{
+    color: #000;
+}
+
+.docs .contentHolder .headInfo .dokName{
+    color: #f60;
+}
+
+.docs .contentHolder .text{
+    margin: 10px auto;
+    padding: 5px;
+}

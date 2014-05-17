@@ -27,6 +27,13 @@ class Docs
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
     private $name;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=60, nullable=false)
+     */
+    private $slug;
 
     /**
      * @var string
@@ -91,5 +98,28 @@ class Docs
     public function getText()
     {
         return $this->text;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Docs
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

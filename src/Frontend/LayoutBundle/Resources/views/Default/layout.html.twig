@@ -78,7 +78,7 @@
                     {% render controller('FrontendLayoutBundle:Header:getHeader') %}
                 {% endblock %}
             </div>
-            <div class="contentHolder">
+            <div class="contentHolder{% block contentHolderCLASS %}{% endblock %}">
                 {% block rightHolder %}
                     <div class="rightFlashInfos">
                         {% render(controller('FrontendLayoutBundle:Top:getTopFiles')) %}

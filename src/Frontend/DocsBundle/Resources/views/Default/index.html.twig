@@ -1,1 +1,34 @@
-Hello {{ name }}!
+{% extends "FrontendLayoutBundle:Default:layout.html.twig" %}
+{% block title %}Dokumentumok {% endblock %}
+{% block stylesheets %}
+{{ parent() }}
+    <link rel="stylesheet" href="{{asset('bundles/frontenddocs/css/docs-shared.css')}}" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+    
+{% block body %}
+{{parent()}}
+{% endblock %}
+
+{% block bodyClass %}docs{% endblock %}
+    {% block contentHolderCLASS %} whiteBG{% endblock %}
+    {% block contentHolder %}
+        {% if err is not defined %}
+            <div class="headinfo">
+                <span class="dok">Dokumentumok \</span>
+                <span class="dokName">{{Doc.getName()}}</span>
+            </div>
+            <div class="text">
+                {{Doc.getText()|raw}}
+            </div>
+        {% else %}
+            <div class="pageError">
+                Hiba : {{err}}
+            </div>
+        {% endif %}
+    {% endblock %}
+    
+{% block rightHolder %}{% endblock %}
