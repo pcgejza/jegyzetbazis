@@ -42,6 +42,7 @@ AuthWindow = {
                 AuthWindow.bindLoginActions();
                 AuthWindow.addG();
                 AuthWindow.addAutocompleteToRegistration();
+                AuthWindow.bindForgotPassActions();
             });
         }else{
             this.authReveal.find('.window-content .header ul li.'+page).click();
@@ -106,7 +107,7 @@ AuthWindow = {
                     InfoPopUp.showInfoPopup({
                         type :      'info',
                         topText :   'Sikeres regisztráció!',
-                        text : 'Köszönjük hogy regisztráltál az Jegyzetbázisra, jó tanulást!',
+                        text : 'Köszönjük hogy regisztráltál a Jegyzetbázisra, jó tanulást!',
                         closeFunction: function(){
                                 location.reload();
                         }
@@ -302,7 +303,7 @@ AuthWindow = {
            e.preventDefault();
             var postData = $(this).serializeArray();
             var formURL = $(this).attr("action");
-             AuthWindow.showLoadingToForm(loginForm);
+            AuthWindow.showLoadingToForm(loginForm);
              
             var errorDiv = AuthWindow.authReveal.find('.login-form .errors');
             
@@ -348,6 +349,49 @@ AuthWindow = {
                     alert('HIBA: '+textStatus);
                 }
             });
+        });
+    },
+    
+    bindForgotPassActions: function(){
+        //elfelejtett jelszó
+        console.log('bindForgotPass');
+        var forgotPassForm = this.authReveal.find('.forgot-pass form.forgot-pass-form');
+        forgotPassForm.submit(function(e){
+            e.preventDefault();
+            AuthWindow.showLoadingToForm(forgotPassForm);
+            var formURL = $(this).attr('action');
+            var email = $(this).find('.forgot-pass-email').val();
+            var errorDiv = forgotPassForm.find('.errors');
+            
+            $.ajax(
+            {
+                url : formURL,
+                type: "POST",
+                data : {
+                  email : email  
+                },
+                success:function(data, textStatus, jqXHR) 
+                {
+                    AuthWindow.hideLoadingFromForm(forgotPassForm);
+                    if(!data.err){
+                        AuthWindow.hide();
+                        InfoPopUp.showInfoPopup({
+                            topText : 'Sikeres küldés!',
+                            text: 'Az email címedre küldtünk egy linket amire kattintva tudsz új jelszót létrehozni!',
+                        });
+                    }else{
+                        var oH = "<ul><li>"+data.err+"</li></ul>";
+                        errorDiv.html(oH);
+                        errorDiv.fadeIn();
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) 
+                {
+                    alert('HIBA: '+textStatus);
+                }
+            });
+            
+            
         });
     }
     

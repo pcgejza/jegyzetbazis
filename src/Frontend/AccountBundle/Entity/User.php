@@ -96,7 +96,12 @@ class User extends BaseUser
     protected $createdSchools;
     
     
-
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="forgot_pass_code", type="string", nullable=true)
+     */
+    private $forgotPassCode;
 
     /**
      * Get id
@@ -482,5 +487,28 @@ class User extends BaseUser
     public function getCreatedSchools()
     {
         return $this->createdSchools;
+    }
+
+    /**
+     * Set forgotPassCode
+     *
+     * @param string $forgotPassCode
+     * @return User
+     */
+    public function setForgotPassCode($forgotPassCode)
+    {
+        $this->forgotPassCode = $forgotPassCode;
+
+        return $this;
+    }
+
+    /**
+     * Get forgotPassCode
+     *
+     * @return string 
+     */
+    public function getForgotPassCode()
+    {
+        return $this->forgotPassCode;
     }
 }

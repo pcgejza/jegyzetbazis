@@ -28,7 +28,13 @@
         <div class="forgot-pass" {% if page != 'forgot-pass' %}style="display:none"{% endif %}>
             <h3>Elfelejtett jelszó</h3>
             <div class="d">
-                Elfelejtett adatok
+                <form action="{{path('security:forgot-pass')}}" method="POST" class="forgot-pass-form default-form">
+                    <label for="forgot-pass-email">Add meg az email címed vagy a nickneved</label>
+                    <input class="forgot-pass-email">
+                    <div class="errors" style="display:none">
+                    </div>
+                    <input type="submit" value="Küldés">
+                </form>
             </div>
         </div>
     </div>

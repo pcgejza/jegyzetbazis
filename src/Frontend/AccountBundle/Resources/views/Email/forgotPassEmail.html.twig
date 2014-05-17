@@ -1,0 +1,12 @@
+Hello {{User.getUserSettings().getName()}}!
+
+{% if acc is not defined %}
+Igénybe vetted az elfeljtett jelszó funkciót a jegyzetbázis oldalon.
+Kérlek kattints a következő linkre, hogy új jelszót készíthess:
+{{url('security:forgot-pass-activate', {code : User.getForgotPassCode()})}}
+{% else %}
+    Sikeresen megváltoztattad a jelszavad!
+{% endif %}
+
+
+Üdvözlettel, a jegyzetbazis.hu szerkesztősége.

@@ -6,6 +6,14 @@ security:registration:
     pattern:  /regisztracio
     defaults: { _controller: FrontendAccountBundle:Auth:registration }
 
+security:forgot-pass:
+    pattern:  /elfelejtett-jelszo
+    defaults: { _controller: FrontendAccountBundle:Auth:forgotPass }
+
+security:forgot-pass-activate:
+    pattern:  /elfelejtett-jelszo/aktivalas/{code}
+    defaults: { _controller: FrontendAccountBundle:Auth:forgotPass }
+
 security:email-check:
     pattern:  /regisztracio/email-ellenorzes
     defaults: { _controller: FrontendAccountBundle:Auth:checkEmail }

@@ -1,0 +1,76 @@
+{% extends "FrontendLayoutBundle:Default:layout.html.twig" %}
+
+
+{% block title %}Új jelszó igénylése{% endblock %}
+
+{% block stylesheets %}
+    {{parent()}}
+    <style>
+        .forgotPassPage{
+            width: 600px;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .forgotPassPage .error{
+            color: red;
+            font-size: 14pt;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script>
+        $(document).ready(function(){
+           //validator 
+           $('#forgotpassform').submit(function(e){
+              var p1 = $(this).find('#pass1').val(); 
+              var p2 = $(this).find('#pass2').val(); 
+              $(this).find('.error').hide().html('');
+              if(p1.length < 6){
+                   e.preventDefault();
+                  $(this).find('.error').show().append('A jelszónak minimum 6 karakterből kell állnia!');
+              }
+              console.debug(p1);
+              console.debug(p2);
+              if(p1 != p2){
+                   e.preventDefault();
+                  $(this).find('.error').show().append('<br>A jelszavak nem egyeznek!');
+              }
+           });
+        });
+    </script>
+{% endblock %}
+
+{% block initJavascripts %}
+    {{parent()}}
+{% endblock %}
+
+{% block bodyClass %}forgotPass{% endblock %}
+
+
+{% block body %}
+{{parent()}}
+{% endblock %}
+{% block contentHolder %}
+    <div class="forgotPassPage">
+    {% if err is not defined %}
+        {% if acc is not defined %}
+            <form id="forgotpassform" action="{{path('security:forgot-pass-activate', {code : User.getForgotPassCode()})}}" method="POST">
+                <label for="pass1">Jelszó</label>
+                <input type="password" id="pass1" name="pass1">    
+                <label for="pass1">Jelszó újra</label>
+                <input type="password" id="pass2" name="pass2">
+                <input type="submit" value="Küldés">
+                <div class="error" style="display:none;"></div>
+            </form>
+        {% else %}
+            Sikeres jelszó változtatás, az új jelszavaddal beléphetsz az oldalra!
+        {% endif %}
+    {% else %}
+        Hiba : {{err}}
+        <br>
+    {% endif %}
+    </div>
+{% endblock %}

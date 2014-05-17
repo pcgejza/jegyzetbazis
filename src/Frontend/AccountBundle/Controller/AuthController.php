@@ -163,4 +163,109 @@ class AuthController extends Controller{
         }
     }
     
+    public function forgotPassAction($code = NULL){
+         $request = $this->get('request');
+        if($code != NULL){
+            try{
+                $User = $this->getDoctrine()->getRepository('FrontendAccountBundle:User')
+                            ->createQueryBuilder('u')
+                            ->select('u')
+                            ->where('u.forgotPassCode = :code')
+                            ->setParameter('code', $code)
+                            ->getQuery()
+                            ->getOneOrNullResult();
+
+                if($User === NULL)
+                    throw new Exception('Nem létezik ilyen elfelejtett jelszó azonosító!');
+                    
+                if($request->isMethod('POST')){
+                    // jelszó megváltozatása után 
+                    
+                    $pass = $request->request->get('pass1');
+                    
+                    if(strlen($pass)<6 || $pass == NULL)
+                        throw new Exception('Hiba a jelszó változtatás során : a jelszó null vagy 6 karakternél rövidebb!');
+                    
+                    $User->setPlainPassword($pass);
+                    $User->setForgotPassCode(NULL);
+                    $em = $this->getDoctrine()->getEntityManager();
+                    $em->persist($User);
+                    $em->flush();
+                    
+                   
+                    $message = \Swift_Message::newInstance()
+                      ->setSubject('Sikeres jelszó változtatás!')
+                      ->setFrom('szerkesztoseg@jegyzetbazis.hu')
+                      ->setTo($User->getEmail())
+                      ->setBody(
+                          $this->renderView(
+                              'FrontendAccountBundle:Email:forgotPassEmail.html.twig',
+                              array('User' => $User, 'acc' => true)
+                          )
+                      );
+                    $this->get('mailer')->send($message);
+                    
+                    return $this->render('FrontendAccountBundle:Widget:forgotPass.html.twig',array(
+                       'acc' => true
+                    ));
+                }else{
+                    // jelszó változtató oldal
+                    return $this->render('FrontendAccountBundle:Widget:forgotPass.html.twig',array(
+                        'User' => $User
+                    ));
+                }
+            } catch (Exception $ex) {
+                    return $this->render('FrontendAccountBundle:Widget:forgotPass.html.twig',array(
+                        'err' => $ex->getMessage()
+                    ));
+            }
+        }else{
+            try{
+                if($request->isMethod('POST')){
+                    $email = $request->request->get('email');
+                    if($email == NULL || strlen($email)==0){
+                        throw new Exception('Hibás email vagy nick!');
+                    }
+                    $userManager = $this->get('fos_user.user_manager');
+                    $User = $userManager->findUserByUsernameOrEmail($email);
+                    
+                    if($User === NULL)
+                        throw new Exception('Hibás nicknév vagy email cím!');
+                    
+                    $code = $this->generateRandomString(40);
+                    $User->setForgotPassCode($code);
+                    $em = $this->getDoctrine()->getEntityManager();
+                    $em->persist($User);
+                    $em->flush();
+                    
+                    $message = \Swift_Message::newInstance()
+                      ->setSubject('jelszó változtatás')
+                      ->setFrom('szerkesztoseg@jegyzetbazis.hu')
+                      ->setTo($User->getEmail())
+                      ->setBody(
+                          $this->renderView(
+                              'FrontendAccountBundle:Email:forgotPassEmail.html.twig',
+                              array('User' => $User)
+                          )
+                      );
+                    $this->get('mailer')->send($message);
+                    
+                    
+                    return new JsonResponse(array('ok' => true));
+                }else{
+                    throw new Exception('Nem post!');
+                }
+            } catch (Exception $ex) {
+                return new JsonResponse(array('err' => $ex->getMessage()));
+            }
+        }
+    }
+    function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        }
+        return $randomString;
+    }
 }
