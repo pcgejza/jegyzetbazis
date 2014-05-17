@@ -79,7 +79,7 @@ UploadCore = {
                 UploadCore.addElementToToSendFilesArr(id, UploadCore.selectedFilesArr[index]);
 
                 var s = '<tr data-id="'+id+'">';
-                 s += '<td title="Kattints az átnevezéshez">' + UploadCore.selectedFilesArr[index].name + '</td>';
+                 s += '<td title="Kattints az átnevezéshez" class="renameFile">' + UploadCore.selectedFilesArr[index].name + '</td>';
                 if (UploadCore.selectedFilesArr[index].type.substr(0, strpos( UploadCore.selectedFilesArr[index].type, '/')) == 'image') {
                   s += '<td><img src="' +  UploadCore.selectedFilesArr[index].url + '"></td>';
                 } else {
@@ -223,6 +223,7 @@ UploadCore = {
                                 Subjects.refreshActualPage();
                             }
                         }
+                        $('tr[data-id="'+k+'"]').attr('fileId', data.id);
                     }else{
                         console.error('Hiba : '+data.err);
                     }
@@ -234,7 +235,7 @@ UploadCore = {
          });
 
         }else{
-            alert(' NO UPLOAD!');
+            alert('Minden fájl fel van töltve!');
         }
     },
     
@@ -345,7 +346,24 @@ UploadCore = {
     
     addElementToToSendFilesArr: function(key, element){
         this.toSendFilesArr[key] = element;
-    }
+    },
+    
+    renameFileAjax: function(fileid, name){
+        UploadWindow.showMiniLoading();
+        $.post(UploadWindow.fileRenameURL, {
+            fileid : fileid,
+            name : name
+        }).done(function(d){
+             UploadWindow.hideMiniLoading();
+            if(d.err){
+                alert('hiba a fájl átnevezése során: '+d.err);
+            }else{
+                console.log('Fájl sikeresen átnevezve!');
+            }
+        });
+    },
+    
+    
 }
 function strpos(haystack, needle, offset) {
     //  discuss at: http://phpjs.org/functions/strpos/

@@ -118,7 +118,7 @@ Subjects = {
     refreshActualPage: function(){
         var u = $('.subjects li.selected a').attr('href');
         var name = $('.subjects li.selected a').html();
-        if(u.length>1){
+        if(u !== undefined && u.length>1){
             var page = $('.uploads .paginator .pagination .current').html();
             Subjects.getPage(u, page, name);
         }

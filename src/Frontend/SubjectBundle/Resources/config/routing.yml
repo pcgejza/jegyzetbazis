@@ -18,6 +18,10 @@ upload_files:
     pattern:  /ajax/fajl-feltoltes/
     defaults: { _controller: FrontendSubjectBundle:Upload:uploadFile }
 
+file_rename:
+    pattern:  /ajax/fajl-feltoltes/atnevezes
+    defaults: { _controller: FrontendSubjectBundle:Upload:fileRename }
+
 upload_one_file_ajax:
     pattern:  /tantargyak/ajax/fajl-feltoltes/
     defaults: { _controller: FrontendSubjectBundle:Upload:uploadOneFile }

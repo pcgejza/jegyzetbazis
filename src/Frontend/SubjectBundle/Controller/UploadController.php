@@ -177,4 +177,41 @@ class UploadController extends Controller
             return new JsonResponse(array('err'=>$ex->getMessage()));
         }
     }
+    
+    public function fileRenameAction(){
+        try{
+            $User = $this->get('security.context')->getToken()->getUser();
+            $request = $this->get('request');
+            $fileid = $request->request->get('fileid');
+            $filename = $request->request->get('name');
+            
+            if($fileid == NULL){
+                throw new Exception('Null a fileid!');
+            }
+            
+            if($filename == NULL){
+                throw new Exception('Null a name!');
+            }
+            
+            $File = $this->getDoctrine()->getRepository('FrontendSubjectBundle:File')
+                        ->getFileById($fileid);
+            
+            if($File == NULL){
+                throw new Exception('Nincs ilyen azonosítóju fájl!');
+            }
+            
+            if($File->getUser() != $User){
+                throw new Exception('Ez a fájl nem a te tulajdonod!');
+            }
+            
+            $File->setName($filename);
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->persist($File);
+            $em->flush();
+            
+            return new JsonResponse(array('ok' => true));
+        } catch (Exception $ex) {
+            return new JsonResponse(array('err'=>$ex->getMessage()));
+        }
+    }
 }

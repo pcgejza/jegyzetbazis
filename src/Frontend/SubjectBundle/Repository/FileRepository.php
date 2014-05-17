@@ -79,7 +79,7 @@ class FileRepository extends EntityRepository {
      * getFileById - a fájl lekérdezése ID alapján //nem figyeli azt ha valaki nem engedi az adatai megtekintését
      */
 
-    public function getFileById($fileId, $User) {
+    public function getFileById($fileId, $User = null) {
         $File = $this->createQueryBuilder('file')
                 ->select('file')
                 ->addSelect('user')

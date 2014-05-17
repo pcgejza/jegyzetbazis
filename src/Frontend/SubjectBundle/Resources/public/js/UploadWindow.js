@@ -8,6 +8,7 @@ UploadWindow = {
     
     uploadFILE_URL: null,
     getUploadWindowURL: null,
+    fileRenameURL: null,
     
     updateFilesSubjectsURL: null,
     
@@ -155,6 +156,35 @@ UploadWindow = {
                 $('.postInputChangeElements').addClass('hide');
             }
         });
+        
+        this.uploadWindowReveal.find('table .renameFile')
+                .unbind('click')
+                .bind('click', function(){
+                    if($(this).find('input').length == 0){
+                        if(UploadCore.isProgress()){
+                            alert('Fájl feltöltés közben nem végezheted el ezt a műveletet, kérlek várd meg míg feltöltődik a fájl!');
+                            return;
+                        }
+                        var thisO = $(this).html();
+                        $(this).html('');
+                        var $this = $(this);
+                        var tr = $(this).parents('tr').first();
+                        var index = tr.data('id');
+                        console.log('index : '+index);
+                        
+                        $('<input type="text">')
+                                .val(thisO)
+                                .blur(function(){
+                                    $this.html($(this).val());
+                                    if($.type(tr.attr('fileid')) != 'undefined'){
+                                        UploadCore.renameFileAjax(tr.attr('fileid'), $(this).val());
+                                    }else{
+                                        UploadCore.toSendFilesArr[index].name = $(this).val();
+                                    }
+                                }).appendTo($this).focus();
+                        
+                    }
+                });
     },
     
     
