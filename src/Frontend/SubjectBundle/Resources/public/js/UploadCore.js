@@ -1,7 +1,5 @@
 /**
  *  UploadCore : A fájl feltöltés 'magja'
- *  
- *  
  */
 UploadCore = {
     
@@ -20,6 +18,9 @@ UploadCore = {
     
     PROGRESSES: [],
     
+    limit: 40,// legnagyobb felölthető fájl mérete (MEGABÁJTBAN!!!)
+    noUploadFiles: [],
+    
     afterFunctions: {},
     
     init: function(uploadFilesInput) {
@@ -31,6 +32,7 @@ UploadCore = {
         this.files = null;
         this.helperArr = [];
         this.selectedFilesArr = [];
+        this.noUploadFiles = [];
     },
     bindUIActions: function() {
 
@@ -62,38 +64,66 @@ UploadCore = {
         reader.onload = function(event) {
             var dataURL = event.target.result;
             var index = Ind;
-            UploadCore.selectedFilesArr[index] = {
-                url: dataURL,
-                size: Math.round(UploadCore.files[index].size / 1024),
-                name: UploadCore.files[index].name,
-                type: UploadCore.files[index].type,
-                fileObject: UploadCore.helperArr[index]
-            };
+            var sizeMB = Math.round(UploadCore.files[index].size / 1024 / 1024);
             
-            var id = ++UploadCore.ID_COUNTER;
-            UploadCore.addElementToToSendFilesArr(id, UploadCore.selectedFilesArr[index]);
-        
-            var s = '<tr data-id="'+id+'">';
-             s += '<td title="Kattints az átnevezéshez">' + UploadCore.selectedFilesArr[index].name + '</td>';
-            if (UploadCore.selectedFilesArr[index].type.substr(0, strpos( UploadCore.selectedFilesArr[index].type, '/')) == 'image') {
-              s += '<td><img src="' +  UploadCore.selectedFilesArr[index].url + '"></td>';
-            } else {
-                s += '<td>' + UploadCore.getImageByType(UploadCore.selectedFilesArr[index].type) + '</td>';
+            if(sizeMB <= UploadCore.limit){// CSAK AZOKAT A FÁJLOKAT TESSZÜK A LISTÁBA AMELYEK MÉRETE NEM HALADJA MEG A LIMITET!
+                UploadCore.selectedFilesArr[index] = {
+                    url: dataURL,
+                    size: Math.round(UploadCore.files[index].size / 1024),
+                    name: UploadCore.files[index].name,
+                    type: UploadCore.files[index].type,
+                    fileObject: UploadCore.helperArr[index]
+                };
+
+                var id = ++UploadCore.ID_COUNTER;
+                UploadCore.addElementToToSendFilesArr(id, UploadCore.selectedFilesArr[index]);
+
+                var s = '<tr data-id="'+id+'">';
+                 s += '<td title="Kattints az átnevezéshez">' + UploadCore.selectedFilesArr[index].name + '</td>';
+                if (UploadCore.selectedFilesArr[index].type.substr(0, strpos( UploadCore.selectedFilesArr[index].type, '/')) == 'image') {
+                  s += '<td><img src="' +  UploadCore.selectedFilesArr[index].url + '"></td>';
+                } else {
+                    s += '<td>' + UploadCore.getImageByType(UploadCore.selectedFilesArr[index].type) + '</td>';
+                }
+                s += '<td>' + UploadCore.selectedFilesArr[index].size + 'kb</td>';
+                s += '<td>' + UploadCore.selectedFilesArr[index].type + '</td>';
+                s += '<td><span class="removeRow" title="Törlés"></span></td>';
+                s += '</tr>';
+
+                $('.uploadWindowContent .uploadElements').removeClass('hide');
+                $('.uploadWindowContent .uploadElements table tbody').prepend(s);
+              
+            }else{
+                UploadCore.noUploadFiles.push({
+                    name: UploadCore.files[index].name,
+                    size: Math.round(UploadCore.files[index].size / 1024)
+                });
             }
-            s += '<td>' + UploadCore.selectedFilesArr[index].size + 'kb</td>';
-            s += '<td>' + UploadCore.selectedFilesArr[index].type + '</td>';
-            s += '<td><span class="removeRow" title="Törlés"></span></td>';
-            s += '</tr>';
             
-            $('.uploadWindowContent .uploadElements').removeClass('hide');
-            $('.uploadWindowContent .uploadElements table tbody').prepend(s);
-            if($('.uploadWindowContent .uploadElements table tbody tr').length == UploadCore.actualADDcount){
-                UploadWindow.addQtipToUploads();
-                UploadCore.resetFiles();
-                UploadWindow.hideMiniLoading();
-                UploadWindow.bindTableElementActions();
-                $('.postInputChangeElements').removeClass('hide');
-            }
+              if(Object.keys(UploadCore.noUploadFiles).length + $('.uploadWindowContent .uploadElements table tbody tr').length == UploadCore.actualADDcount){
+                   if(Object.keys(UploadCore.noUploadFiles).length > 0){
+                       var t = '';
+                       var ft = Object.keys(UploadCore.noUploadFiles).length + ' darab fájlt nem sikerült feltölteni';
+                       $.each(Object.keys(UploadCore.noUploadFiles), function(i, f){
+                           t += UploadCore.noUploadFiles[f].name + ", mérete : "+ UploadCore.noUploadFiles[f].size +"kb<br>";
+                       });
+                       t += '<br>Hiba oka: a fájlok mérete nagyobb mint ' + UploadCore.limit + 'MB';
+                       InfoPopUp.showInfoPopup({
+                           type : 'error',
+                           topText : ft,
+                           text : t,
+                           closeFunction: function(){
+                               UploadWindow.showWindow();
+                           }
+                       });
+                   }
+                
+                    UploadWindow.addQtipToUploads();
+                    UploadCore.resetFiles();
+                    UploadWindow.hideMiniLoading();
+                    UploadWindow.bindTableElementActions();
+                    $('.postInputChangeElements').removeClass('hide');
+                }
         };
         
         reader.readAsDataURL(file);

@@ -25,21 +25,25 @@ UploadWindow = {
         if(this.uploadFilesButton.length == 0) return;
         
         this.uploadFilesButton.click(function(){
-           UploadWindow.uploadWindowReveal.reveal({
-               closeOnBackgroundClick: false
-           });
-           if(UploadWindow.uploadWindowReveal.hasClass('not-loaded')){
-               UploadWindow.uploadWindowReveal.addClass('loading-reveal');
-               $.post(UploadWindow.getUploadWindowURL).done(function(h){
-                   UploadWindow.uploadWindowReveal.removeClass('loading-reveal');
-                   UploadWindow.uploadWindowReveal.removeClass('not-loaded');
-                   UploadWindow.uploadWindowReveal.html(h);   
-                   UploadWindow.sendButton = UploadWindow.uploadWindowReveal.find('.uploadAllFiles');
-                   UploadWindow.bindWindowActions();
-                   UploadCore.init(UploadWindow.uploadWindowReveal.find('form #upload_file'));
-                });
-           }
+            UploadWindow.showWindow();
         });
+    },
+    
+    showWindow: function(){
+        UploadWindow.uploadWindowReveal.reveal({
+            closeOnBackgroundClick: false
+        });     
+        if(UploadWindow.uploadWindowReveal.hasClass('not-loaded')){
+            UploadWindow.uploadWindowReveal.addClass('loading-reveal');
+            $.post(UploadWindow.getUploadWindowURL).done(function(h){
+                UploadWindow.uploadWindowReveal.removeClass('loading-reveal');
+                UploadWindow.uploadWindowReveal.removeClass('not-loaded');
+                UploadWindow.uploadWindowReveal.html(h);   
+                UploadWindow.sendButton = UploadWindow.uploadWindowReveal.find('.uploadAllFiles');
+                UploadWindow.bindWindowActions();
+                UploadCore.init(UploadWindow.uploadWindowReveal.find('form #upload_file'));
+             });
+        }
     },
     
     bindWindowActions: function(){
