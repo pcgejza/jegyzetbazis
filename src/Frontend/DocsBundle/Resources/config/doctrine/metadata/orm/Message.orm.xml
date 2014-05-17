@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Message" table="message">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="userIdA" type="integer" column="user_id_a" nullable="false"/>
+    <field name="userIdB" type="integer" column="user_id_b" nullable="false"/>
+    <field name="sendDate" type="datetime" column="send_date" nullable="false"/>
+    <field name="text" type="text" column="text" nullable="false"/>
+    <field name="seeTime" type="datetime" column="see_time" nullable="true"/>
+    <field name="status" type="string" column="status" nullable="false"/>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="UserSettings" table="user_settings">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="userId" type="integer" column="user_id" nullable="false"/>
+    <field name="avatarId" type="bigint" column="avatar_id" nullable="true"/>
+    <field name="name" type="string" column="name" length="255" nullable="false"/>
+    <field name="gender" type="string" column="gender" nullable="true"/>
+    <field name="birthDate" type="datetime" column="birth_date" nullable="true"/>
+    <field name="schoolId" type="integer" column="school_id" nullable="true"/>
+    <field name="myUploadsVisit" type="string" column="my_uploads_visit" nullable="true"/>
+    <field name="myProfileVisit" type="string" column="my_profile_visit" nullable="true"/>
+    <field name="messageToMe" type="string" column="message_to_me" nullable="true"/>
+    <field name="style" type="string" column="style" length="255" nullable="true"/>
+    <field name="commentText" type="text" column="comment_text" nullable="true"/>
+  </entity>
+</doctrine-mapping>

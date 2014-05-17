@@ -8,6 +8,12 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('FrontendIndexBundle:Default:index.html.twig', array());
+        $text = $this->getDoctrine()->getRepository('FrontendDocsBundle:Docs')
+                ->findOneByName('index');
+        
+        
+        return $this->render('FrontendIndexBundle:Default:index.html.twig', array(
+            'text' => $text->getText()
+        ));
     }
 }
