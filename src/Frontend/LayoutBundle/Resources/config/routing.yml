@@ -6,22 +6,6 @@ get_auth_window_ajax:
     pattern:  /ajax/azonositasi-ablak-lekerdezes
     defaults: { _controller: FrontendLayoutBundle:Header:getAuthReveal }
 
-security:login:
-    pattern:  /bejelentkezes
-    defaults: { _controller: FrontendLayoutBundle:Auth:login }
-
-security:registration:
-    pattern:  /regisztracio
-    defaults: { _controller: FrontendLayoutBundle:Auth:registration }
-
-security:email-check:
-    pattern:  /regisztracio/email-ellenorzes
-    defaults: { _controller: FrontendLayoutBundle:Auth:checkEmail }
-
-security:nickname-check:
-    pattern:  /regisztracio/nicknev-ellenorzes
-    defaults: { _controller: FrontendLayoutBundle:Auth:checkNickname }
-
 visit_refresh:
     pattern:  /online-statusz-frissites
     defaults: { _controller: FrontendLayoutBundle:Default:visit }

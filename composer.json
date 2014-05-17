@@ -23,7 +23,8 @@
         "gregwar/image-bundle": "dev-master",
         "knplabs/knp-paginator-bundle": "~2.4",
         "gedmo/doctrine-extensions":      "dev-master",
-        "knplabs/knp-time-bundle": "~1.2"
+        "knplabs/knp-time-bundle": "~1.2",
+         "cedriclombardot/admingenerator-generator-bundle": "1.2.*@dev"
     },
     "scripts": {
         "post-install-cmd": [

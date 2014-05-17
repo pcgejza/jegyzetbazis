@@ -1,3 +1,11 @@
+frontend_docs:
+    resource: "@FrontendDocsBundle/Resources/config/routing.yml"
+    prefix:   /
+
+frontend_admin:
+    resource: "@FrontendAdminBundle/Resources/config/routing.yml"
+    prefix:   /
+
 frontend_search:
     resource: "@FrontendSearchBundle/Resources/config/routing.yml"
     prefix:   /

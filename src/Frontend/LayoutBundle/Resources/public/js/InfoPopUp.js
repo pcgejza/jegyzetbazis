@@ -24,13 +24,20 @@ InfoPopUp = {
         var topText = (typeof(obj) == 'undefined' || typeof(obj.topText) == 'undefined') ? '' : obj.topText;
         var text = (typeof(obj) == 'undefined' || typeof(obj.text) == 'undefined') ? '' : obj.text;
         var closeTime = (typeof(obj) == 'undefined' || typeof(obj.closeTime) == 'undefined') ? false : obj.closeTime*1000;
+        var closeFunction = (typeof(obj) == 'undefined' || typeof(obj.closeFunction) == 'undefined') ? false : obj.closeFunction;
         
         this.popupElement.find('.topHolder').html(topText);
         this.popupElement.find('.right').html(text);
         this.popupElement.find('.left .icon').hide();
         this.popupElement.find('.left .icon.'+type).show();
        
-        this.popupElement.reveal();
+        this.popupElement.reveal({
+            close: function(){
+               if(closeFunction){
+                   closeFunction();
+               }
+            }
+        });
         
         if(closeTime !== false){
             var timer = $.timer(function() {

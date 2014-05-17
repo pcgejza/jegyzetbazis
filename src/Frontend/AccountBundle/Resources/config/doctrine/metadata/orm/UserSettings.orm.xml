@@ -9,6 +9,7 @@
     <field name="name" type="string" column="name" length="255" nullable="false"/>
     <field name="gender" type="string" column="gender" nullable="true"/>
     <field name="birthDate" type="datetime" column="birth_date" nullable="true"/>
+    <field name="schoolId" type="integer" column="school_id" nullable="true"/>
     <field name="myUploadsVisit" type="string" column="my_uploads_visit" nullable="true"/>
     <field name="myProfileVisit" type="string" column="my_profile_visit" nullable="true"/>
     <field name="messageToMe" type="string" column="message_to_me" nullable="true"/>

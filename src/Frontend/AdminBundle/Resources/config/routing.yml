@@ -1,0 +1,5 @@
+FrontendAdminBundle_admin_frontend_admin_bundle_subjects:
+    resource: "@FrontendAdminBundle/Controller/Subjects/"
+    type:     admingenerator
+    prefix:   /admin/subjects
+

@@ -1,3 +1,8 @@
+<script>
+    {% for School in Schools %}
+        AuthWindow.schools.push("{{School.getName()}}");
+    {% endfor %}
+</script>
 <span class="exit"></span>
 <div class="window-content">
     <div class="header">

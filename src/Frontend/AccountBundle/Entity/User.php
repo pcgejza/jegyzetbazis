@@ -54,10 +54,6 @@ class User extends BaseUser
      */
     protected $userVisits;
     
-    /**
-     * @ORM\OneToMany(targetEntity="\Frontend\LayoutBundle\Entity\Log", mappedBy="user")
-     */
-    protected $userLogs;
     
     /**
      * @ORM\OneToMany(targetEntity="\Frontend\SubjectBundle\Entity\File", mappedBy="user")
@@ -93,6 +89,11 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="\Frontend\MessagingBundle\Entity\Message", mappedBy="userB")
      */
     protected $messageB;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="\Frontend\AccountBundle\Entity\School", mappedBy="creatorUser")
+     */
+    protected $createdSchools;
     
     
 
@@ -362,39 +363,6 @@ class User extends BaseUser
     }
 
     /**
-     * Add userLogs
-     *
-     * @param \Frontend\LayoutBundle\Entity\Log $userLogs
-     * @return User
-     */
-    public function addUserLog(\Frontend\LayoutBundle\Entity\Log $userLogs)
-    {
-        $this->userLogs[] = $userLogs;
-
-        return $this;
-    }
-
-    /**
-     * Remove userLogs
-     *
-     * @param \Frontend\LayoutBundle\Entity\Log $userLogs
-     */
-    public function removeUserLog(\Frontend\LayoutBundle\Entity\Log $userLogs)
-    {
-        $this->userLogs->removeElement($userLogs);
-    }
-
-    /**
-     * Get userLogs
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getUserLogs()
-    {
-        return $this->userLogs;
-    }
-
-    /**
      * Set registrationTime
      *
      * @param \DateTime $registrationTime
@@ -415,5 +383,104 @@ class User extends BaseUser
     public function getRegistrationTime()
     {
         return $this->registrationTime;
+    }
+
+    /**
+     * Add messageA
+     *
+     * @param \Frontend\MessagingBundle\Entity\Message $messageA
+     * @return User
+     */
+    public function addMessageA(\Frontend\MessagingBundle\Entity\Message $messageA)
+    {
+        $this->messageA[] = $messageA;
+
+        return $this;
+    }
+
+    /**
+     * Remove messageA
+     *
+     * @param \Frontend\MessagingBundle\Entity\Message $messageA
+     */
+    public function removeMessageA(\Frontend\MessagingBundle\Entity\Message $messageA)
+    {
+        $this->messageA->removeElement($messageA);
+    }
+
+    /**
+     * Get messageA
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMessageA()
+    {
+        return $this->messageA;
+    }
+
+    /**
+     * Add messageB
+     *
+     * @param \Frontend\MessagingBundle\Entity\Message $messageB
+     * @return User
+     */
+    public function addMessageB(\Frontend\MessagingBundle\Entity\Message $messageB)
+    {
+        $this->messageB[] = $messageB;
+
+        return $this;
+    }
+
+    /**
+     * Remove messageB
+     *
+     * @param \Frontend\MessagingBundle\Entity\Message $messageB
+     */
+    public function removeMessageB(\Frontend\MessagingBundle\Entity\Message $messageB)
+    {
+        $this->messageB->removeElement($messageB);
+    }
+
+    /**
+     * Get messageB
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMessageB()
+    {
+        return $this->messageB;
+    }
+
+    /**
+     * Add createdSchools
+     *
+     * @param \Frontend\AccountBundle\Entity\School $createdSchools
+     * @return User
+     */
+    public function addCreatedSchool(\Frontend\AccountBundle\Entity\School $createdSchools)
+    {
+        $this->createdSchools[] = $createdSchools;
+
+        return $this;
+    }
+
+    /**
+     * Remove createdSchools
+     *
+     * @param \Frontend\AccountBundle\Entity\School $createdSchools
+     */
+    public function removeCreatedSchool(\Frontend\AccountBundle\Entity\School $createdSchools)
+    {
+        $this->createdSchools->removeElement($createdSchools);
+    }
+
+    /**
+     * Get createdSchools
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCreatedSchools()
+    {
+        return $this->createdSchools;
     }
 }

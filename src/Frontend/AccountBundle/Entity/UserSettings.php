@@ -104,7 +104,11 @@ class UserSettings
      */
     private $commentText;
 
-
+    /**
+     *  @ORM\ManyToOne(targetEntity="School", inversedBy="userSettings")
+     *  @ORM\JoinColumn(name="school_id", referencedColumnName="id")
+     */
+    private $school;
 
 
     /**
@@ -411,5 +415,28 @@ class UserSettings
     public function getAvatar()
     {
         return $this->avatar;
+    }
+
+    /**
+     * Set school
+     *
+     * @param \Frontend\AccountBundle\Entity\School $school
+     * @return UserSettings
+     */
+    public function setSchool(\Frontend\AccountBundle\Entity\School $school = null)
+    {
+        $this->school = $school;
+
+        return $this;
+    }
+
+    /**
+     * Get school
+     *
+     * @return \Frontend\AccountBundle\Entity\School 
+     */
+    public function getSchool()
+    {
+        return $this->school;
     }
 }

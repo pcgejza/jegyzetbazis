@@ -1,0 +1,7 @@
+parameters:
+#    frontend_docs.example.class: Frontend\DocsBundle\Example
+
+services:
+#    frontend_docs.example:
+#        class: %frontend_docs.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

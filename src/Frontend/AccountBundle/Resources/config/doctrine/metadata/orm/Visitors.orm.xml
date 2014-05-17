@@ -4,7 +4,7 @@
     <id name="id" type="bigint" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="ip" type="string" column="ip" length="255" nullable="false"/>
+    <field name="sessionId" type="string" column="session_id" length="255" nullable="false"/>
     <field name="userId" type="integer" column="user_id" nullable="true"/>
     <field name="date" type="datetime" column="date" nullable="false"/>
     <field name="status" type="boolean" column="status" nullable="false"/>

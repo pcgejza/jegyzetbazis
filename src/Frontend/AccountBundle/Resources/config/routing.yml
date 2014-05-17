@@ -1,3 +1,19 @@
+security:login:
+    pattern:  /bejelentkezes
+    defaults: { _controller: FrontendAccountBundle:Auth:login }
+
+security:registration:
+    pattern:  /regisztracio
+    defaults: { _controller: FrontendAccountBundle:Auth:registration }
+
+security:email-check:
+    pattern:  /regisztracio/email-ellenorzes
+    defaults: { _controller: FrontendAccountBundle:Auth:checkEmail }
+
+security:nickname-check:
+    pattern:  /regisztracio/nicknev-ellenorzes
+    defaults: { _controller: FrontendAccountBundle:Auth:checkNickname }
+
 settings_homepage:
     pattern:  /beallitasok/
     defaults: { _controller: FrontendAccountBundle:Settings:settingsIndex }

@@ -26,6 +26,11 @@ class AppKernel extends Kernel
             new Knp\Bundle\TimeBundle\KnpTimeBundle(),
             new Frontend\MessagingBundle\FrontendMessagingBundle(),
             new Frontend\SearchBundle\FrontendSearchBundle(),
+            new Frontend\AdminBundle\FrontendAdminBundle(),
+            new Frontend\DocsBundle\FrontendDocsBundle(),
+        new Admingenerator\GeneratorBundle\AdmingeneratorGeneratorBundle(),
+        new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+        new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
