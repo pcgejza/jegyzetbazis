@@ -1,1 +1,26 @@
-Hello {{ name }}!
+<html>
+    <head>
+        <title>Jegyzetbázis - admin rendszer</title>
+        <link rel="stylesheet" href="{{asset('bundles/frontendadmin/css/login.css')}}">
+    </head>
+    <body>
+        <div class="page">
+            <img class="logo" src="{{asset('images/jegyzetbazis_logo_nagy.png')}}">
+            <h2>Admin rendszer</h2>
+            <form action="{{path('admin_login')}}" method="POST">
+                <div class="line">
+                    <label for="email">Email cím</label>
+                    <input type="text" name="email" id="email">
+                </div>
+                <div class="line">
+                    <label for="pass">Jelszó</label>
+                    <input type="password" name="pass" id="pass">
+                </div>
+                {% if err is defined %}
+                    <div class="error">{{err}}</div>
+                {% endif %}
+                <input type="submit" value="Bejelentkezés">
+            </form>
+        </div>
+    </body>
+</html>

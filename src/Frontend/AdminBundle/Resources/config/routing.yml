@@ -1,5 +1,12 @@
-FrontendAdminBundle_admin_frontend_admin_bundle_subjects:
+admin_page_subjects:
     resource: "@FrontendAdminBundle/Controller/Subjects/"
     type:     admingenerator
-    prefix:   /admin/subjects
-
+    prefix:   /admin/oldal/tantargyak
+    
+admin_login:
+    pattern:  /admin
+    defaults: { _controller: FrontendAdminBundle:Default:login }
+    
+admin_list:
+    pattern:  /admin/lista
+    defaults: { _controller: FrontendAdminBundle:Default:list }
