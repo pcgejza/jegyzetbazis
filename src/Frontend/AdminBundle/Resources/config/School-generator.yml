@@ -1,0 +1,63 @@
+generator: admingenerator.generator.doctrine
+params:
+    model: Frontend\AccountBundle\Entity\School
+    namespace_prefix: Frontend
+    concurrency_lock: ~
+    bundle_name: AdminBundle
+    pk_requirement: ~
+    fields: 
+        name:
+            label: Név
+        creatorUser:
+            label: Létrehozta
+        createdAt:
+            label: Létrehozás ideje
+        status:
+            label: Aktív-e?
+    object_actions:
+        delete: ~
+    batch_actions:
+        delete: ~
+builders:
+    list:
+        params:
+            title: Iskolák az oldalon
+            display: [name, creatorUser, createdAt, status]
+            actions:
+                new: ~
+            object_actions:
+                edit: ~
+    excel:
+        params: ~
+        filename: ~
+        filetype: ~
+    filters:
+        params:
+            display: ~
+    new:
+        params:
+            title: Új iskola hozzáadása
+            display: [name, status]
+            actions:
+                save: ~
+                list: ~
+    edit:
+        params:
+            title: Iskola szerkesztése
+            display: [name, status]
+            actions:
+                save: ~
+                list: ~
+    show:
+        params:
+            title: "You're viewing the object \"%object%\"|{ %object%: YourModel.title }|"
+            display: ~
+            actions:
+                list: ~
+                new: ~
+    actions:
+        params:
+            object_actions:
+                delete: ~
+            batch_actions:
+                delete: ~

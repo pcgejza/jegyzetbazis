@@ -40,12 +40,9 @@
   <body>
 
     {% block navbar %}
-            {% block menu %}
-              {{ knp_menu_render('FrontendAdminBundle:DefaultMenuBuilder:adminMenu') }}
-            {% endblock %}
-      {% include 'AdmingeneratorGeneratorBundle::base_admin_navbar.html.twig' %}
+      {% include 'FrontendAdminBundle::base_admin_navbar.html.twig' %}
+         
     {% endblock navbar %}
-
     <div class="container-fluid">
       {% block flashes %}
         <div id="flashes" class="row">

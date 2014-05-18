@@ -1,0 +1,11 @@
+{% extends_admingenerated "FrontendAdminBundle:FileList:row.html.twig" %}
+{% block list_td_column_subjects %}
+<ul class="array_list">
+    {% for Subject in File.subjects %}
+        <a href="#">{{Subject.name}}</a>,
+    {% endfor %}
+</ul>
+{% endblock list_td_column_subjects %}
+{% block list_td_column_user %}
+    <a href="#">{{ File.user }}</a>
+{% endblock list_td_column_user %}

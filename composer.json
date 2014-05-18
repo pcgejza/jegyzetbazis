@@ -6,8 +6,10 @@
     "autoload": {
         "psr-0": { "": "src/" }
     },
+    "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
+        "cedriclombardot/admingenerator-generator-bundle": "dev-master",
         "symfony/symfony": "~2.4",
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.2",
@@ -23,8 +25,7 @@
         "gregwar/image-bundle": "dev-master",
         "knplabs/knp-paginator-bundle": "~2.4",
         "gedmo/doctrine-extensions":      "dev-master",
-        "knplabs/knp-time-bundle": "~1.2",
-         "cedriclombardot/admingenerator-generator-bundle": "1.2.*@dev"
+        "knplabs/knp-time-bundle": "~1.2"
     },
     "scripts": {
         "post-install-cmd": [
@@ -43,7 +44,8 @@
         ]
     },
     "config": {
-        "bin-dir": "bin"
+        "bin-dir": "bin",
+        "component-dir": "web/components" 
     },
     "extra": {
         "symfony-app-dir": "app",

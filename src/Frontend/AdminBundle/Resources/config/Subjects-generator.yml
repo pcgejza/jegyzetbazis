@@ -1,11 +1,20 @@
 generator: admingenerator.generator.doctrine
 params:
+    i18n_catalog: Admingenerator
     model: Frontend\SubjectBundle\Entity\Subject
     namespace_prefix: Frontend
     concurrency_lock: ~
     bundle_name: AdminBundle
     pk_requirement: ~
-    fields: ~
+    fields: 
+        name:
+            label: Tantárgy neve
+        insertDate:
+            label: Létrehozás dátuma
+        user:
+            label: Létrehozó
+        status:
+            label: Aktív?
     object_actions:
         delete: ~
     batch_actions:
@@ -13,8 +22,8 @@ params:
 builders:
     list:
         params:
-            title: List for AdminBundle
-            display: ~
+            title: Tantárgyak
+            display: [name, insertDate, user, status]
             actions:
                 new: ~
             object_actions:
@@ -29,15 +38,15 @@ builders:
             display: ~
     new:
         params:
-            title: New object for AdminBundle
-            display: ~
+            title: "Tantárgy létrehozása"
+            display: [name, status]
             actions:
                 save: ~
                 list: ~
     edit:
         params:
-            title: "You're editing the object \"%object%\"|{ %object%: Subjects.title }|"
-            display: ~
+            title: "Tantárgy szerkesztése"
+            display: [name, status]
             actions:
                 save: ~
                 list: ~

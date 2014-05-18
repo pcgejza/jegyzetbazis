@@ -1,0 +1,125 @@
+# Double list form
+double_list:
+  selected:   Kiválasztva
+  unselected: Nincs kiválasztva
+
+# Date range form
+date_range:
+  from.label: ettől
+  to.label:   eddig
+
+# Boolean filter
+boolean:
+  yes:        Igen
+  no:         Nem
+  yes_or_no:  Igen vagy nem
+
+# Pager
+pagerfanta:
+  previous: Előző
+  next:     Következő
+  view.perpage:   Mutass
+  num.elements:   %number% elemet
+
+
+# List
+list:
+  no.results: Nincs eredmény
+  filters:    Szűrők
+list.button:
+  filter:     Szűrő
+  reset:      Visszaállítás
+list.display:
+  range:      <b>%start%</b> - <b>%end%</b> litstázva a <b>%count%</b>-ből.
+  all:        <b>%count%</b> db listázva.
+list.header:
+  actions:    Akciók
+
+# Nested List
+nested.list:
+  expand:     Megjelenítés
+  collapse:   Elrejtés
+  loading:    Loading in progress
+  success:    The element was successfully moved.
+  error:      Could not move element.
+
+# Profile
+profile:
+  welcome:  <b>Üdvözöllek</b>, %username%!</p>
+  login:    Bejelentkezés
+  logout:   Kijelentkezés
+
+# EntityPicker
+entity_picker:
+  placeholder:  Keresés...
+
+# Collection
+collection:
+  add: Add
+
+# Upload
+upload:
+  file.add:     Fájl hozzáadása...
+  error:        Hiba
+  cancel:       Vissza
+  delete:       Törlés
+  download:     Letöltés
+upload.errors:
+  maxNumFiles:      Maximum number of files exceeded.
+  typeNotAllowed:   Filetype not allowed.
+  maxFileSize:      File is too big.
+  minFileSize:      File is too small.
+
+# SingleUpload
+singleupload:
+  display.name:     Displayed name
+
+# Generic actions
+action.generic:
+  list:   Listázás
+  new:    Új
+  save:   Mentés
+  save-and-add:   Mentés és hozzáadás
+  save-and-list:  Mentés és listázás
+
+# Object actions
+action.object.edit:
+  label:    Szerkesztés
+  success:  Az objektum sikeresen elmentve.
+  error:    The form can't be saved. Check errors and try to resubmit.
+action.object.delete:
+  label:    Törlés
+  confirm:  Biztosan törölni szeretnéd ezt az elemet?
+action.object.show:
+  label:    Megjelenítés
+
+# Batch actions
+action.batch.delete:
+  label:    Törlés
+  confirm:  Biztosan törölni szeretnél minden kijelölt elemet?
+  success:  Az elemek törlésre kerültek.
+  error:    Records can't be deleted.
+
+# Batch list
+batch.list:
+  selected:       Kijelölt
+  none.selected:  Legalább egy elemet ki kell választani.
+
+# Layout
+dashboard:
+  homepage:   Főoldal
+  brand:      Dashboard
+
+# Filetype icons
+filetype:
+  audio:            Audio
+  archive:          Archive
+  html:             HTML
+  image:            Image
+  pdf-document:     PDF<br />Document
+  plain-text:       Plain<br />Text
+  presentation:     Presentation
+  spreadsheet:      Spreadsheet
+  text-document:    Text<br />Document
+  unknown:          Unknown<br />Filetype
+  video:            Video

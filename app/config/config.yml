@@ -90,12 +90,11 @@ knp_paginator:
         sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
 
 admingenerator_generator:
-    base_admin_template: AdmingeneratorGeneratorBundle::base_admin_assetic_less.html.twig
+    base_admin_template: FrontendAdminBundle::base_admin_assetic_less.html.twig
 #    base_admin_template: AdmingeneratorGeneratorBundle::base_admin.html.twig
     use_doctrine_orm:     true
     login_path: ~
     logout_path: ~
-#    knp_menu_class:      Frontend\AdminBundle\Menu\DefaultMenuBuilder
     ## Twig and Templates
     twig:
         use_form_resources: true

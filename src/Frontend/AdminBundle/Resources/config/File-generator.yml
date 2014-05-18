@@ -1,0 +1,62 @@
+generator: admingenerator.generator.doctrine
+params:
+    model: Frontend\SubjectBundle\Entity\File
+    namespace_prefix: Frontend
+    concurrency_lock: ~
+    bundle_name: AdminBundle
+    pk_requirement: ~
+    fields: 
+        subjects:
+           label: Társított tantárgyak
+        user:
+           label: Létrehozta
+        name:
+           label: Fájlnév
+        path:
+           label: Elérési út
+        uploadedTime:
+           label: Feltöltés dátuma
+        downloadCount:
+           label: Letöltések száma
+        status:
+           label: Aktív?
+    object_actions:
+        delete: ~
+    batch_actions:
+        delete: ~
+builders:
+    list:
+        params:
+            title: Fájlok
+            display: [name, path, uploadedTime, user, downloadCount, status, subjects]
+            actions:
+            object_actions:
+                edit: ~
+                delete: ~
+    excel:
+        params: ~
+        filename: ~
+        filetype: ~
+    filters:
+        params:
+            display: ~
+    edit:
+        params:
+            title: "Fájl szerkesztése"
+            display: [name, status]
+            actions:
+                save: ~
+                list: ~
+    show:
+        params:
+            title: "You're viewing the object \"%object%\"|{ %object%: file.title }|"
+            display: ~
+            actions:
+                list: ~
+                new: ~
+    actions:
+        params:
+            object_actions:
+                delete: ~
+            batch_actions:
+                delete: ~

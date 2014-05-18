@@ -1,1 +1,5 @@
 {% extends_admingenerated "FrontendAdminBundle:SubjectsList:row.html.twig" %}
+
+{% block list_td_column_user %}
+    <a href="#">{{ Subject.user }}</a>
+{% endblock list_td_column_user %}

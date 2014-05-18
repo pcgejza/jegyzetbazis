@@ -3,6 +3,26 @@ admin_page_subjects:
     type:     admingenerator
     prefix:   /admin/oldal/tantargyak
     
+admin_page_docs:
+    resource: "@FrontendAdminBundle/Controller/Docs/"
+    type:     admingenerator
+    prefix:   /admin/oldal/dokumentumok
+
+admin_page_UserSettings:
+    resource: "@FrontendAdminBundle/Controller/UserSettings/"
+    type:     admingenerator
+    prefix:   /admin/oldal/felhasznalok-beallitasai
+
+admin_page_school:
+    resource: "@FrontendAdminBundle/Controller/School/"
+    type:     admingenerator
+    prefix:   /admin/oldal/iskolak
+
+admin_page_file:
+    resource: "@FrontendAdminBundle/Controller/File/"
+    type:     admingenerator
+    prefix:   /admin/oldal/fajlok
+    
 admin_login:
     pattern:  /admin
     defaults: { _controller: FrontendAdminBundle:Default:login }
