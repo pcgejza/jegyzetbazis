@@ -21,6 +21,8 @@ class FriendsRepository extends EntityRepository{
                 ->leftJoin('uAs.avatar', 'uAs_avatar')
                 ->leftJoin('uBs.avatar', 'uBs_avatar')
                 ->setParameter('user', $user)
+                ->orderBy('uAs.name', 'ASC')
+                ->addOrderBy('uBs.name', 'ASC')
                 ->getQuery()
                 ->getResult();
     }
@@ -40,6 +42,7 @@ class FriendsRepository extends EntityRepository{
                 ->leftJoin('uAs.avatar', 'uAs_avatar')
                 ->leftJoin('uBs.avatar', 'uBs_avatar')
                 ->setParameter('MyUser', $MyUser)
+                ->orderBy('uBs.name', 'ASC')
                 ->getQuery()
                 ->getResult();
     }
@@ -59,6 +62,7 @@ class FriendsRepository extends EntityRepository{
                 ->leftJoin('uAs.avatar', 'uAs_avatar')
                 ->leftJoin('uBs.avatar', 'uBs_avatar')
                 ->setParameter('MyUser', $MyUser)
+                ->orderBy('uAs.name', 'ASC')
                 ->getQuery()
                 ->getResult();
     }

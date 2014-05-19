@@ -68,6 +68,7 @@ FriendsView = {
                       div.removeAttr( "style" ).hide();
                     };
                 
+                    FriendsView.post(userId, 'reject');
                  });
     },
     
@@ -93,7 +94,7 @@ FriendsView = {
                   div.removeAttr( "style" ).hide();
                 };
                 
-                console.log('Ő a barátom : '+userId);
+                FriendsView.post(userId, 'accept');
               });
     },
     

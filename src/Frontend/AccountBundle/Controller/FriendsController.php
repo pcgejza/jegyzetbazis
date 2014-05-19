@@ -82,7 +82,7 @@ class FriendsController extends Controller{
                         ->getFriendsStatus($MyUser, $viewedUser);
             
             $text = "";
-            
+            $isDel = false;
             if($FriendsObject == NULL){
                 $FriendsObject = new Friends();
                 $FriendsObject->setUserA($MyUser);
@@ -93,10 +93,15 @@ class FriendsController extends Controller{
                 if($type != NULL){
                     switch($type){
                         case 'accept': 
-                            $FriendsObject->setStatus('active');
+                            if($FriendsObject->getStatus() == 'selected' && $MyUser == $FriendsObject->getUserB()){
+                                $FriendsObject->setStatus('active');
+                            }else{
+                                throw new Exception('Ezt nem csinálhatod mert nem jelölt be téged!');
+                            }
                             break;
                         case 'reject': 
                             $FriendsObject->setStatus('rejected');
+                            $isDel = true;
                             break;
                         case 'select': 
                             $FriendsObject->setStatus('selected');
@@ -119,7 +124,11 @@ class FriendsController extends Controller{
                 }
                 
             }
-            $em->persist($FriendsObject);
+            if(!$isDel){
+                $em->persist($FriendsObject);
+            }else{
+                $em->remove($FriendsObject);
+            }
             $em->flush();
             
             $FriendsObject = $this->getDoctrine()->getRepository('FrontendAccountBundle:Friends')
