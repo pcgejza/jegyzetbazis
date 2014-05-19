@@ -4,6 +4,8 @@ namespace Frontend\DocsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Gedmo\Mapping\Annotation as Gedmo;
+
 /**
  * Docs
  *
@@ -30,8 +32,8 @@ class Docs
     
     /**
      * @var string
-     *
-     * @ORM\Column(name="slug", type="string", length=60, nullable=false)
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(name="slug", type="string", length=255, nullable=false)
      */
     private $slug;
 

@@ -5,7 +5,33 @@ params:
     concurrency_lock: ~
     bundle_name: AdminBundle
     pk_requirement: ~
-    fields: ~
+    fields: 
+        name:
+            label: Név
+        nickname:
+            label: Nick név
+        email:
+            label: E-mail cím
+        avatar:
+            label: Aktuális avatar kép
+        avatarId:
+            label: Aktuális avatar kép
+            formType: hidden
+        gender: 
+            label: Nem
+        birthDate:
+            label: Születési dátum
+        commentText:
+            label: Megjegyzés
+            addFormOptions:
+                attr:
+                    readonly : readonly
+        myUploadsVisit:
+            label: Kik láthatják a feltöltéseimet
+        myProfileVisit:
+            label: Kik láthatják a felhasználói adataimat
+        messageToMe:
+            label: Kik küldhetnek nekem üzenetet
     object_actions:
         delete: ~
     batch_actions:
@@ -13,10 +39,9 @@ params:
 builders:
     list:
         params:
-            title: List for AdminBundle
-            display: ~
+            title: Felhasználók a jegyzetbazison
+            display: [name, avatar, gender, birthDate, commentText]
             actions:
-                new: ~
             object_actions:
                 edit: ~
                 delete: ~
@@ -27,27 +52,20 @@ builders:
     filters:
         params:
             display: ~
-    new:
-        params:
-            title: New object for AdminBundle
-            display: ~
-            actions:
-                save: ~
-                list: ~
     edit:
         params:
-            title: "You're editing the object \"%object%\"|{ %object%: UserSettings.title }|"
-            display: ~
+            title: "\"%object%\" felhasználó adatainak szerkesztése |{ %object%: UserSettings.name }|"
+            display: [name, avatarId, commentText]
             actions:
                 save: ~
                 list: ~
     show:
         params:
-            title: "You're viewing the object \"%object%\"|{ %object%: UserSettings.title }|"
-            display: ~
+            title: "\"%object%\" felhasználó adatai |{ %object%: UserSettings.name }|"
+            display: [name, nickname, email, avatar, gender, birthDate, myUploadsVisit, myProfileVisit, messageToMe, commentText]
             actions:
                 list: ~
-                new: ~
+                edit: ~
     actions:
         params:
             object_actions:

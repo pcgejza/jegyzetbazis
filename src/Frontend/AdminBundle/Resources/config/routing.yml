@@ -30,3 +30,6 @@ admin_login:
 admin_list:
     pattern:  /admin/lista
     defaults: { _controller: FrontendAdminBundle:Default:list }
+    
+admin_user_settings_single_show:
+    pattern:   /admin/oldal/felhasznalok-beallitasai/{id}/show

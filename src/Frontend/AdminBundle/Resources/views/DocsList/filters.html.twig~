@@ -1,0 +1,1 @@
+{% extends_admingenerated "FrontendAdminBundle:DocsList:filters.html.twig" %}

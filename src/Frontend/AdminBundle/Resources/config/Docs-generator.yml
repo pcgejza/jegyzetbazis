@@ -5,7 +5,14 @@ params:
     concurrency_lock: ~
     bundle_name: AdminBundle
     pk_requirement: ~
-    fields: ~
+    fields: 
+        name :
+            label: Név
+        text:
+            label : Szöveg
+            addFormOptions:
+                        attr: 
+                            class: addCkEditor
     object_actions:
         delete: ~
     batch_actions:
@@ -13,8 +20,8 @@ params:
 builders:
     list:
         params:
-            title: List for AdminBundle
-            display: ~
+            title: Dokumentumok a jegyzetbázison
+            display: [name]
             actions:
                 new: ~
             object_actions:
@@ -29,15 +36,15 @@ builders:
             display: ~
     new:
         params:
-            title: New object for AdminBundle
-            display: ~
+            title: Új dokumentum létrehozása
+            display: [name, text]
             actions:
                 save: ~
                 list: ~
     edit:
         params:
-            title: "You're editing the object \"%object%\"|{ %object%: Docs.title }|"
-            display: ~
+            title: "A \"%object%\" nevű dokumentum szerkesztése|{ %object%: Docs.name }|"
+            display: [name, text]
             actions:
                 save: ~
                 list: ~

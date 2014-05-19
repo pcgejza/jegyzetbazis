@@ -1,0 +1,1 @@
+{% extends_admingenerated "FrontendAdminBundle:DocsShow:index.html.twig" %}

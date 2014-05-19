@@ -45,14 +45,14 @@ class Subject
 
     /**
      * @var \DateTime
-     *
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="insert_date", type="datetime", nullable=false)
      */
-    private $insertDate = 'CURRENT_TIMESTAMP';
+    private $insertDate;
 
     /**
      * @var \DateTime
-     *
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="update_date", type="datetime", nullable=true)
      */
     private $updateDate;
@@ -64,16 +64,18 @@ class Subject
      */
     private $createdUserId;
     
-     /**
+     /**  
+     * @var \Frontend\AdminBundle\Entity\User
+     * @Gedmo\Blameable(on="create")
      * @ORM\ManyToOne(targetEntity="\Frontend\AccountBundle\Entity\User", inversedBy="subjects")
      * @ORM\JoinColumn(name="created_user_id", referencedColumnName="id")
      */
     protected $user;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="status", type="boolean", nullable=false)
+     * @ORM\Column(name="status", type="integer", nullable=false)
      */
     private $status = '1';
 

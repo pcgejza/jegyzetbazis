@@ -1,1 +1,8 @@
 {% extends_admingenerated "FrontendAdminBundle:DocsEdit:index.html.twig" %}
+{% block javascripts %}    
+    {{ parent() }}
+    <script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
+    <script src="{{asset('bundles/frontendadmin/js/admin.js')}}"></script>
+        {% block object_actions_script %}
+        {% endblock object_actions_script %}
+{% endblock javascripts %} 

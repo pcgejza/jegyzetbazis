@@ -1,1 +1,15 @@
 {% extends_admingenerated "FrontendAdminBundle:UserSettingsList:row.html.twig" %}
+ {% block list_td_column_name %}
+     {#{ UserSettings.user }#}
+     <a href="{{path('admin_user_settings_single_show', { id : UserSettings.getId() })}}">{{UserSettings.getName()}}</a>
+ {% endblock list_td_column_name %}
+ {% block list_td_column_avatar %}
+     {% if UserSettings.getAvatar() is not null %}
+         <img src="{{image(UserSettings.getAvatar().getWebPath()).zoomCrop(100,100).jpeg}}" alt="{{UserSettings.name}} avatár képe" />
+     {% else %}
+         nincs beállított avatar kép
+     {% endif %}
+ {% endblock list_td_column_avatar %}
+ {% block list_td_column_gender %}
+     {{UserSettings.getGenderHun()}}
+ {% endblock %}

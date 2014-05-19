@@ -1,1 +1,14 @@
 {% extends_admingenerated "FrontendAdminBundle:UserSettingsShow:index.html.twig" %}
+ {% block show_column_avatar %}
+     {% if UserSettings.getAvatar() is not null %}
+         <img src="{{image(UserSettings.getAvatar().getWebPath()).zoomCrop(100,100).jpeg}}" alt="{{UserSettings.name}} avatár képe" />
+     {% else %}
+         nincs beállított avatar kép
+     {% endif %}
+ {% endblock show_column_avatar %}
+ {% block show_column_nickname %}
+      {{ UserSettings.getUser().getUserName() }}
+ {% endblock show_column_nickname %}
+ {% block show_column_email %}
+      {{ UserSettings.getUser().getEmail() }}
+ {% endblock show_column_email %}

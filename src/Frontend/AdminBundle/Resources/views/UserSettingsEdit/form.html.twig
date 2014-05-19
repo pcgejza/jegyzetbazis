@@ -1,1 +1,40 @@
 {% extends_admingenerated "FrontendAdminBundle:UserSettingsEdit:form.html.twig" %}
+ {% block form_avatarId%}
+         {{ form_row(form['avatarId']) }}
+         <style>
+             DIV.avatarImage a.deleteAvatar{
+                position: absolute;
+                bottom: -11px;
+                left: 150px;
+                background-color: red;
+                color: white;
+                padding: 10px;
+                border-radius: 8px;
+                text-decoration: none;
+             }
+             </style>
+             <script>
+                 $(document).ready(function(){
+                     $('DIV.avatarImage a.deleteAvatar').click(function(){
+                         var hiddenInput = $(this).parents('.row').first().find('input[type="hidden"]').first();
+                         if($(this).siblings('img').css('opacity')<1){
+                            $(this).siblings('img').css('opacity', '1');
+                            hiddenInput.val(hiddenInput.attr('originalVal')); 
+                         }else{
+                            $(this).siblings('img').css('opacity', '0.3'); 
+                            var a = hiddenInput.val();
+                            hiddenInput.attr('originalVal', a);
+                            hiddenInput.val(0);
+                         }
+                     });
+                 });
+             </script>
+     {% if UserSettings.getAvatar() is not null %}
+         <div class="avatarImage">
+            <img src="{{image(UserSettings.getAvatar().getWebPath()).zoomCrop(300,300).jpeg}}" alt="{{UserSettings.name}} avatár képe" />
+            <a href="javascript:void(0)" class="deleteAvatar">X</a>
+        </div>
+     {% else %}
+         nincs beállított avatar kép
+     {% endif %}
+{% endblock form_avatarId %}
