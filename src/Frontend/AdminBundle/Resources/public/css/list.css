@@ -1,0 +1,26 @@
+body{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    height: 100%;
+}
+
+body .page{
+    position: relative;
+    background-color: #EB593C;
+    margin: 0px auto;
+    margin-top: 75px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+    width: 380px;
+    color: white;
+}
+
+body .page ul li{
+    list-style:none;
+    font-size: 20px;
+    text-align: left;
+    margin-top: 10px;
+}
+
+
+
