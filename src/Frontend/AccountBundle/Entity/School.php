@@ -38,7 +38,7 @@ class School
 
     /**
      * @var \DateTime
-     *
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $createdAt = 'CURRENT_TIMESTAMP';
@@ -51,6 +51,8 @@ class School
     private $status = '1';
 
     /**
+     * @var \Frontend\AdminBundle\Entity\User
+     * @Gedmo\Blameable(on="create")
      *  @ORM\ManyToOne(targetEntity="\Frontend\AccountBundle\Entity\User", inversedBy="createdSchools")
      *  @ORM\JoinColumn(name="creator_user_id", referencedColumnName="id")
      */

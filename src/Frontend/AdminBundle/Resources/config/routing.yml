@@ -33,3 +33,21 @@ admin_list:
     
 admin_user_settings_single_show:
     pattern:   /admin/oldal/felhasznalok-beallitasai/{id}/show
+    
+admin_subject_single_show:
+    pattern:   /admin/oldal/tantargyak/{id}/show
+
+admin_page_subjects_u:
+    pattern:   /admin/oldal/tantargyak
+    
+admin_page_UserSettings_u:
+    pattern:   /admin/oldal/felhasznalok-beallitasai
+    
+admin_page_docs_u:
+    pattern:   /admin/oldal/dokumentumok
+
+admin_page_school_u:
+    pattern:   /admin/oldal/iskolak
+
+admin_page_file_u:
+    pattern:   /admin/oldal/fajlok

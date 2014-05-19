@@ -1,1 +1,4 @@
 {% extends_admingenerated "FrontendAdminBundle:SubjectsShow:index.html.twig" %}
+{% block show_column_user %}
+   <a href="{{path('admin_user_settings_single_show', { id : Subject.getUser().getUserSettings().getId() })}}">{{ Subject.getUser().getUserSettings().getName()}}</a>
+{% endblock show_column_user %}

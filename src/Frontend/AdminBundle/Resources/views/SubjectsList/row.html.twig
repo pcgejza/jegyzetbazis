@@ -1,5 +1,5 @@
 {% extends_admingenerated "FrontendAdminBundle:SubjectsList:row.html.twig" %}
 
 {% block list_td_column_user %}
-    <a href="#">{{ Subject.user }}</a>
+    <a href="{{path('admin_user_settings_single_show', { id : Subject.user.getUserSettings().getId() })}}">{{ Subject.user.getUserSettings().getName() }}</a>
 {% endblock list_td_column_user %}

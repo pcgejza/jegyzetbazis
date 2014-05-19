@@ -15,13 +15,12 @@ class DefaultMenuBuilder extends ContainerAware
     {
         $menu = $factory->createItem('root');
 
-        $menu->addChild('Home', array('route' => 'frontend_index_homepage'));
-        $menu->addChild('About Me', array(
-            'route' => 'frontend_index_homepage',
-            'routeParameters' => array('id' => 42)
-        ));
-        // ... add more children
-
+        $menu->addChild('Tantárgyak', array('route' => 'admin_page_subjects_u'));
+        $menu->addChild('Felhasználói beállítások', array('route' => 'admin_page_UserSettings_u'));
+        $menu->addChild('Iskolák', array('route' => 'admin_page_school_u'));
+        $menu->addChild('Dokumentumok', array('route' => 'admin_page_docs_u'));
+        $menu->addChild('Fájlok', array('route' => 'admin_page_file_u'));
+       
         return $menu;
     }
     

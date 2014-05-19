@@ -44,7 +44,6 @@ builders:
             actions:
             object_actions:
                 edit: ~
-                delete: ~
     excel:
         params: ~
         filename: ~

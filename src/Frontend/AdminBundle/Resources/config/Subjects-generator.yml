@@ -45,15 +45,15 @@ builders:
                 list: ~
     edit:
         params:
-            title: "Tantárgy szerkesztése"
+            title: "A \"%object%\" nevű tantárgy szerkesztése |{ %object%: Subject.name }|"
             display: [name, status]
             actions:
                 save: ~
                 list: ~
     show:
         params:
-            title: "You're viewing the object \"%object%\"|{ %object%: Subjects.title }|"
-            display: ~
+            title: "Információk a \"%object%\" nevű tantárgyról|{ %object%: Subject.name }|"
+            display: [name, insertDate, user, status]
             actions:
                 list: ~
                 new: ~

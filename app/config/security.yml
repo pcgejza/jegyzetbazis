@@ -23,7 +23,7 @@ security:
                 remember_me: true
           logout:
             path:   fos_user_security_logout
-            target: /admin
+            target: /
           anonymous:    true
 
         dev:

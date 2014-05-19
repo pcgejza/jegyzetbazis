@@ -2,10 +2,10 @@
 {% block list_td_column_subjects %}
 <ul class="array_list">
     {% for Subject in File.subjects %}
-        <a href="#">{{Subject.name}}</a>,
+        <a href="{{path('admin_subject_single_show', { id : Subject.id })}}">{{Subject.name}}</a>,
     {% endfor %}
 </ul>
 {% endblock list_td_column_subjects %}
 {% block list_td_column_user %}
-    <a href="#">{{ File.user }}</a>
+      <a href="{{path('admin_user_settings_single_show', { id : File.user.getUserSettings().getId() })}}">{{ File.user.getUserSettings().getName() }}</a>
 {% endblock list_td_column_user %}
