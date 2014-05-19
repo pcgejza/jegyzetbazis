@@ -1,0 +1,24 @@
+  <div class="message">
+      {% set count = 0 %}
+      {% if Message.getParent() is not null %}
+          {% set count = Message.getParent().getChildren()|length %}
+      {% endif %}
+      <span class="name">
+          {% if page == 'sent' %}
+              <a href="#">{{Message.getUserB().getUserSettings().getName()}}</a>
+          {% elseif page == 'received' %}
+              <a href="#">{{Message.getUserA().getUserSettings().getName()}}</a>
+          {% else %}
+              DELETRED
+          {% endif %}
+          {% if count>0 %}
+              ({{count}})
+          {% endif %}
+      </span>
+      <span class="smallText">
+          {{Message.getText()|slice(0,20) ~ '...'}}
+      </span>
+      <span class="date">
+          {{Message.getSendDate() | date('Y-m-d H:s')}}
+      </span>
+  </div>

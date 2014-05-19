@@ -5,6 +5,7 @@
     padding: 10px;
     min-height: 100px;
     width: 80%;
+    display: inline-block;
 }
 
 
@@ -45,3 +46,48 @@
     background-position:center; 
 }
 
+
+
+
+/*
+    az üzenet dobozokhoz
+*/
+.messagesList .list .message{
+    cursor: pointer;
+    background-color: #def;
+    padding: 3px;
+    height: 30px;
+    margin-bottom: 5px;
+}
+
+.messagesList .list .message .name{
+    width: 20%;
+    display: inline-block;
+}
+
+.messagesList .list .message .smallText{
+   margin-left: 5px;
+}
+
+.messagesList .list .message .date{
+    float: right;
+}
+
+.messagesList .list .message .fullMessage{
+    display: none;
+}
+
+.messages .errors{
+    font-size: 16px;
+    color: red;
+}
+
+DIV.loading-mini{
+    background-image: url('/jegyzetbazis/web/images/loading1.gif');
+    display: inline-block;
+    width: 60px;
+    background-position: 50% 50%;
+    background-size: 70%;
+    background-repeat: no-repeat;
+    height: 40px;
+}

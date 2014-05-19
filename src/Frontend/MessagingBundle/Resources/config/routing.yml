@@ -9,3 +9,7 @@ messaging_homepage_page:
 messaging_more:
     pattern:  /uzenetek/{page}/tovabbi-uzenetek
     defaults: { _controller: FrontendMessagingBundle:Default:index }
+
+send_message:
+    pattern:  /uzenetek/kuldes/uj-uzenet-kuldese
+    defaults: { _controller: FrontendMessagingBundle:Default:sendMessage }

@@ -3,6 +3,7 @@
 namespace Frontend\MessagingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Message
@@ -37,10 +38,10 @@ class Message
 
     /**
      * @var \DateTime
-     *
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="send_date", type="datetime", nullable=false)
      */
-    private $sendDate = 'CURRENT_TIMESTAMP';
+    private $sendDate;
 
     /**
      * @var string
@@ -71,9 +72,20 @@ class Message
 
     /**
      *  @ORM\ManyToOne(targetEntity="\Frontend\AccountBundle\Entity\User", inversedBy="messageB")
-     *  @ORM\JoinColumn(name="user_id_B", referencedColumnName="id")
+     *  @ORM\JoinColumn(name="user_id_b", referencedColumnName="id")
      */
     private $userB;
+
+    /**
+     *  @ORM\ManyToOne(targetEntity="Message", inversedBy="children")
+     *  @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     */
+    private $parent;
+
+    /**
+     *  @ORM\OneToMany(targetEntity="Message", mappedBy="parent")
+     */
+    private $children;
 
 
     /**
@@ -268,5 +280,70 @@ class Message
     public function getUserB()
     {
         return $this->userB;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \Frontend\MessagingBundle\Entity\Message $parent
+     *
+     * @return Message
+     */
+    public function setParent(\Frontend\MessagingBundle\Entity\Message $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \Frontend\MessagingBundle\Entity\Message 
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Add children
+     *
+     * @param \Frontend\MessagingBundle\Entity\Message $children
+     *
+     * @return Message
+     */
+    public function addChild(\Frontend\MessagingBundle\Entity\Message $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Frontend\MessagingBundle\Entity\Message $children
+     */
+    public function removeChild(\Frontend\MessagingBundle\Entity\Message $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChildren()
+    {
+        return $this->children;
     }
 }

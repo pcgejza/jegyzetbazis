@@ -1,8 +1,9 @@
 {% if err is not defined %}
    {% if Messages | length > 0 %}
        {% for Message in Messages %}
-           <div>Üzenet feladója : {{Message.getUserA().getUserSettings().getName()}} : {{Message.getText()}}</div>
+           {{ include('FrontendMessagingBundle:Default:oneMessageDiv.html.twig', {'Message' : Message, 'page' : page})}}     
        {% endfor %}
+       <button class="getMoreMessages">További üzenetek lekérdezése</button>
    {% else %}
        Nincs több üzeneted!
    {% endif %}

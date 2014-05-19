@@ -17,7 +17,17 @@
     </div>
     <div class="messagesList">
         <div class="p newMessage{% if page == 'new' %} active{% endif %}">
-            új üzenet
+            <h3>Új üzenet írása</h3>
+           <form method="POST" action="{{path('send_message')}}" class="newMessageForm">
+            <label for="nick">Nicknév vagy email cím</label>
+            <input type="text" name="nick" class="nick">
+            <label for="nick">Üzenet</label>
+            <textarea name="message" class="message"></textarea>
+            <input type="submit" value="Küldés">
+            <div class="loading-mini hide"></div>
+            <input type="reset" class="hide">
+           </form>
+            <div class="errors"></div>
         </div>
         <div class="p receivedMessages{% if page == 'received' %} active{% endif %}">
             {% if page == 'received' %}
