@@ -25,8 +25,16 @@ class FriendsController extends Controller{
             $Friends = $this->getDoctrine()->getRepository('FrontendAccountBundle:Friends')
                         ->getUserFriendsByUser($user);
             
+            $MySelectedFriends = $this->getDoctrine()->getRepository('FrontendAccountBundle:Friends')
+                        ->getMySelectedUsers($user);
+            
+            $SelectMeToFriend = $this->getDoctrine()->getRepository('FrontendAccountBundle:Friends')
+                        ->getSelectMeToFriend($user);
+            
             return $this->render('FrontendAccountBundle:Friends:friends.html.twig',array(
-                'Friends' => $Friends
+                'Friends' => $Friends,
+                'MySelectedFriends' => $MySelectedFriends,
+                'SelectMeToFriend' => $SelectMeToFriend
             ));
         } catch (Exception $ex) {
             throw new \ErrorException('Hiba a getFriends-ben : '+$ex->getMessage());

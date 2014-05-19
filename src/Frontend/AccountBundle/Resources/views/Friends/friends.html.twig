@@ -1,11 +1,73 @@
-{% if Friends | length > 0 %}
-    {% for Friend in Friends %}
-        {% set User = Friend.userA %}
-        {% if User == app.user %}
-            {% set User = Friend.userB %}
-        {% endif %}
-        {% include 'FrontendAccountBundle:Friends:oneFriend.html.twig' %}
-    {% endfor %}
-{% else %}    
-    Nincsenek barátaid
-{% endif %}
+
+    <div class="universal-tabs">
+        <div class="universal-tabs-header">
+            <ul>
+                <li class="active"><a href="javascript:void(0)" tab="friends">Barátaid</a></li>
+                <li><a href="javascript:void(0)" tab="marked-users">Barátnak jelölted</a></li>
+                <li><a href="javascript:void(0)" tab="mark-me-users">Barátnak jelölt</a></li>
+            </ul>
+        </div>
+        <div class="universal-tabs-content">
+            <div class="friends tab active">
+                <h3>Barátaid</h3>
+                {% if Friends | length > 0 %}
+                    <div class="qtips-content my-friend" style="display: none;">
+                        <li>
+                            <a href="javascript:void(0)" class="deleteThisFriend">Barát törlése</a>
+                        </li>
+                        <div class="line"></div>
+                        <li>
+                            <a href="javascript:void(0)" class="hideQtip">Mégse</a>
+                        </li>
+                    </div>
+                {% for Friend in Friends %}
+                    {% set User = Friend.userA %}
+                    {% if User == app.user %}
+                        {% set User = Friend.userB %}
+                    {% endif %}
+                    {{ include('FrontendAccountBundle:Friends:oneFriend.html.twig', {'qtipcontent' : 'my-friend'})}}
+                {% endfor %}
+                {% else %}    
+                    Nincsenek barátaid
+                {% endif %}
+            </div>
+            <div class="marked-users tab">
+                 <h3>Barátnak jelölted</h3>
+                 {% if MySelectedFriends | length > 0 %}
+                     <div class="qtips-content marked-friend" style="display: none;">
+                        <li>
+                            <a href="javascript:void(0)" class="deleteThisFriend">Jelölés törlése</a>
+                        </li>
+                        <div class="line"></div>
+                        <li>
+                            <a href="javascript:void(0)" class="hideQtip">Mégse</a>
+                        </li>
+                    </div>
+                    {% for friend in MySelectedFriends %}    
+                        {{ include('FrontendAccountBundle:Friends:oneFriend.html.twig', {'User' : friend.getUserB(),'qtipcontent' : 'marked-friend'})}}
+                    {% endfor %}
+                 {% else %}
+                         Nincsenek nem visszaigazolt barátnak jelölés kéréseid
+                 {% endif %}
+            </div>
+            <div class="mark-me-users tab">
+                 <h3>Barátnak jelölt</h3>
+                 {% if SelectMeToFriend | length > 0 %}
+                       <div class="qtips-content my-mark-friend" style="display: none;">
+                        <li>
+                            <a href="javascript:void(0)" class="deleteThisFriend">Nem a barátom</a>
+                        </li>
+                        <div class="line"></div>
+                        <li>
+                            <a href="javascript:void(0)" class="hideQtip">Mégse</a>
+                        </li>
+                    </div>
+                    {% for friend in SelectMeToFriend %}    
+                        {{ include('FrontendAccountBundle:Friends:oneFriend.html.twig', {'button' : 'accept' , 'User' : friend.getUserA(),'qtipcontent' : 'my-mark-friend'})}}
+                    {% endfor %}
+                 {% else %}
+                         Nincsenek nem visszaigazolt barátnak jelölés kéréseid
+                 {% endif %}
+            </div>
+        </div>
+    </div>

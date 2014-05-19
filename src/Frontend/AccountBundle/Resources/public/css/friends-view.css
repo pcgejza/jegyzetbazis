@@ -3,17 +3,23 @@ body.friends{
 }
 
 .friends .friend-object{
-    background-color: rgba(210,100,250, 0.3);
+    background-color:  #FFA569;
     display: inline-block;
-    width: 200px;
-    height: 150px;
+    width: 130px;
+    height: 160px;
     padding: 8px;
     border-radius: 10px;
+    color: #fff;
+}
+
+.friends .friend-object a{
+     color: #fff;
 }
 
 .friends .friend-object .profile-name-holder{
     font-size: 13pt;
     margin-bottom: 3px;
+    height: 40px;
 }
 
 .friends .friend-object .avatar-holder img{
@@ -23,5 +29,28 @@ body.friends{
 .friends .friend-object .avatar-holder img{
     width: 100px;
     height: 100px;
+    background-color: #fff;
 }
 
+.friends .friend-object .delete-holder{
+    position: relative;
+    top: 0px;
+    float: right;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.friends .friend-object .accept-friend{
+    width: 30px;
+    height: 30px;
+    background-image: url('/jegyzetbazis/web/images/complete_icon.png');
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    top: -20px;
+    left: 90px;
+}
+
+.transferAnimation{
+    border: 2px dotted gray; 
+}

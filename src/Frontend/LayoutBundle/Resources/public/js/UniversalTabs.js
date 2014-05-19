@@ -27,6 +27,7 @@ UniversalTabs = {
                     var tab = $(this).attr('tab');
                     var tabLi = $(this).parent();
                     if(!tabLi.hasClass('active')){
+                        $('.qtip:visible').qtip('hide');
                         tabLi.siblings('li').removeClass('active');
                         tabLi.addClass('active');
                         UniversalTabs.allTabContents.fadeOut().removeClass('active');

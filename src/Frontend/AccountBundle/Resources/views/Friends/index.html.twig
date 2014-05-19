@@ -6,16 +6,21 @@
 {% block stylesheets %}
     {{parent()}}
     <link rel="stylesheet" href="{{asset('bundles/frontendaccount/css/friends-view.css')}}" />
+    <link rel="stylesheet" href="{{asset('bundles/frontendlayout/css/universal-tabs.css')}}">
 {% endblock %}
 
 {% block javascripts %}
     {{parent()}}
     <script src="{{asset('bundles/frontendaccount/js/FriendsView.js')}}"></script>
+    <script src="{{asset('bundles/frontendlayout/js/UniversalTabs.js')}}"></script>
 {% endblock %}
 
 {% block initJavascripts %}
     {{parent()}}
     FriendsView.init();
+    var tabs1 = UniversalTabs.init();
+    tabs1.setTabHolderWidth('80%');
+    tabs1.setTabElementWidth('25%');
 {% endblock %}
 
 {% block bodyClass %}friends{% endblock %}

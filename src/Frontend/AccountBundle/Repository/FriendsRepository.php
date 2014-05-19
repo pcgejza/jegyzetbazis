@@ -11,13 +11,54 @@ class FriendsRepository extends EntityRepository{
                 ->select('friends')
                 ->addSelect('uA, uB')
                 ->addSelect('uAs, uBs')
+                ->addSelect('uAs_avatar, uBs_avatar')
                 ->where("friends.status = 'active'")
                 ->andWhere("friends.userA = :user or friends.userB = :user")
                 ->join('friends.userA', 'uA')
                 ->join('friends.userB', 'uB')
                 ->join('uA.userSettings', 'uAs')
                 ->join('uB.userSettings', 'uBs')
+                ->leftJoin('uAs.avatar', 'uAs_avatar')
+                ->leftJoin('uBs.avatar', 'uBs_avatar')
                 ->setParameter('user', $user)
+                ->getQuery()
+                ->getResult();
+    }
+    
+    public function getMySelectedUsers($MyUser){
+            return $this->createQueryBuilder('friends')
+                ->select('friends')
+                ->addSelect('uA, uB')
+                ->addSelect('uAs, uBs')
+                ->addSelect('uAs_avatar, uBs_avatar')
+                ->where("friends.status = 'selected'")
+                ->andWhere("friends.userA = :MyUser")
+                ->join('friends.userA', 'uA')
+                ->join('friends.userB', 'uB')
+                ->join('uA.userSettings', 'uAs')
+                ->join('uB.userSettings', 'uBs')
+                ->leftJoin('uAs.avatar', 'uAs_avatar')
+                ->leftJoin('uBs.avatar', 'uBs_avatar')
+                ->setParameter('MyUser', $MyUser)
+                ->getQuery()
+                ->getResult();
+    }
+    
+    public function getSelectMeToFriend($MyUser){
+            return $this->createQueryBuilder('friends')
+                ->select('friends')
+                ->addSelect('uA, uB')
+                ->addSelect('uAs, uBs')
+                ->addSelect('uAs_avatar, uBs_avatar')
+                ->where("friends.status = 'selected'")
+                ->andWhere("friends.userB = :MyUser")
+                ->join('friends.userA', 'uA')
+                ->join('friends.userB', 'uB')
+                ->join('uA.userSettings', 'uAs')
+                ->join('uB.userSettings', 'uBs')
+                ->leftJoin('uAs.avatar', 'uAs_avatar')
+                ->leftJoin('uBs.avatar', 'uBs_avatar')
+                ->setParameter('MyUser', $MyUser)
                 ->getQuery()
                 ->getResult();
     }

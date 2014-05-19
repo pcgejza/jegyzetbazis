@@ -12,3 +12,18 @@
     border-color: #ddd;
     background-color: #ec4100;
 }
+
+.qtip-custom-black{
+    background-color: #000;
+    color: #fff !important;
+}
+
+.qtip-custom-black li a{
+    color: #fff !important;
+}
+
+.qtip-custom-black .qtip-titlebar{
+    color: #fff; 
+    border-color: #ddd;
+    background-color: #ec4100;
+}
