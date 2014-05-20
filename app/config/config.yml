@@ -65,7 +65,10 @@ doctrine:
                 prefix: Gedmo\Translatable\Entity
                 # make sure vendor library location is correct
                 dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
-
+        dql:
+           string_functions:
+              GROUP_CONCAT: Frontend\LayoutBundle\DQL\GroupConcat
+              IFNULL: Frontend\LayoutBundle\DQL\IfNull
     # Swiftmailer Configuration
 swiftmailer:
     encryption: ssl

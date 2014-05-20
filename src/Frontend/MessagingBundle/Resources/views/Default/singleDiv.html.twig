@@ -1,0 +1,14 @@
+<div class="message border{% if cls is defined and cls == true %} cls{% endif %}">
+    <span class="name">
+        <a href="#">{{Message.getUserA().getUserSettings().getName()}}</a>
+    </span>
+    <span class="smallText">
+        {{Message.getText()|slice(0,20) ~ '...'}}
+    </span>
+    <span class="date">
+        {{Message.getSendDate() | date('Y-m-d H:s')}}
+    </span>
+    <div class="longText">
+        {{Message.getText()}}
+    </div>
+</div>

@@ -12,8 +12,13 @@ class HeaderController extends Controller{
         
         $User = (is_object($User)) ? $User : NULL;
         
+        $noReadMessages = ($User== NULL) ? NULL : $this->getDoctrine()->getRepository('FrontendMessagingBundle:Message')->getNoReadMessagesCountByUser($User);
+    
         return $this->render('FrontendLayoutBundle:Header:header.html.twig',
-                array('User' => $User));
+                array(
+                    'User' => $User,
+                    'noReadMessages' => $noReadMessages
+                ));
     }
     
     public function getAuthRevealAction(){

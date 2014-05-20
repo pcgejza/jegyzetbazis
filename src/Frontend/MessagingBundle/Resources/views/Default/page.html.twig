@@ -4,13 +4,19 @@
         Beérkezett üzenetek
     {% elseif page == 'sent' %}
         Elküldött üzenetek
-    {% else %}    
+    {% elseif page == 'deleted' %}    
         Törölt üzenetek
+    {% else %}
+        Üzenet
     {% endif %}
     </h3>
     <div class="list">
-        {% render(controller('FrontendMessagingBundle:Default:getMoreMessages', { page : page })) %} 
-    </div>
+        {% if page == 'single' %}
+            {% render(controller('FrontendMessagingBundle:Default:getSingleMessage', { page : page, messageId : messageId })) %} 
+        {% else %}
+            {% render(controller('FrontendMessagingBundle:Default:getMoreMessages', { page : page })) %} 
+        {% endif %}
+   </div>
 {% else %}
     Hiba : {{err}}
 {% endif %}

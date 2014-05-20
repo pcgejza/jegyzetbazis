@@ -25,5 +25,5 @@
 {% endblock %}
 {% block contentHolder %}
     <h2>Üzenetek</h2>
-    {% render(controller('FrontendMessagingBundle:Default:content', {getPage : getPage})) %}
+    {% render(controller('FrontendMessagingBundle:Default:content', {getPage : getPage, messageId : messageId})) %}
 {% endblock %}

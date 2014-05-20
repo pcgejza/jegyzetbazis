@@ -9,11 +9,11 @@ MessagingShared = {
         
         this.bindUiActions();
         this.initSwitch();
-        this.initNewMessageSend();
     },
     
     bindUiActions: function(){
-        console.log('messagingShared.bindUi');
+        this.bindClickToMessage();
+        this.bindNewMessageSend();
     },
     
     initSwitch: function(){
@@ -30,15 +30,15 @@ MessagingShared = {
                 });
     },
     
-    initNewMessageSend: function(){
-        $('.newMessageForm').submit(function(e){
+    bindNewMessageSend: function(){
+        $('.newMessageForm').unbind('submit').bind('submit', function(e){
             e.preventDefault();
             if(MessagingShared.PROGRESS){
                 return; //Abban az esetben ha éppen zajlik a küldés , ne küldhesse el a user újra
             }
             var loadingE = $(this).find('.loading-mini');
             var err = false;
-            var errorsDiv = $('.newMessage .errors');
+            var errorsDiv = $(this).siblings('.errors');
             var resetButton = $(this).find('input[type="reset"]');
             
             // hibák kezelése (nicknévnek vagy jelszónak és üzenetnek muszály lennie
@@ -82,18 +82,39 @@ MessagingShared = {
                    });
                }else{
                    resetButton.click();
+                    $('.singleMessage.active .messages-h').append(data.messageDIV);
                    InfoPopUp.showInfoPopup({
                       topText : 'Az üzenet küldése sikeres!',
                       text : 'Sikeresen továbbítottad az üzenetet a felhasználónak',
                       type : 'info'
                    });
+                   MessagingShared.bindClickToMessage();
                }
             });
             
         });
     },
     
-    openPage: function(page,getp, href){
+    bindClickToMessage: function(){
+        $('.list DIV.message').unbind('click')
+                .bind('click', function(){
+                   if($(this).hasClass('border')){
+                       if($(this).hasClass('cls')){
+                           $(this).removeClass('cls');
+                       }else{
+                           $(this).addClass('cls');
+                       }
+                   }else{
+                        var msgID = $(this).attr('messageid');
+                        var gpage = 'single';
+                        var href =   $('.messages .messagesMenu li.active a').attr('href');
+                        var page = "singleMessage";
+                        MessagingShared.openPage(page,gpage, href, msgID);
+                   }
+                });
+    },
+    
+    openPage: function(page,getp, href, messageId){
        var messagesList = $('.messages .messagesList');
         var selectedPage= messagesList.find('.p.'+page);
         messagesList.find('.p.active').fadeOut().removeClass('active');
@@ -102,9 +123,12 @@ MessagingShared = {
         if(page != 'newMessage'){
             selectedPage.html(MessagingShared.loadingDivHtml);
             $.post(href, {
-                page : getp
+                page : getp,
+                messageId : messageId
             }).done(function(h){
                selectedPage.html(h); 
+               MessagingShared.bindClickToMessage();
+               MessagingShared.bindNewMessageSend();
             });
         }
     }

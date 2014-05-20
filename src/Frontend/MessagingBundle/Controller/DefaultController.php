@@ -11,7 +11,7 @@ use Frontend\MessagingBundle\Entity\Message;
 
 class DefaultController extends Controller
 {
-    public function indexAction($page = 'beerkezett-uzenetek')
+    public function indexAction($page = 'beerkezett-uzenetek', $messageId = null)
     {
         try{
             if(!$this->get('security.context')->isGranted('ROLE_USER')){
@@ -21,7 +21,8 @@ class DefaultController extends Controller
 
             if($this->get('request')->isMethod('POST')){
                 $page = $this->get('request')->request->get('page');
-                return $this->getPageAction($page);
+                $messageId = $this->get('request')->request->get('messageId');
+                return $this->getPageAction($page, $messageId);
             }
             
             
@@ -36,13 +37,16 @@ class DefaultController extends Controller
                 case 'torolt-uzenetek':
                     $getP = 'deleted';
                     break;
+                case 'uzenet':
+                    $getP = 'single';
+                    break;
                 default : throw new Exception('Nincs ilyen oldal!');
             }
-            
                 
 
             return $this->render('FrontendMessagingBundle:Default:index.html.twig', array(
-                'getPage' => $getP
+                'getPage' => $getP,
+                'messageId' => $messageId
             ));
         } catch (Exception $ex) {
             throw new \ErrorException('Hiba : '.$ex->getMessage());
@@ -50,22 +54,68 @@ class DefaultController extends Controller
     }
     
     
-    public function contentAction($getPage){
+    public function contentAction($getPage, $messageId = null){
         
         return $this->render('FrontendMessagingBundle:Default:content.html.twig', array(
-            'page' => $getPage
+            'page' => $getPage,
+            'messageId' => $messageId
         ));
     }
     
-    public function getPageAction($page = null){
+    public function getPageAction($page = null, $messageId = null){
         try{
             return $this->render('FrontendMessagingBundle:Default:page.html.twig', array(
-                'page' => $page
+                'page' => $page,
+                'messageId' => $messageId
             ));
         } catch (Exception $ex) {
             return $this->render('FrontendMessagingBundle:Default:page.html.twig', array(
                 'err' => $ex->getMessage()
             ));
+        }
+    }
+    
+    public function getSingleMessageAction($messageId = null){
+        $request = $this->get('request');
+        try{
+            $User = $this->get('security.context')->getToken()->getUser();
+            
+            if(!is_object($User)){
+                throw new Exception('Nem vagy bejelentkezve, ehhez a funkcióhoz nincs jogosultságod!');
+            }
+            
+            if($request->isMethod('POST')){
+                $messageId = $request->request->get('messageId');
+            }
+            
+            if($messageId == NULL){
+                throw new Exception('Hibás messageId');
+            }
+            
+            $Message = $this->getDoctrine()->getRepository('FrontendMessagingBundle:Message')
+                        ->getOneById($messageId);
+            
+            if($Message === NULL || sizeof($Message)==0){
+                throw new Exception('Nincs ilyen üzenet!');
+            }
+            
+            if($Message[0]->getUserA() != $User && $Message[0]->getUserB() != $User){
+                 throw new Exception('Nincs jogosultságod az üzenet megtekintéséhez mert nem te küldted és nem is te vagy a címzett!');
+            }
+            
+            
+            return $this->render('FrontendMessagingBundle:Default:single.html.twig', array(
+                'Message' => $Message,
+                'msgId' => $messageId
+            ));
+        } catch (Exception $ex) {
+            if($request->isMethod('POST')){
+                return new JsonResponse(array('err' => $ex->getMessage()));
+            }else{
+                return $this->render('FrontendMessagingBundle:Default:single.html.twig', array(
+                    'err' =>$ex->getMessage()
+                ));
+            }
         }
     }
     
@@ -100,6 +150,7 @@ class DefaultController extends Controller
     public function sendMessageAction(){
         try{
             $request = $this->get('request');
+            $em = $this->getDoctrine()->getManager();
             
             if(!$request->isMethod('POST')){ // ha nem a form küldéséből érkező kérés
                 throw new \ErrorException('Nem POST a metódus így nincs üzenet továbbítás!');
@@ -107,10 +158,10 @@ class DefaultController extends Controller
             
             $nickOrEmail = $request->request->get('nick');
             $message = $request->request->get('message');
-            $parentId = $request->request->get('parent');
+            $parentId = $request->request->get('parentid');
             
-            $Parent = NULL; // KÉSŐBB KIDOLGOZANDÓ
-            
+            $Parent = NULL; 
+           
             if($nickOrEmail == NULL || strlen($nickOrEmail)==0)
                 throw new Exception('Hibás nick név vagy email cím!');
             
@@ -135,6 +186,13 @@ class DefaultController extends Controller
             if($ToUser === NULL){
                  throw new Exception('Nem létezik ilyen felhasználó!');
             }
+             
+            if($parentId != NULL && $parentId != '0' && $parentId != 0){
+                $Parent = $em->getReference('FrontendMessagingBundle:Message', $parentId);
+                if( ! (($Parent->getUserA() == $User && $Parent->getUserB() == $ToUser) || ($Parent->getUserA() == $ToUser && $Parent->getUserB() == $User)) ){
+                    throw new Exception('Nem küldhetsz így üzenetet, hiszen nem te vagy a tulajdonsosa ennek a szülő mail-nek');
+                }
+            }
             
             if($ToUser->getUserSettings()->getMessageToMe()=='only_friends'){
                 $isFriends = $this->getDoctrine()->getRepository('FrontendAccountBundle:Friends')
@@ -149,11 +207,15 @@ class DefaultController extends Controller
             $Message   ->setText($message)
                     ->setParent($Parent);
             
-            $em = $this->getDoctrine()->getManager();
             $em->persist($Message);
             $em->flush();
             
-            return new JsonResponse();
+            $messageDIV = $this->renderView('FrontendMessagingBundle:Default:singleDiv.html.twig', array(
+               'cls' => true,
+                'Message' => $Message
+            ));
+            
+            return new JsonResponse(array('messageDIV' => $messageDIV));
         } catch (Exception $ex) {
             return new JsonResponse(array('err' => $ex->getMessage()));
         }

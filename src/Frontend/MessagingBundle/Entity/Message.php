@@ -35,6 +35,13 @@ class Message
      * @ORM\Column(name="user_id_b", type="integer", nullable=false)
      */
     private $userIdB;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="parent_id", type="integer", nullable=true)
+     */
+    private $parentId;
 
     /**
      * @var \DateTime

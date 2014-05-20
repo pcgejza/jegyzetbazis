@@ -44,5 +44,10 @@
                 {% render(controller('FrontendMessagingBundle:Default:getPage', {page : page})) %}
             {% endif %}
         </div>
+        <div class="p singleMessage{% if page == 'single' %} active{% endif %}">
+            {% if page == 'single' %}
+                {% render(controller('FrontendMessagingBundle:Default:getPage', {page : page, messageId : messageId})) %}
+            {% endif %}
+        </div>
     </div>
 </div>

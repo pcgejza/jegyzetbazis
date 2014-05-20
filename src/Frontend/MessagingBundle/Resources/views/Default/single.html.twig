@@ -1,0 +1,52 @@
+{% if err is not defined %}
+{% if Message[0].getUserA() == app.user %}
+    {% set userTo = Message[0].getUserB() %}
+{% else %}
+    {% set userTo = Message[0].getUserA() %}
+{% endif %}
+ 
+<div class="messages-h">
+    {% set parentId = Message[0].getId() %}
+    {% for Mess in Message %}
+       {% if Mess.id != msgId %}
+        {{ include('FrontendMessagingBundle:Default:singleDiv.html.twig', {'Message' : Mess, 'cls' : true}) }}
+       {% else %}
+         {{ include('FrontendMessagingBundle:Default:singleDiv.html.twig', {'Message' : Mess}) }}
+       {% endif %}
+    {% endfor %}
+    {#
+{% if Message[0].getParent() is null %}
+    {% set parentId = Message[0].getId() %}
+    {{ include('FrontendMessagingBundle:Default:singleDiv.html.twig', {'Message' : Message[0]}) }}
+{% else %}
+    {% if Message[0].id != msgId %}
+        {{ include('FrontendMessagingBundle:Default:singleDiv.html.twig', {'Message' : Message[0].getParent(), 'cls' : true}) }}
+    {% else %}
+     {{ include('FrontendMessagingBundle:Default:singleDiv.html.twig', {'Message' : Message[0].getParent(), 'cls' : false}) }}
+    {% endif %}
+    {% set parentId = Message[0].getParent().getId() %}
+    {% for Mess in Message %}
+       {% if Mess.id != msgId %}
+        {{ include('FrontendMessagingBundle:Default:singleDiv.html.twig', {'Message' : Mess, 'cls' : true}) }}
+       {% else %}
+         {{ include('FrontendMessagingBundle:Default:singleDiv.html.twig', {'Message' : Mess}) }}
+       {% endif %}
+    {% endfor %}
+{% endif %}
+#}
+</div>
+<h5>Válasz küldése</h5>
+ <form method="POST" action="{{path('send_message')}}" class="newMessageForm">
+    <input type="hidden" name="nick" class="nick" value="{{ userTo.getUsername }}">
+    <label for="nick">Üzenet</label>
+    <textarea name="message" class="message"></textarea>
+    <input type="hidden" name="parentid" value="{{parentId}}">
+    <input type="submit" value="Küldés">
+    <div class="loading-mini hide"></div>
+    <input type="reset" class="hide">
+</form>
+<div class="errors"></div>
+
+{% else %}
+    Hiba: {{err}}
+{% endif %}

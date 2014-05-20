@@ -1,4 +1,4 @@
-  <div class="message">
+  <div class="message" messageid="{{Message.getId()}}">
       {% set count = 0 %}
       {% if Message.getParent() is not null %}
           {% set count = Message.getParent().getChildren()|length %}

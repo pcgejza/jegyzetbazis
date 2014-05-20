@@ -6,10 +6,14 @@ messaging_homepage_page:
     pattern:  /uzenetek/{page}
     defaults: { _controller: FrontendMessagingBundle:Default:index }
     
+messaging_homepage_page_single:
+    pattern:  /uzenetek/{page}/{messageId}
+    defaults: { _controller: FrontendMessagingBundle:Default:index }
+
 messaging_more:
     pattern:  /uzenetek/{page}/tovabbi-uzenetek
     defaults: { _controller: FrontendMessagingBundle:Default:index }
 
 send_message:
-    pattern:  /uzenetek/kuldes/uj-uzenet-kuldese
+    pattern:  /uzenetek/kuldes/uzenet/uj-uzenet-kuldese
     defaults: { _controller: FrontendMessagingBundle:Default:sendMessage }

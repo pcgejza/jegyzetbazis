@@ -52,7 +52,7 @@
 /*
     az üzenet dobozokhoz
 */
-.messagesList .list .message{
+.messagesList .list DIV.message{
     cursor: pointer;
     background-color: #def;
     padding: 3px;
@@ -60,20 +60,28 @@
     margin-bottom: 5px;
 }
 
-.messagesList .list .message .name{
+.messagesList .list DIV.message.border{
+   margin-bottom: 0px;
+   display:block;
+   height: 100%;
+   border-bottom: 2px solid #ccc;
+}
+    
+    
+.messagesList .list DIV.message .name{
     width: 20%;
     display: inline-block;
 }
 
-.messagesList .list .message .smallText{
+.messagesList .list DIV.message .smallText{
    margin-left: 5px;
 }
 
-.messagesList .list .message .date{
+.messagesList .list DIV.message .date{
     float: right;
 }
 
-.messagesList .list .message .fullMessage{
+.messagesList .list DIV.message .fullMessage{
     display: none;
 }
 
@@ -90,4 +98,13 @@ DIV.loading-mini{
     background-size: 70%;
     background-repeat: no-repeat;
     height: 40px;
+}
+
+DIV.message.cls .longText{
+    display:none;
+}
+
+.longText{
+    padding: 5px;
+    font-size: 14pt;
 }
