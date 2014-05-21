@@ -6,6 +6,7 @@
 .guest-book .newBooking{
     display: block;
     height: 100px;
+    width: 50%;
 }
 
 .guest-book .newBooking .newLabel{

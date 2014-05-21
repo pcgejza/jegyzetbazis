@@ -1,17 +1,17 @@
-<div class="guest-book">
-    <div class="newBooking" {% if app.user is null %}style="display : none;"{% endif %}>
-        <span class="newLabel">Bejegyzés írása</span>
-        <div class="newForm hide">
+<div class="guest-book"> 
+    {% if app.user is not null %}
+    <div class="newBooking">
+        <div class="newForm">
             <textarea class="bookingText"></textarea>
-            <button class="sendBooking">Küldés</button>
-            <button class="cancel">Mégse</button>
+            <button class="sendBooking">Küldés</button><div class="loading-mini hide"></div>
         </div>
     </div>
+    {% endif %}
     <div class='entries'>
     {% if bookings|length > 0 %}
         {% for booking in bookings %}
             {{ include('FrontendIndexBundle:Guestbook:oneRow.html.twig',{
-            'name' : booking.user,
+            'user' : booking.user,
             'date' : booking.insertDate,
             'text' : booking.text
             }) }}

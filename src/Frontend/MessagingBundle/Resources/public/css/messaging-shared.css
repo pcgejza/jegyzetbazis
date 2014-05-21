@@ -90,15 +90,6 @@
     color: red;
 }
 
-DIV.loading-mini{
-    background-image: url('/jegyzetbazis/web/images/loading1.gif');
-    display: inline-block;
-    width: 60px;
-    background-position: 50% 50%;
-    background-size: 70%;
-    background-repeat: no-repeat;
-    height: 40px;
-}
 
 DIV.message.cls .longText{
     display:none;

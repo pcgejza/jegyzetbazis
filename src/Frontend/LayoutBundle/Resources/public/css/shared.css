@@ -369,8 +369,18 @@ h2{
     color: #f33;
 }
 
-
-
 .transferAnimation{
     border: 2px dotted gray; 
+}
+textarea {
+   resize: none;
+}
+DIV.loading-mini{
+    background-image: url('/jegyzetbazis/web/images/loading1.gif');
+    display: inline-block;
+    width: 60px;
+    background-position: 50% 50%;
+    background-size: 70%;
+    background-repeat: no-repeat;
+    height: 40px;
 }

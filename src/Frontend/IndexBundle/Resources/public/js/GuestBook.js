@@ -6,6 +6,7 @@ GuestBook = {
     textarea: null,
     sendBookingURL: null,
     cancelButton: null,
+    progress: false,
     
     init: function(){
         this.newButton = $('.guest-book .newBooking .newLabel');
@@ -20,24 +21,28 @@ GuestBook = {
     bindUIActions: function(){
         
         this.textarea.addGray('Írj egy megjegyzést vagy véleményt...');
-        
+        /*
         this.newButton.click(function(){
            $(this).addClass('hide');
            GuestBook.newForm.removeClass('hide');
         });
-        
+        */
         this.sendBooking.click(function(e){
             e.preventDefault();
             var textarea = $(this).siblings('textarea');
             if(textarea.hasClass('changed')){
+                if(GuestBook.progress) return; // ha a küldés folyamatban van akkor nem lehet elküldeni újra
+                GuestBook.progress = true;
+                var loadinDiv = $(this).siblings('.loading-mini').removeClass('hide');
                 var val = textarea.val();
                 $.post(GuestBook.sendBookingURL, {
                    text : val 
                 }).done(function(data){
+                    loadinDiv.addClass('')
                     if(!data.err){
+                        GuestBook.progress = false;
+                        loadinDiv.addClass('hide');
                         textarea.val('').blur();
-                        GuestBook.newButton.removeClass('hide');
-                        GuestBook.newForm.addClass('hide');
                         $('.guest-book .entries').prepend(data.newRow);
                    }else{
                        alert('Hiba : '+data.err);
@@ -48,11 +53,6 @@ GuestBook = {
             }
         });
         
-        this.cancelButton.click(function(){
-            GuestBook.textarea.val('').blur();
-            GuestBook.newButton.removeClass('hide');
-            GuestBook.newForm.addClass('hide');
-        });
     },
     
     afterLogin: function(){
