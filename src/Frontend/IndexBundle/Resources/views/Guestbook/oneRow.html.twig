@@ -1,6 +1,6 @@
 <div class="comment">
     <div class="image">
-        <a href="">
+        <a href="{{path('profile_show', { id : user.id })}}">
         {% if name.userSettings is not null and name.userSettings.getAvatar() is not null %}
             <img src="{{image(user.userSettings.getAvatar().getWebPath()).zoomCrop(100,100).jpeg}}" alt="avatar">
         {% else %}

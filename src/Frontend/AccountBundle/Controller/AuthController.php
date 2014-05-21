@@ -12,10 +12,12 @@ use Frontend\AccountBundle\Entity\User;
 use Frontend\AccountBundle\Entity\UserSettings;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
+use Symfony\Component\HttpFoundation\Response;
+
 use FOS\UserBundle\Controller\SecurityController as BaseController;
 
 class AuthController extends Controller{
-    
+  
     public function registrationAction(Request $request){
         try{
             $em = $this->getDoctrine()->getManager();
@@ -30,8 +32,23 @@ class AuthController extends Controller{
                 $nickname = $form['nickname'];
                 $password = $form['password']['first'];
                 $school = $form['school'];
-                $username = (strlen($nickname)>0) ? $nickname : $email;
-
+                
+                /*
+                 * Nick név vizsgálat
+                 */
+                if(strlen($nickname)>0){
+                    if($this->checkNicknameAction($nickname)){// ellenőrizni, hogy létezik-e a nicknév
+                        // ha létezik akkor generálás
+                        $username = $this->nicknameGenerator($email);
+                    }else{
+                        // ha nem létezik akkor ez lesz a nicknév
+                        $username = $nickname;
+                    }
+                }else{
+                    // ha nem adott meg nick nevet akkor generálás
+                     $username = $this->nicknameGenerator($email);
+                }
+                
                 $user = new User();
                 $user->setUsername($username);
                 $user->setPlainPassword($password);
@@ -70,6 +87,38 @@ class AuthController extends Controller{
         }catch(Exception $ex){
             return new JsonResponse(array('err' => $ex->getMessage()));
         }
+    }
+      
+    private function nicknameGenerator($email){
+        $generatednick = substr($email, 0, strpos($email, '@'));
+        
+        $qb =  $this->getDoctrine()->getRepository('FrontendAccountBundle:User')
+                    ->createQueryBuilder('u');
+        
+        $alreadyNicks = $qb
+                    ->where($qb->expr()->like('u.username', ':n'))
+                    ->select('u.username')
+                    ->setParameter('n', '%'.$generatednick.'%')
+                    ->getQuery()->getScalarResult();
+        
+        $ex = false;
+        $i = 0;
+        $originalNick = $generatednick;
+        while($ex === false){
+            $jo = true;
+            foreach($alreadyNicks as $n){
+                if($n['username'] == $generatednick){
+                    $jo = false;
+                }
+            }
+            if($jo){
+                $ex = true;
+            }else{
+                $generatednick = $originalNick.(++$i);
+            }
+        }
+        
+        return $generatednick;
     }
     
     public function loginAction(Request $request){
@@ -143,10 +192,14 @@ class AuthController extends Controller{
         }
     }
     
-    public function checkNicknameAction(){
+    public function checkNicknameAction($nickname = null){
         try{
-            $nickname = $this->get('request')->request->get('nickname');
-            
+            $normalReturn = false;
+            if($nickname == null){
+                $nickname = $this->get('request')->request->get('nickname');
+            }else{
+                $normalReturn = true;
+            }
             $cnt = $this->getDoctrine()->getRepository('FrontendAccountBundle:User')
                     ->createQueryBuilder('c')
                     ->select('count(c.id)')
@@ -154,6 +207,8 @@ class AuthController extends Controller{
                     ->setParameter('nickname', $nickname)
                     ->getQuery()
                     ->getSingleScalarResult();
+            
+            if($normalReturn) return ($cnt>0) ? true : false;
             
             return new JsonResponse(array(
                 'exist'=> ($cnt>0) ? true : false 
