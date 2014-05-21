@@ -3,12 +3,14 @@ SettingsShared = {
     tab: null,
     
     getPageUrl: null,
+    schools: [],
     
     init: function (){
         this.tab = $('.settings .settingsTabs li');
         
         this.bindUIActions();
         this.bindLoadNewActions();
+        this.addAutocompleteToSchool();
     },
     
     bindUIActions: function(){
@@ -20,6 +22,15 @@ SettingsShared = {
                SettingsShared.selectPage(page);
            }
         });
+    },
+    
+    addAutocompleteToSchool: function(){
+        if(Object.keys(this.schools).length > 0){
+            $('.addSchoolsAutocomplete').autocomplete({
+             source: SettingsShared.schools
+            });
+        }
+        console.debug(this.schools);
     },
     
     getNotLoadedEmptyHtmlElement: function(page){
@@ -112,6 +123,8 @@ SettingsShared = {
             success: function(data){
                 $('.settings .settingsContent .tabContent[page="'+page+'"]').removeClass('not-loaded').html(data);
                 SettingsShared.bindLoadNewActions();
+                if(page == 'alap-beallitasok')
+                    SettingsShared.addAutocompleteToSchool();
             }
         });
     },

@@ -1,3 +1,8 @@
+<script>
+    {% for School in schools %}
+        SettingsShared.schools.push("{{School.name}}");
+    {% endfor %}
+</script>
 <div class="settingsPage">
 {{ form_start(form) }}
     {{ form_errors(form) }}
@@ -5,6 +10,7 @@
     {{ form_row(form.username) }}
     {{ form_row(form.email) }}
     {{ form_row(form.birthDay) }}
+    {{ form_row(form.school) }}
     {{ form_row(form.gender) }}
     {{ form_row(form.password) }}
     <div class='form-row submit'>

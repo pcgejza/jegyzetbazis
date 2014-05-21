@@ -35,6 +35,11 @@ class BaseSettingsFormType extends AbstractType{
             'label' => 'Email cím'
         ));
         
+        $builder->add('school', 'text', array(
+            'data' =>  ($this->userSettings->getSchool() != NULL ) ? $this->userSettings->getSchool()->getName() : '',
+            'label' => 'Iskola',
+            'attr' => array('class' => 'addSchoolsAutocomplete')
+        ));
         
         $builder->add('birthDay', 'date', array(
                 'required' => false,

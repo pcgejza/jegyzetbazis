@@ -115,27 +115,56 @@ class SettingsController extends Controller{
                     ));
                 }
                 
+                $em = $this->getDoctrine()->getEntityManager();
                 $name = $formData['name'];
                 $gender = $formData['gender'];
                 $bithDate = $formData['birthDay'];
+                $school = $formData['school'];
                 
                 $UserSettings = $User->getUserSettings();
                 if($UserSettings == NULL){
                     $UserSettings = new UserSettings();
                     $UserSettings->setUser($User);
                 }
+                   
+                if($school != NULL && strlen($school)>0){
+                    $School = $this->getDoctrine()->getRepository('FrontendAccountBundle:School')
+                                ->getSchoolOrNullByName($school);
+                    if($School === NULL){
+                        $School = new \Frontend\AccountBundle\Entity\School();
+                        $School->setCreatorUser($User);
+                        $School->setCreatedAt(new \DateTime('now'));
+                        $School->setName($school);
+                        $School->setStatus(0);
+                        $em->persist($School);
+                    }
+                    $UserSettings->setSchool($School);
+                }
+                
                 $UserSettings->setName($name);
                 $UserSettings->setGender($gender);
                 $UserSettings->setBirthDate($bithDate);
                 
-                $em = $this->getDoctrine()->getEntityManager();
                 $em->persist($UserSettings);
                 $em->flush();
+                     
+                $BaseSettingsForm = new BaseSettingsFormType();
+                $BaseSettingsForm->setUser($User);
+                $form = $this->createForm($BaseSettingsForm, null, array(
+                    'action' => $url,
+                    'method' => 'POST',
+                    'attr' => array('class' => 'baseSettingsForm settings-form')
+                ));
+        
             }
         }
         
+        $schools = $this->getDoctrine()->getRepository('FrontendAccountBundle:School')
+                ->getAllActiveSchools();
+        
         return $this->render('FrontendAccountBundle:Forms:baseSettingsForm.html.twig',array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'schools' => $schools
         ));
     }
     
