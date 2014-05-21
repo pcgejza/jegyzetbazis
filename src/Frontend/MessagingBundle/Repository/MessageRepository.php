@@ -8,20 +8,6 @@ class MessageRepository extends EntityRepository{
     
     public function getMessagesByUser($User, $offset, $limit, $type, $getCountFromAll = false){
         
-        $HelperQuery = $this->createQueryBuilder('m')
-                    ->select('GROUP_CONCAT(m)')
-                    ->where('userB = :us')
-                    ->andWhere('m.parentId is not null')
-                    ->join('m.userB', 'userB')
-                    ->leftJoin('m.parent', 'parent')
-                    ->setParameter('us', $User)
-                    ->groupBy('m.parent')
-                    ->orderBy('m.sendDate', 'DESC') 
-                    ->setFirstResult($offset)
-                    ->setMaxResults($limit)
-                    ->getQuery()
-                    ->getResult();
-        
         $Messages = $this->createQueryBuilder('message');
                 if($getCountFromAll == TRUE){
                     $Messages = $Messages
@@ -33,35 +19,43 @@ class MessageRepository extends EntityRepository{
                         ->addSelect('userB')
                         ->addSelect('userAsettings')
                         ->addSelect('userBsettings')
-                        ->addSelect('parent')
-                        ->addSelect('children');
+                      //  ->addSelect('parent')
+                      //  ->addSelect('children')
+                            ;
                 }
                 
                 if($type == 'received'){
                     $Messages = $Messages 
-                        ->where('userB = :MyUser AND (SELECT COUNT(m.id) FROM FrontendMessagingBundle:Message m WHERE m.parent = message) = 0')
-                        ->groupBy('message.parentId')
-                        ->addGroupBy('message.id')
+                        ->where('userB = :MyUser')
+                        ->andWhere("status != 'deleted_by_b'")
+                        ->andWhere('message.parentId is null OR (SELECT MAX(me.sendDate) FROM FrontendMessagingBundle:Message me WHERE me.parentId = message.parentId) = message.sendDate')
+                      //   ->groupBy('message, message.parentId')
+                       // ->addGroupBy('message.id')
                             ;
                     
                 }elseif($type == 'sent'){
                     $Messages = $Messages 
                          ->where('userA = :MyUser AND (SELECT COUNT(m.id) FROM FrontendMessagingBundle:Message m WHERE m.parent = message) = 0')
-                          ;
+                         
+                        ->andWhere("status != 'deleted_by_a'")
+                            ;
                         /**
                          * 
                          * ITT TARTOTTAM!!!!! FIXME::: 
                          * 
                          *valamiért nem tudom úgy össze group-by-olni hogy az azonoos parent-el rendelkezőket ne listázza többször...
                          */
+                }else{
+                    //deleted -- törölt üzenetek
+                    $Messages = $Messages
+                            ->where("(userA = :MyUser and message.status = 'deleted_by_a') OR (userA = :MyUser AND message.status = 'deleted_by_b')")
+                            ;
                 }
             $Messages =  $Messages     
                 ->join('message.userA', 'userA')
                 ->join('message.userB', 'userB')
                 ->join('userA.userSettings', 'userAsettings')
                 ->join('userB.userSettings', 'userBsettings')
-                ->leftJoin('message.children', 'children')
-                ->leftJoin('message.parent', 'parent')
                 
                 ->orderBy('message.sendDate', 'DESC')
                 ->setParameter('MyUser', $User);

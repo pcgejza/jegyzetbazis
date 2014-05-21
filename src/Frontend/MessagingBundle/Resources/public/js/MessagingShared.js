@@ -4,6 +4,7 @@ MessagingShared = {
     
     getPageURL : null,
     PROGRESS: false,
+    deleteMessageURL : null,
     
     init: function(){
         
@@ -14,6 +15,7 @@ MessagingShared = {
     bindUiActions: function(){
         this.bindClickToMessage();
         this.bindNewMessageSend();
+        this.bindDeleteMessageAction();
     },
     
     initSwitch: function(){
@@ -114,6 +116,34 @@ MessagingShared = {
                 });
     },
     
+    bindDeleteMessageAction: function(){
+        $('DIV.message .deleteMessage').unbind('click').bind('click', function(e){
+            var target = $('ul li a[page="deletedMessages"]').parent();
+            var div = $(this).parents('DIV.message').first();
+            var msgid = div.attr('messageid');
+            
+            div.effect( 'transfer', { to: target, className: "transferAnimation" }, 1000,callback);
+            function callback() {
+              div.removeAttr( "style" ).hide();
+            };
+            
+            $.post(MessagingShared.deleteMessageURL,{
+                messageId : msgid
+            }).done(function(d){
+                if(d.err){
+                   InfoPopUp.showInfoPopup({
+                      topText : 'Sikertelen üzenet törlés!',
+                      text : d.err,
+                      type : 'error'
+                   });
+                }else{
+                    console.log('sikeres törlés');
+                }
+            })
+            
+        });
+    },
+    
     openPage: function(page,getp, href, messageId){
        var messagesList = $('.messages .messagesList');
         var selectedPage= messagesList.find('.p.'+page);
@@ -129,6 +159,7 @@ MessagingShared = {
                selectedPage.html(h); 
                MessagingShared.bindClickToMessage();
                MessagingShared.bindNewMessageSend();
+               MessagingShared.bindDeleteMessageAction();
             });
         }
     }

@@ -17,3 +17,7 @@ messaging_more:
 send_message:
     pattern:  /uzenetek/kuldes/uzenet/uj-uzenet-kuldese
     defaults: { _controller: FrontendMessagingBundle:Default:sendMessage }
+    
+remove_message:
+    pattern:  /uzenetek/torles/uzenet/uzenet-torlese
+    defaults: { _controller: FrontendMessagingBundle:Default:deleteMessage }

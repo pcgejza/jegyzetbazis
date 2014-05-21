@@ -220,4 +220,55 @@ class DefaultController extends Controller
             return new JsonResponse(array('err' => $ex->getMessage()));
         }
     }
+    
+    public function deleteMessageAction(){
+        $request = $this->get('request');
+        if(!$request->isMethod('POST')){
+            throw new \ErrorException('Ez az üzenet törlés funkció, nem pedig egy weblap!');
+        }
+        try{
+            $messageId = $request->request->get('messageId');
+            $em = $this->getDoctrine()->getManager();
+            
+            if($messageId == NULL)
+                throw new Exception('A messageId null!');
+            
+            $Message = $this->getDoctrine()->getRepository('FrontendMessagingBundle:Message')
+                        ->createQueryBuilder('m')
+                        ->select('m')
+                        ->addSelect('userA')
+                        ->addSelect('userB')
+                        ->join('m.userA', 'userA')
+                        ->join('m.userB', 'userB')
+                        ->where('m.id = :id')
+                        ->setParameter('id', $messageId)
+                        ->getQuery()
+                        ->getOneOrNullResult();
+            
+            if($Message == NULL){
+                  throw new Exception('Nem létezik ilyen azonosítóju üzenet : '.$messageId.'!');
+            }
+            
+            $User = $this->get('security.context')->getToken()->getUser();
+            
+            if(!is_object($User)){
+                throw new Exception('Nincs belépett felhasználó!');
+            }
+            
+            if($Message->getUserA() == $User){
+                $Message->setStatus('deleted_by_a');
+            }elseif($Message->getUserB() == $User){
+                $Message->setStatus('deleted_by_b');
+            }else{
+                throw new Exception('Nem a te tulajdonod ez az üzenet!');
+            }
+            
+            $em->persist($Message);
+            $em->flush();
+            
+            return new JsonResponse(array());
+        } catch (Exception $ex) {
+            return new JsonResponse(array('err' => $ex->getMessage()));
+        }
+    }
 }

@@ -108,3 +108,13 @@ DIV.message.cls .longText{
     padding: 5px;
     font-size: 14pt;
 }
+
+DIV.message .deleteMessage{
+    display:none;
+}
+
+DIV.message:hover .deleteMessage{
+    display: inline-block;
+    font-size: 18px;
+    color: red;
+}

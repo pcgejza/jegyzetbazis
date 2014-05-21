@@ -6,10 +6,8 @@
       <span class="name">
           {% if page == 'sent' %}
               <a href="#">{{Message.getUserB().getUserSettings().getName()}}</a>
-          {% elseif page == 'received' %}
-              <a href="#">{{Message.getUserA().getUserSettings().getName()}}</a>
           {% else %}
-              DELETRED
+              <a href="#">{{Message.getUserA().getUserSettings().getName()}}</a>
           {% endif %}
           {% if count>0 %}
               ({{count}})

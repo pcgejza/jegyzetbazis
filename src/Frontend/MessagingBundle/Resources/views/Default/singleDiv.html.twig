@@ -1,4 +1,4 @@
-<div class="message border{% if cls is defined and cls == true %} cls{% endif %}">
+<div class="message border{% if cls is defined and cls == true %} cls{% endif %}" messageid="{{Message.getId()}}">
     <span class="name">
         <a href="#">{{Message.getUserA().getUserSettings().getName()}}</a>
     </span>
@@ -8,6 +8,7 @@
     <span class="date">
         {{Message.getSendDate() | date('Y-m-d H:s')}}
     </span>
+    <span class="deleteMessage">&#215;</span>
     <div class="longText">
         {{Message.getText()}}
     </div>

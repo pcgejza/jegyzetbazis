@@ -8,10 +8,12 @@
 <div class="messages-h">
     {% set parentId = Message[0].getId() %}
     {% for Mess in Message %}
-       {% if Mess.id != msgId %}
-        {{ include('FrontendMessagingBundle:Default:singleDiv.html.twig', {'Message' : Mess, 'cls' : true}) }}
-       {% else %}
-         {{ include('FrontendMessagingBundle:Default:singleDiv.html.twig', {'Message' : Mess}) }}
+       {% if (Mess.userA == app.user and Mess.status != 'deleted_by_a') or (Mess.userB == app.user and Mess.status != 'deleted_by_b') %}
+        {% if Mess.id != msgId %}
+         {{ include('FrontendMessagingBundle:Default:singleDiv.html.twig', {'Message' : Mess, 'cls' : true}) }}
+        {% else %}
+          {{ include('FrontendMessagingBundle:Default:singleDiv.html.twig', {'Message' : Mess}) }}
+        {% endif %}
        {% endif %}
     {% endfor %}
     {#
