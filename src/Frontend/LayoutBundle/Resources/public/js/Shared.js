@@ -72,7 +72,7 @@ Sizer = {
         this.maxWidth = window.screen.width;
         this.maxHeight = window.screen.height;
         
-        
+        return;
         $(window).resize(function() {
             Sizer.resize();
         });

@@ -84,10 +84,6 @@ class SettingsController extends Controller{
         return $this->testtSubPage($page);
     }
     
-    public function testtSubPage($page = null){
-        return $this->render('FrontendAccountBundle:Settings:tesztpage.html.twig',
-                array('data' => $page));
-    }
     
     public function baseSettingsAction(){
         $request = $this->get('request');

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset={{ _charset }}"/>
+        <meta name="robots" content="noindex,nofollow" />
+        <title>{% block title %}Hiba{% endblock %}</title>
+        <link href="{{ asset('bundles/framework/css/structure.css', absolute=true) }}" rel="stylesheet" type="text/css" media="all" />
+        <link href="{{ asset('bundles/framework/css/body.css', absolute=true) }}" rel="stylesheet" type="text/css" media="all" />
+        {% block head %}{% endblock %}
+    </head>
+    <body>
+        <div id="content">
+            <div class="header clear-fix">
+            </div>
+
+            <div class="sf-reset">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+    </body>
+</html>

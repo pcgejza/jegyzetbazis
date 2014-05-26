@@ -103,9 +103,6 @@ class DefaultController extends Controller
                     'category' => 'Emberek'
                 );
              }
-            //$this->generateUrl('file_single', )
-            // link, name, category array-okat kell visszaadni
-            
             
             return new JsonResponse($returnArray);
         }else{
