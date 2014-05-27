@@ -125,7 +125,7 @@ class AuthController extends Controller{
         try{
             
             $userManager = $this->get('fos_user.user_manager');
-            // FIXME: Ez így még nem jó!
+            
             $name = $request->request->get('_username');
             $pass = $request->request->get('_password');
             
@@ -164,12 +164,7 @@ class AuthController extends Controller{
         $token = new UsernamePasswordToken($User, $User->getPassword(), 'main', $User->getRoles());
         $context = $this->get('security.context');
         $context->setToken($token);
-
-        
         return $this->redirect($this->generateUrl('frontend_index_homepage'));
-        
-        return $this->renderView('FrontendLayoutBundle:Header:header.html.twig',
-                array('User'=>$User));
     }
     
     public function checkEmailAction(){

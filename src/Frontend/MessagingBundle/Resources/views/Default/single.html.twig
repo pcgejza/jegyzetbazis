@@ -8,34 +8,12 @@
 <div class="messages-h">
     {% set parentId = Message[0].getId() %}
     {% for Mess in Message %}
-       {% if (Mess.userA == app.user and Mess.status != 'deleted_by_a') or (Mess.userB == app.user and Mess.status != 'deleted_by_b') %}
-        {% if Mess.id != msgId %}
+      {% if Mess.id != msgId %}
          {{ include('FrontendMessagingBundle:Default:singleDiv.html.twig', {'Message' : Mess, 'cls' : true}) }}
         {% else %}
           {{ include('FrontendMessagingBundle:Default:singleDiv.html.twig', {'Message' : Mess}) }}
         {% endif %}
-       {% endif %}
     {% endfor %}
-    {#
-{% if Message[0].getParent() is null %}
-    {% set parentId = Message[0].getId() %}
-    {{ include('FrontendMessagingBundle:Default:singleDiv.html.twig', {'Message' : Message[0]}) }}
-{% else %}
-    {% if Message[0].id != msgId %}
-        {{ include('FrontendMessagingBundle:Default:singleDiv.html.twig', {'Message' : Message[0].getParent(), 'cls' : true}) }}
-    {% else %}
-     {{ include('FrontendMessagingBundle:Default:singleDiv.html.twig', {'Message' : Message[0].getParent(), 'cls' : false}) }}
-    {% endif %}
-    {% set parentId = Message[0].getParent().getId() %}
-    {% for Mess in Message %}
-       {% if Mess.id != msgId %}
-        {{ include('FrontendMessagingBundle:Default:singleDiv.html.twig', {'Message' : Mess, 'cls' : true}) }}
-       {% else %}
-         {{ include('FrontendMessagingBundle:Default:singleDiv.html.twig', {'Message' : Mess}) }}
-       {% endif %}
-    {% endfor %}
-{% endif %}
-#}
 </div>
 <h5>Válasz küldése</h5>
  <form method="POST" action="{{path('send_message')}}" class="newMessageForm">

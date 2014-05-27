@@ -66,6 +66,10 @@
    height: 100%;
    border-bottom: 2px solid #ccc;
 }
+
+.messagesList .list DIV.message.deleted{
+   background-color: rgba(255,0,0,0.4);
+}
     
     
 .messagesList .list DIV.message .name{

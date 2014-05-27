@@ -316,7 +316,6 @@ AuthWindow = {
                 {
                     AuthWindow.hideLoadingFromForm(loginForm);
                     if(!data.err){
-                        Header.setHeader(data.header);
                         AuthWindow.hide();
                         InfoPopUp.showInfoPopup({
                             topText : 'Sikeres bejelentkezés',
@@ -326,12 +325,6 @@ AuthWindow = {
                                 location.reload();
                             }
                         });
-                        if(typeof(UploadWindow) != 'undefined'){
-                            UploadWindow.addUploadFilesButton();
-                        }
-                        if(typeof(GuestBook) != 'undefined'){
-                            GuestBook.afterLogin();
-                        }
                     }else{
                         var oH = "<ul><li>"+data.err+"</li></ul>";
                         errorDiv.html(oH);

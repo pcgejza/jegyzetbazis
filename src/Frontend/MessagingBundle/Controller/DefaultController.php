@@ -127,8 +127,6 @@ class DefaultController extends Controller
             if($request->isMethod('POST')){
                 
             }else{
-                
-                
                 $Messages = $this->getDoctrine()->getRepository('FrontendMessagingBundle:Message')
                             ->getMessagesByUser($User, 0, 10, $page);   
                 

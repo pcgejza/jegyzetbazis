@@ -1,4 +1,4 @@
-<div class="message border{% if cls is defined and cls == true %} cls{% endif %}" messageid="{{Message.getId()}}">
+<div class="message border{% if cls is defined and cls == true %} cls{% endif %} {% if (Message.userA == app.user and Message.status == 'deleted_by_a') or (Message.userB == app.user and Message.status == 'deleted_by_b') or Message.status == 'deleted' %} deleted{% endif %}" messageid="{{Message.getId()}}">
     <span class="name">
         <a href="#">{{Message.getUserA().getUserSettings().getName()}}</a>
     </span>

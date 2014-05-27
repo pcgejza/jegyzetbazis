@@ -27,24 +27,15 @@ class MessageRepository extends EntityRepository{
                 if($type == 'received'){
                     $Messages = $Messages 
                         ->where('userB = :MyUser')
-                        ->andWhere("status != 'deleted_by_b'")
-                        ->andWhere('message.parentId is null OR (SELECT MAX(me.sendDate) FROM FrontendMessagingBundle:Message me WHERE me.parentId = message.parentId) = message.sendDate')
-                      //   ->groupBy('message, message.parentId')
-                       // ->addGroupBy('message.id')
-                            ;
+                        ->andWhere("message.status != 'deleted_by_b'");
                     
                 }elseif($type == 'sent'){
                     $Messages = $Messages 
                          ->where('userA = :MyUser AND (SELECT COUNT(m.id) FROM FrontendMessagingBundle:Message m WHERE m.parent = message) = 0')
                          
-                        ->andWhere("status != 'deleted_by_a'")
+                        ->andWhere("message.status != 'deleted_by_a'")
                             ;
-                        /**
-                         * 
-                         * ITT TARTOTTAM!!!!! FIXME::: 
-                         * 
-                         *valamiért nem tudom úgy össze group-by-olni hogy az azonoos parent-el rendelkezőket ne listázza többször...
-                         */
+                     
                 }else{
                     //deleted -- törölt üzenetek
                     $Messages = $Messages
