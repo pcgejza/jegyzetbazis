@@ -146,6 +146,16 @@
     display: inline-block;
 }
 
+
+.uploadWindowContent a.restartB{
+    background-color: #fff;
+    position: absolute;
+    right: 20px;
+    top: 30px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
 textarea.subjects{
     width: 250px;
     height: 100px;

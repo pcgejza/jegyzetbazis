@@ -33,6 +33,8 @@ UploadCore = {
         this.helperArr = [];
         this.selectedFilesArr = [];
         this.noUploadFiles = [];
+        
+        return this;
     },
     bindUIActions: function() {
 
@@ -235,7 +237,13 @@ UploadCore = {
          });
 
         }else{
-            alert('Minden fájl fel van töltve!');
+            InfoPopUp.showInfoPopup({
+                type : 'error',
+                topText : 'Nincs feltöltésre váró fájl!',
+                closeFunction: function() { 
+                    UploadWindow.showWindow();
+                }
+            });
         }
     },
     
@@ -348,6 +356,10 @@ UploadCore = {
         this.toSendFilesArr[key] = element;
     },
     
+    removeALLElementsFromToSendFilesArr: function(){
+        this.toSendFilesArr = [];
+    },
+    
     renameFileAjax: function(fileid, name){
         UploadWindow.showMiniLoading();
         $.post(UploadWindow.fileRenameURL, {
@@ -356,7 +368,14 @@ UploadCore = {
         }).done(function(d){
              UploadWindow.hideMiniLoading();
             if(d.err){
-                alert('hiba a fájl átnevezése során: '+d.err);
+                InfoPopUp.showInfoPopup({
+                        type : 'error',
+                        topText : 'hiba a fájl átnevezése során: ',
+                        text : d.err,
+                        closeFunction: function(){
+                            UploadWindow.showWindow();
+                        }
+                    });
             }else{
                 console.log('Fájl sikeresen átnevezve!');
             }

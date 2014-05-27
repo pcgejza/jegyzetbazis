@@ -12,6 +12,8 @@ UploadWindow = {
     
     updateFilesSubjectsURL: null,
     
+    msInput: null,
+    
     init: function(){
         this.initVariables();
         this.bindUIActions();
@@ -61,6 +63,8 @@ UploadWindow = {
             expandOnFocus: true,
             data: UploadWindow.allSubject
         });
+        
+        this.msInput = sIn;
         /*
         
         $('#ms-input-0').blur(function(){
@@ -80,7 +84,12 @@ UploadWindow = {
                 formFile.click();
             }else{
                 InfoPopUp.showInfoPopup({
-                    topText : "Éppen tart a file feltöltés..."
+                    type: 'error',
+                    topText : "Hiba",
+                    text : "Éppen tart a file feltöltés...",
+                    closeFunction: function() {
+                        UploadWindow.showWindow();
+                    }
                 })
             }
         });
@@ -91,14 +100,39 @@ UploadWindow = {
                 UploadCore.uploadToServer();
             }else{
                 InfoPopUp.showInfoPopup({
-                    topText : "Éppen tart a file feltöltés..."
+                    type: 'error',
+                    topText : "Hiba",
+                    text : "Éppen tart a file feltöltés...",
+                    closeFunction: function(){
+                        UploadWindow.showWindow();
+                    }
                 });
             }
         });
         
+        
+        $('.uploadWindowContent A.restartB')
+                .unbind('click')
+                .bind('click', function(){
+                    UploadWindow.restartWindow();
+        });
     },
     
-    
+    // az ablak alaphelyzetbe állítása
+    restartWindow: function(){
+        // dobozok elrejtése valamint a táblázat ürítése
+        $('.uploadWindowContent')
+                .find('.postInputChangeElements,.uploadElements')
+                    .addClass('hide')
+                    .end()
+                .find('.uploadElements table tbody tr').remove();
+        
+        // a kiválasztott fájlok törlése a tömbből
+        UploadCore.resetFiles().removeALLElementsFromToSendFilesArr();
+        
+        // összes tantárgy törlése:
+        this.msInput.clear();
+    },
     
     handleFileSelect: function(){
         this.fileInput = fileInput;
@@ -151,7 +185,7 @@ UploadWindow = {
             thisRow.hide('slow', function(){ 
                 thisRow.remove(); 
             });
-            UploadCore.removeElementFromToSendFilesArr[id];
+            UploadCore.removeElementFromToSendFilesArr(id);
             if(UploadCore.toSendFilesArr.length==0){
                 $('.postInputChangeElements').addClass('hide');
             }
@@ -162,7 +196,14 @@ UploadWindow = {
                 .bind('click', function(){
                     if($(this).find('input').length == 0){
                         if(UploadCore.isProgress()){
-                            alert('Fájl feltöltés közben nem végezheted el ezt a műveletet, kérlek várd meg míg feltöltődik a fájl!');
+                            InfoPopUp.showInfoPopup({
+                                type: 'error',
+                                topText : "Hiba",
+                                text : 'Fájl feltöltés közben nem végezheted el ezt a műveletet, kérlek várd meg míg feltöltődik a fájl!',
+                                closeFunction:  function(){
+                                    UploadWindow.showWindow();
+                                }
+                            });
                             return;
                         }
                         var thisO = $(this).html();
