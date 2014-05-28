@@ -1,3 +1,6 @@
+/*
+ * A beállítások oldalhoz lévő funkciók vannak ebben az objektumban definiálva
+ */
 SettingsShared = {
     
     tab: null,
@@ -24,6 +27,9 @@ SettingsShared = {
         });
     },
     
+    /*
+     * Az iskolák részhez a szövegkiegészítő hozzáadása
+     */
     addAutocompleteToSchool: function(){
         if(Object.keys(this.schools).length > 0){
             $('.addSchoolsAutocomplete').autocomplete({
@@ -32,19 +38,19 @@ SettingsShared = {
         }
         console.debug(this.schools);
     },
-    
+    // nem betöltött elem html kódjának lekérdezése
     getNotLoadedEmptyHtmlElement: function(page){
         return '<div class="tabContent not-loaded" page="'+page+'"></div>';
     },
-    
+    // üres html elem hozzáadása a beállítások törzsébe
     addEmptyHtmlElementToPage: function(page){
         $('.settings .settingsContent').append(this.getNotLoadedEmptyHtmlElement(page));
     },
-    
+    // be van-e töltve az oldal?
     isAddedPage: function(page){
        return $('.settings .settingsContent .tabContent[page="'+page+'"]').length == 0 ? false : true;
     },
-    
+    // oldal kiválasztása
     selectPage: function(page){
         window.history.pushState(null, null, page+'.html');
         this.changeTitle($('.settingsTabs li.active a[page="'+page+'"]').html());
@@ -55,11 +61,15 @@ SettingsShared = {
         $('.settings .settingsContent .tabContent.active').removeClass('active').fadeOut();
         $('.settings .settingsContent .tabContent[page="'+page+'"]').addClass('active').fadeIn();
     },
-    
+    // a felső cím módosítása
     changeTitle: function(value){
       $('.settings .titleHolder span.title').html(value);  
     },
     
+    /*
+     * Új beállítások oldal lekérdezése esetén meghívásra kerül ez a függvény
+     * ami felüldefiniálja az új aloldalon lévő gombok funkcióit
+     */
     bindLoadNewActions: function(){
         $('.settings form').submit(function(e){
             e.preventDefault();
@@ -101,19 +111,20 @@ SettingsShared = {
         });
         
     }, 
-    
+    // hiba hozzáadása a szöveges mezőhöz
     addErrorToTextInput: function(input, error){
         if(input.siblings('.error').length == 0){
             input.parent().append('<small class="error">'+error+'</small>');
             input.addClass('redBorder');
         }
     },
-    
+    // hiba eltávolíása a szöveges mezőről
     removeErrorFromInput: function(input){
         input.siblings('.error').remove();
         input.removeClass('redBorder');
     },
     
+    // az oldal tartalmának lekérdezése
     getPageContent: function(page){
         var url = this.getPageUrl + page+ '.html';
         $.ajax({
@@ -129,6 +140,9 @@ SettingsShared = {
         });
     },
     
+    /*
+     *  Űrlapok validációs vizsgálata 
+     */
     isValidForm: function(form){
         if(form.hasClass('baseSettingsForm')){
             var ret = true;

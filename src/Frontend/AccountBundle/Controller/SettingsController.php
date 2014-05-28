@@ -17,8 +17,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Symfony\Component\HttpFoundation\Request;
 
+/*
+ * A beállítások oldalhoz írt controller
+ */
 class SettingsController extends Controller{
     
+    /*
+     * Beállítások oldal renderelése
+     */
     public function settingsIndexAction($page = NULL){
         if(!$this->get('security.context')->isGranted('ROLE_USER')){
             // ha nincs belépve vissza irányítom a főoldalra
@@ -43,7 +49,10 @@ class SettingsController extends Controller{
                 'title' => $this->getSubPageTitle($page)
                 ));
     }
-    
+
+    /*
+     * Az oldal slug alapján a pontos név lekérdezésére szolgáló függvény
+     */
     public function getSubPageTitle($page){
         switch($page){
             case 'alap-beallitasok': return 'Alap beállítások'; break;
@@ -55,6 +64,9 @@ class SettingsController extends Controller{
         }
     }
     
+    /*
+     * Beállítások aloldal renderelésére szolgáló függvény
+     */
     public function getSubPageAction($page = null){
         if(!$this->get('security.context')->isGranted('ROLE_USER')){
             // ha nincs belépve vissza irányítom a főoldalra
@@ -85,6 +97,9 @@ class SettingsController extends Controller{
     }
     
     
+    /*
+     * Alap beállítások aloldal form renderelése és mentése
+     */
     public function baseSettingsAction(){
         $request = $this->get('request');
         $User = $this->get('security.context')->getToken()->getUser();
@@ -164,6 +179,10 @@ class SettingsController extends Controller{
         ));
     }
     
+    
+    /*
+     * Biztonsági beállítások aloldal form renderelése és mentése
+     */
     public function safetySettingsAction(){
         $request = $this->get('request');
         $User = $this->get('security.context')->getToken()->getUser();
@@ -215,6 +234,10 @@ class SettingsController extends Controller{
         ));
     }
     
+    
+    /*
+     * Avatár beállítások aloldal form renderelése és mentése
+     */
     public function avatarSettingsAction(){
         $request = $this->get('request');
         $User = $this->get('security.context')->getToken()->getUser();
@@ -305,6 +328,10 @@ class SettingsController extends Controller{
         ));
     }
     
+    
+    /*
+     * Megjegyzés aloldal form renderelése és mentése
+     */
     public function commentAction(){
         $request = $this->get('request');
         $User = $this->get('security.context')->getToken()->getUser();
@@ -350,6 +377,9 @@ class SettingsController extends Controller{
         ));
     }
     
+    /*
+     * Jelszó változatatás aloldal form renderelése és mentése
+     */
     public function changePasswordAction(){
         $request = $this->get('request');
         $User = $this->get('security.context')->getToken()->getUser();
@@ -398,7 +428,10 @@ class SettingsController extends Controller{
             'form' => $form->createView()
         ));
     }
-    
+        
+    /*
+     * Ez a függvény megvizsgálja hogy a jelszó valóban a felhasználó jelszava-e
+     */
     private function passwordControl($pass, $User){
         $encoder_service = $this->get('security.encoder_factory');
         $encoder = $encoder_service->getEncoder($User);
@@ -411,6 +444,9 @@ class SettingsController extends Controller{
         }
     }
     
+    /*
+     * Avatár kép feltöltésére szolgáló függvény
+     */
     public function uploadAvatarAjaxAction(Request $request){
         try{
             $f = $request->files->get('image');

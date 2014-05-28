@@ -5,8 +5,14 @@ namespace Frontend\AccountBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Acl\Exception\Exception;
 
+/*
+ * Felhasználó részletes adatainak megtekintéséhez szükséges controller
+ */
 class ShowController extends Controller {
-    
+
+    /*
+     * A felhasználó részletes adatai oldalnak a renderelése
+     */
     public function indexAction($id){
             $User = $this->getDoctrine()->getRepository('FrontendAccountBundle:User')
                         ->findOneUserById($id);
@@ -69,6 +75,9 @@ class ShowController extends Controller {
         }
     }
      
+    /*
+     * A felhasználó által feltöltött fájlok listázása
+     */
     public function getUploadFilesAction($User){
         try{
             $Files = $this->getDoctrine()->getRepository('FrontendSubjectBundle:File')
@@ -81,6 +90,4 @@ class ShowController extends Controller {
             throw new \ErrorException('Hiba a getUploadFilesController-ben: '.$ex->getMessage());
         }
     }
-    
-    
 }

@@ -1,3 +1,7 @@
+/*
+ * A beállításokon belül lévő avatár beállításokhoz szükséges funkciók 
+ * vannak ebben az objektumban definiálva
+ */
 SettingsAvatar = {
     
     fileInput: null,
@@ -29,6 +33,9 @@ SettingsAvatar = {
         this.bindUploadedAvatarsClickActions();
     },
     
+    /*
+     * Fájl feltöltésére szolgáló metódus
+     */
     uploadFile: function(f){
         
         var formD = new FormData();
@@ -61,6 +68,9 @@ SettingsAvatar = {
         });
     },
     
+    /*
+     * A feltöltött avatár képekhez egy új betöltő kép hozzáadása
+     */
     addNewLoadingDiv: function(){
        this.uploadedAvatarsHolder
                .find('.new-files')
@@ -72,6 +82,9 @@ SettingsAvatar = {
        return this.uploadID;
     },
     
+    /*
+     * Az avatár képekre kattintva események felüldefiniálása
+     */
     bindUploadedAvatarsClickActions: function(){
        this.uploadedAvatarsHolder
                .find('.uploaded-image:not(.add-new)')

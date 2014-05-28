@@ -1,3 +1,6 @@
+/*
+ * A barátok oldalhoz szükséges funkciók vannak ebben az objektumban
+ */
 FriendsView = {
     
     init: function(){
@@ -10,12 +13,14 @@ FriendsView = {
         this.bindAcceptFriendButton();
     },
     
+    /*
+     * A barát dobozokban lévő 'x'-ekhez, buborék hozzáadása(kattintásra)
+     */
     addQtips: function(){
         $('.friends .friend-object .delete-holder').each(function(){
             var friendObject = $(this).parents('.friend-object');
             if(friendObject.hasClass('qtip-added')) return;
             
-            console.log('add qtip');
             friendObject.addClass('qtip-added');
             var userId = friendObject.attr('userid');
             var html = $('.qtips-content.'+$(this).attr('qtip-content')).find('.deleteThisFriend').attr('userid', userId).end().html();
@@ -49,6 +54,9 @@ FriendsView = {
         
     },
     
+    /*
+     * A buborékok bezárás gombjának felüldefiniálása
+     */
     bindHideQtipButton: function(){
         $('.hideQtip').unbind('click')
                 .bind('click', function(){
@@ -56,6 +64,9 @@ FriendsView = {
                  });
     },
     
+    /*
+     * A barát törlése gomb eseményének felüldefiniálása
+     */
     bindDeleteFriendButton: function(){
         $('.deleteThisFriend').unbind('click')
                 .bind('click', function(){
@@ -72,6 +83,9 @@ FriendsView = {
                  });
     },
     
+    /*
+     * a barátnak visszajelölés gomb eseményének felüldefiniálása
+     */
     bindAcceptFriendButton: function(){
       $('.friend-object .accept-friend')
               .unbind('click')
@@ -98,6 +112,7 @@ FriendsView = {
               });
     },
     
+    //adatok küldése a szervernek
     post: function (userId, type){ 
         $.post(FriendsShared.addOrRemoveURL, {
               userID : userId,

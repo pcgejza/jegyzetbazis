@@ -16,8 +16,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 use FOS\UserBundle\Controller\SecurityController as BaseController;
 
+/*
+ * Ez a controller a bejelentkezés-regisztráció-elfelejtett jelszó funkciónkhoz készült
+ */
 class AuthController extends Controller{
   
+    /*
+     * Felhasználó regisztrál az oldalra
+     */
     public function registrationAction(Request $request){
         try{
             $em = $this->getDoctrine()->getManager();
@@ -89,6 +95,10 @@ class AuthController extends Controller{
         }
     }
       
+    /*
+     * Ez a függvény egy email címből (string) generál egy 
+     * egyedi nicknevet (usernevet)
+     */
     private function nicknameGenerator($email){
         $generatednick = substr($email, 0, strpos($email, '@'));
         
@@ -121,6 +131,9 @@ class AuthController extends Controller{
         return $generatednick;
     }
     
+    /*
+     * Felhasználó bejelentkezik az oldalra
+     */
     public function loginAction(Request $request){
         try{
             
@@ -160,6 +173,10 @@ class AuthController extends Controller{
         }
     }
     
+    /*
+     * A felhasználó 'bejelentkeztetése' az oldalra, a megfelelő adatok beállítása
+     * sikeres bejelentkezés esetén
+     */
     private function loginSet($User){
         $token = new UsernamePasswordToken($User, $User->getPassword(), 'main', $User->getRoles());
         $context = $this->get('security.context');
@@ -167,6 +184,10 @@ class AuthController extends Controller{
         return $this->redirect($this->generateUrl('frontend_index_homepage'));
     }
     
+    /*
+     * Email cím vizsgálatára szolgáló függvény
+     * AJAXból kell hívni és visszaadja, hogy az email cím létezik-e vagy sem az adatbázisban
+     */
     public function checkEmailAction(){
         try{
             $email = $this->get('request')->request->get('email');
@@ -187,6 +208,10 @@ class AuthController extends Controller{
         }
     }
     
+    /*
+     * Nicknév (felhasználónév) vizsgálatára szolgáló függvény
+     * AJAXból és controllerből is hívható és visszaadja, hogy az felhasználónév létezik-e vagy sem az adatbázisban
+     */
     public function checkNicknameAction($nickname = null){
         try{
             $normalReturn = false;
@@ -213,6 +238,9 @@ class AuthController extends Controller{
         }
     }
     
+    /*
+     * Elfelejtett jelszó funkcióhoz
+     */
     public function forgotPassAction($code = NULL){
          $request = $this->get('request');
         if($code != NULL){
@@ -310,6 +338,11 @@ class AuthController extends Controller{
             }
         }
     }
+    
+    /*
+     * ezzel a függvénnyel véletlenszerűen generált karakterláncot lehet létrehozni
+     * a paraméterben meg kell adni a karakterlánc hosszát
+     */
     function generateRandomString($length = 10) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $randomString = '';

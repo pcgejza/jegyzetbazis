@@ -1,3 +1,7 @@
+/*
+ * Ez az objektum a bejelentkezés/regisztráció/elfelejtett jelszó 
+ * ablakhoz szükséges függvényeket tartalmaz
+ */
 AuthWindow = {
     
     authReveal: null,
@@ -18,6 +22,9 @@ AuthWindow = {
         this.headerHolder = $('.page .headerHolder');
     },
     
+    /*
+     * Ezt a függvényt meghívva megjeleníthető az ablak
+     */
     show: function(page){
         if(AuthWindow.openedAuthWindow) return;
         
@@ -49,16 +56,26 @@ AuthWindow = {
         }
     },
     
+    /*
+     * ablak elrejtésére szolgáló függvény
+     */
     hide: function(){
          this.authReveal.trigger('reveal:close');
     },
     
+    /*
+     * a regisztráció 'Melyik egyetemre jársz' mezőjéhez szükséges
+     * szövegkiegészítő hozzáadásához való függvény
+     */
     addAutocompleteToRegistration: function(){
         $('.registration-form .school-area').autocomplete({
              source: AuthWindow.schools
         });
     },
     
+    /*
+     * Az ablak egyes eseményeinek a felüldefiniálása
+     */
     bindAuthWindowActions: function(){
         this.authReveal.find('.window-content .header ul li').unbind('click');
         this.authReveal.find('.window-content .header ul li').bind('click', function(){
@@ -78,12 +95,18 @@ AuthWindow = {
         });
     }, 
     
+    /*
+     * A szürke hátterű szövegek hozzáadása az egyes inputokhoz
+     */
     addG: function(){
        this.authReveal.find(':input[backtext]').each(function(){
            $(this).addGray($(this).attr('backtext'));
        });
     },
     
+    /*
+     * A regisztrációs űrlaphoz lévő funkciók felüldefiniálása
+     */
     bindRegistrationFormActions: function(){
         var registrationForm = this.authReveal.find('.registration form.registration-form');
         registrationForm.submit(function(e){
@@ -142,6 +165,9 @@ AuthWindow = {
         
     },
     
+    /*
+     * A regisztrációs űrlap validálása
+     */
     validateRegistrationForm: function(form){
         var name, email, pass1, pass2, nickname;
         
@@ -224,6 +250,9 @@ AuthWindow = {
         }
     },
     
+    /*
+     * Az email cím létezésének ellenőrzése ajax segítségével
+     */
     checkEmail: function(inputElement){
         var value = inputElement.val();
         
@@ -243,6 +272,9 @@ AuthWindow = {
         });
     },
     
+    /*
+     * A nicknév (felhasználónév) létezésének ellenőrzése ajax segítségével
+     */
     checkNickname: function(inputElement){
         var value = inputElement.val();
         
@@ -267,6 +299,7 @@ AuthWindow = {
         return Object.keys(this.PROCESS).length>0 ? true : false;
     },
     
+    // processz definiálása
     setProcess: function(PID){
         if(typeof(PID) === 'undefined'){
             var datetime = new Date();
@@ -279,24 +312,27 @@ AuthWindow = {
         }
     },
     
+    // betöltés kép megjelenítése
     showLoadingToForm: function(form){
         form.find('.buttons').addClass('loading');
         form.addClass('loading');
     },
     
+    // betöltés kép elrejtése
     hideLoadingFromForm: function(form){
         form.find('.buttons').removeClass('loading');
         form.removeClass('loading');
     },
     
     // EMAIL ELLENŐRZŐ függvény a karakterekből
-    // TODO: vigyük ki majd a globális függvényekhez
     isValidEmailAddress: function(emailAddress) {
         var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
         return pattern.test(emailAddress);
     },
     
-    
+    /*
+     * A bejelentkezés űrlaphoz lévő funkciók felüldefiniálása
+     */
     bindLoginActions: function(){
         var loginForm = this.authReveal.find('.login-form');
         loginForm.submit(function(e){
@@ -345,9 +381,10 @@ AuthWindow = {
         });
     },
     
+    /*
+     * Az elfelejtett jelszó űrlaphoz lévő funkciók felüldefiniálása
+     */
     bindForgotPassActions: function(){
-        //elfelejtett jelszó
-        console.log('bindForgotPass');
         var forgotPassForm = this.authReveal.find('.forgot-pass form.forgot-pass-form');
         forgotPassForm.submit(function(e){
             e.preventDefault();
@@ -383,8 +420,6 @@ AuthWindow = {
                     alert('HIBA: '+textStatus);
                 }
             });
-            
-            
         });
     }
     

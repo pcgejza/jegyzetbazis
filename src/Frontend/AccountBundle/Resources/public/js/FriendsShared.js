@@ -1,3 +1,6 @@
+/*
+ * Barátokhoz kapcsolódó funkciók vannak ebben az objektumban definiálva
+ */
 FriendsShared = {
     
     addOrRemoveURL: null,
@@ -11,6 +14,9 @@ FriendsShared = {
         this.bindMarkButton();
     },
     
+    /*
+     * A barát gomb funkcióinak felüldefiniálása
+     */
     bindMarkButton: function(){
         $('.friendMarking').unbind('click');
         $('.friendMarking').bind('click', function(){

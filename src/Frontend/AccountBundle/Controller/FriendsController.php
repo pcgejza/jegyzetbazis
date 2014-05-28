@@ -8,8 +8,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Frontend\AccountBundle\Entity\Friends;
 use Symfony\Component\Security\Acl\Exception\Exception;
 
+/*
+ * A barátok kezeléséhez írt controller
+ */
 class FriendsController extends Controller{
     
+    /*
+     * Barátok főoldal renderelése
+     */
     public function indexAction(){
         if(!$this->get('security.context')->isGranted('ROLE_USER')){
             return $this->redirect($this->generateUrl('frontend_index_homepage'));
@@ -18,6 +24,9 @@ class FriendsController extends Controller{
         return $this->render('FrontendAccountBundle:Friends:index.html.twig');
     }
     
+    /*
+     * Felhasználó barátainak renderelése
+     */
     public function getFriendsAction(){
         try{
             $user = $this->get('security.context')->getToken()->getUser();
@@ -41,6 +50,10 @@ class FriendsController extends Controller{
         }
     }
     
+    /*
+     * A megetekintett felhasználó és a megtekintő által visszaadja azt a gombot
+     * amit az aktuális kapcsolatuk által kell megjeleníteni a felhasználó felé
+     */
     public function getFriendsButtonsAction($viewedUser, $FriendsObject = null){
         try{
             $MyUser = $this->get('security.context')->getToken()->getUser();
@@ -58,8 +71,11 @@ class FriendsController extends Controller{
             throw new \ErrorException('Hiba a getFriendsButtonsAction-ben : '+$ex->getMessage());
         }
     }
-    
 
+    /*
+     * Barátnak jelölés, barát törlés vagy baráti kapcsolat 
+     * megerősítésére szolgáló függvény
+     */
     public function friendsAddOrRemoveAction(){
         try{
             $MyUser = $this->get('security.context')->getToken()->getUser();
