@@ -16,6 +16,7 @@
 {% block initJavascripts %}
     {{parent()}}
     MessagingShared.init();
+    MessagingShared.seeURL = "{{path('see_message')}}";
     MessagingShared.deleteMessageURL = "{{path('remove_message')}}";
 {% endblock %}
 

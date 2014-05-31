@@ -5,6 +5,7 @@ MessagingShared = {
     getPageURL : null,
     PROGRESS: false,
     deleteMessageURL : null,
+    seeURL: null,
     
     init: function(){
         
@@ -18,6 +19,7 @@ MessagingShared = {
         this.bindDeleteMessageAction();
     },
     
+    // az üzenet aloldalak közötti váltó
     initSwitch: function(){
         $('.messages .messagesMenu li')
                 .unbind('click')
@@ -103,6 +105,7 @@ MessagingShared = {
                    if($(this).hasClass('border')){
                        if($(this).hasClass('cls')){
                            $(this).removeClass('cls');
+                           MessagingShared.seeMessageAction($(this).attr('messageid'));
                        }else{
                            $(this).addClass('cls');
                        }
@@ -111,7 +114,8 @@ MessagingShared = {
                         var gpage = 'single';
                         var href =   $('.messages .messagesMenu li.active a').attr('href');
                         var page = "singleMessage";
-                        MessagingShared.openPage(page,gpage, href, msgID);
+                        MessagingShared.openPage(page,gpage, href, msgID, $(this).attr('url'));
+                        $('.messages .messagesMenu li.active').removeClass('active');
                    }
                 });
     },
@@ -144,11 +148,16 @@ MessagingShared = {
         });
     },
     
-    openPage: function(page,getp, href, messageId){
+    openPage: function(page,getp, href, messageId, u){
        var messagesList = $('.messages .messagesList');
         var selectedPage= messagesList.find('.p.'+page);
         messagesList.find('.p.active').fadeOut().removeClass('active');
         selectedPage.fadeIn().addClass('active');
+        if($.type(u) !== 'undefined'){
+            window.history.pushState(null, null, u);
+        }else{
+            window.history.pushState(null, null, href);
+        }
         
         if(page != 'newMessage'){
             selectedPage.html(MessagingShared.loadingDivHtml);
@@ -162,6 +171,22 @@ MessagingShared = {
                MessagingShared.bindDeleteMessageAction();
             });
         }
+    },
+    
+    seeMessageAction: function(msgid){
+        $.post(MessagingShared.seeURL,{
+            msgid : msgid
+        }).done(function(d){
+           if(d.err){
+               alert('hiba a szervertől : '+d.err);
+           }else{
+               if(d.see_d == true){
+                    console.log('üzenet sikeresen Látta');
+                }else{
+                    console.log('Nem futott le a "látta" mentése mert nem volt szükséges');
+                }
+           }
+        });
     }
     
 }

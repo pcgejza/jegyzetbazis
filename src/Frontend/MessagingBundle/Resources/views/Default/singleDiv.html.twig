@@ -11,5 +11,8 @@
     <span class="deleteMessage">&#215;</span>
     <div class="longText">
         {{Message.getText()}}
+        {% if Message.getUserA().id == app.user.id and Message.seeTime is not null %}
+        <br><small>(Látta: {{Message.getSeeTime()|date('Y-m-d H:i:s')}})</small>
+        {% endif %}
     </div>
 </div>

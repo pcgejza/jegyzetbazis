@@ -21,3 +21,7 @@ send_message:
 remove_message:
     pattern:  /uzenetek/torles/uzenet/uzenet-torlese
     defaults: { _controller: FrontendMessagingBundle:Default:deleteMessage }
+    
+see_message:
+    pattern:  /uzenetek/olvasas/uzenet/uzenetet-olvasottnak-jelolni
+    defaults: { _controller: FrontendMessagingBundle:Default:seeMessage }

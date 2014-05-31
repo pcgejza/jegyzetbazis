@@ -3,7 +3,7 @@
        {% for Message in Messages %}
            {{ include('FrontendMessagingBundle:Default:oneMessageDiv.html.twig', {'Message' : Message, 'page' : page})}}     
        {% endfor %}
-       <button class="getMoreMessages">További üzenetek lekérdezése</button>
+       {# <button class="getMoreMessages">További üzenetek lekérdezése</button> #}
    {% else %}
        Nincs több üzeneted!
    {% endif %}

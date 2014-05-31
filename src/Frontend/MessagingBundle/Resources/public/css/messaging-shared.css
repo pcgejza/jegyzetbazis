@@ -60,6 +60,10 @@
     margin-bottom: 5px;
 }
 
+.messagesList .list DIV.message.new-message{
+    background-color: #0fd;
+}
+
 .messagesList .list DIV.message.border{
    margin-bottom: 0px;
    display:block;

@@ -1,6 +1,7 @@
 <div class="miniBox">
     <div class="miniBoxTitle">{{title}}</div>
     <div class="miniBoxContent">
+        {% if Elements|length > 0 %}
         <table>
             {% for Element in Elements %}
             <tr>
@@ -11,5 +12,8 @@
             </tr>
             {% endfor %}
         </table>
+        {% else %}
+            nincsenek elemek
+        {% endif %}
     </div>
 </div>

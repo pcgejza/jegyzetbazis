@@ -55,7 +55,6 @@ class DefaultController extends Controller
     
     
     public function contentAction($getPage, $messageId = null){
-        
         return $this->render('FrontendMessagingBundle:Default:content.html.twig', array(
             'page' => $getPage,
             'messageId' => $messageId
@@ -99,10 +98,25 @@ class DefaultController extends Controller
                 throw new Exception('Nincs ilyen üzenet!');
             }
             
+            
             if($Message[0]->getUserA() != $User && $Message[0]->getUserB() != $User){
                  throw new Exception('Nincs jogosultságod az üzenet megtekintéséhez mert nem te küldted és nem is te vagy a címzett!');
             }
             
+            $m0 = null;
+            foreach($Message as $me){
+                if($me->getId() == $messageId && $me->getUserB() == $User){
+                    $m0 = $me;
+                }
+            }
+            
+            //olvasottnak jelölni
+            if($m0 != NULL){
+                $m0->setSeeTime(new \DateTime('now'));
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($m0);
+                $em->flush();
+            }
             
             return $this->render('FrontendMessagingBundle:Default:single.html.twig', array(
                 'Message' => $Message,
@@ -119,6 +133,58 @@ class DefaultController extends Controller
         }
     }
     
+    /*
+     * üzenet olvasása -> ebben az esetben az üzenetet olvasottnak jelölni
+     *  ha a megtekintő nem azonos a küldővel
+     */
+    public function seeMessageAction(){
+        $request = $this->get('request');
+        if(!$request->isMethod('POST')){
+            throw new \ErrorException('Ezt az oldalt nem így kell megnyitni!');
+        }
+        try{
+            $see_d = false;
+            $msgid = $request->request->get('msgid');
+            if($msgid == NULL || strlen($msgid)==0){
+                throw new Exception('Hibás az msgid!');
+            }
+            
+            $Message = $this->getDoctrine()->getRepository('FrontendMessagingBundle:Message')
+                        ->findOneById($msgid);
+            
+            if($Message == NULL){
+                throw new Exception('nincs ilyen azonosítóju üzenet');
+            }
+
+            if($Message->getSeeTime() === NULL){
+                $User = $this->get('security.context')->getToken()->getUser();
+
+                if(!is_object($User)){
+                    throw new Exception('Nincs bejelentkezve felhasználó!');
+                }
+
+                if( !($Message->getUserA() == $User || $Message->getUserB() == $User)){
+                    throw new Exception('Ez az üzenet nem a te tulajdonod!');
+                }
+
+                if($Message->getUserB() == $User){ // csak akkor szabad olvasottnak jelölni ha én vagyok a címzett
+                    $Message->setSeeTime(new \DateTime('now'));
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($Message);
+                    $em->flush();
+                    $see_d = true;
+                }
+            }
+            return new JsonResponse(array(
+                'see_d' => $see_d
+            ));
+        } catch (Exception $ex) {
+            return new JsonResponse(array(
+                'err' => $ex->getMessage()
+            ));
+        }
+    }
+    
     public function getMoreMessagesAction($page = null){
         $request = $this->get('request');
         try{
@@ -128,7 +194,7 @@ class DefaultController extends Controller
                 
             }else{
                 $Messages = $this->getDoctrine()->getRepository('FrontendMessagingBundle:Message')
-                            ->getMessagesByUser($User, 0, 10, $page);   
+                            ->getMessagesByUser($User, 0, 1000, $page);   
                 
                 return $this->render('FrontendMessagingBundle:Default:more.html.twig', array(
                     'Messages' => $Messages,

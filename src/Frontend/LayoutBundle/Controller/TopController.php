@@ -3,8 +3,14 @@
 namespace Frontend\LayoutBundle\Controller;
 use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/*
+ * Több oldalon jobb oldalt lévő toplistákhoz írt controller
+ */
 class TopController extends Controller{
    
+    /*
+     * A legnépszerűbb fájlok renderelése
+     */
    public function getTopFilesAction(){
        $User = $this->get('security.context')->getToken()->getUser();
        $User = is_object($User) ? $User : null;
@@ -13,6 +19,7 @@ class TopController extends Controller{
                ->createQueryBuilder('file')
                ->select('file')
                ->where('file.status = 1')
+               ->andWhere('file.downloadCount>0')
                ->andWhere(
                     "(userSettings.myUploadsVisit is null OR userSettings.myUploadsVisit = 'all') OR "
                     ."(userSettings.myUploadsVisit = 'only_users' and :myUser is not null) OR "
@@ -48,6 +55,9 @@ class TopController extends Controller{
        ));
    }
     
+   /*
+    * A legnépszerűbb felhasználók renderelése (feltöltött fájljok számának alapján)
+    */
     public function getTopUsersAction(){
        $User = $this->get('security.context')->getToken()->getUser();
        $User = is_object($User) ? $User : null;
@@ -71,36 +81,21 @@ class TopController extends Controller{
                ->getResult();
        
        
-      /*         
-               ->select('file')
-               ->addSelect('file')
-               ->where('file.status = 1')
-               ->andWhere(
-                    "(userSettings.myUploadsVisit is null OR userSettings.myUploadsVisit = 'all') OR "
-                    ."(userSettings.myUploadsVisit = 'only_users' and :myUser is not null) OR "
-                    ."(userSettings.myUploadsVisit = 'only_friends' and (friendsA.status = 'active' or friendsB.status = 'active'))")
-               ->join('file.user', 'user')
-               ->leftJoin('user.userSettings', 'userSettings')
-               ->leftJoin('user.friendsA', 'friendsA', 'WITH', 'friendsA.userB = :myUser')
-               ->leftJoin('user.friendsB', 'friendsB', 'WITH', 'friendsB.userA = :myUser')
-               ->setParameter('myUser', $User)
-       
-       
-       */
        $Elements = array();
        foreach ($Users as $u) {
-           
-           $n = $u['userName'];
-           if(strlen($n)>15){
-               $n = substr($n, 0, 11) . '...';
+           if($u['uploadCount']>0){
+                $n = $u['userName'];
+                if(strlen($n)>15){
+                    $n = substr($n, 0, 11) . '...';
+                }
+
+                $path = $this->generateUrl('profile_show', array('id'=> $u['userId']));
+
+                $Elements[] = array('name' => $n ,
+                    'path' => $path,
+                    'originalName' => $u['userName'],
+                    'value' => $u['uploadCount']);
            }
-           
-           $path = $this->generateUrl('profile_show', array('id'=> $u['userId']));
-           
-           $Elements[] = array('name' => $n ,
-               'path' => $path,
-               'originalName' => $u['userName'],
-               'value' => $u['uploadCount']);
        }
        
        return $this->render('FrontendLayoutBundle:RightBoxes:box.html.twig',array(

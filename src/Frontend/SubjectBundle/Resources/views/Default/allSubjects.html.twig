@@ -8,6 +8,7 @@
 <div class="subjects">
     <div class="subjectsTitle">Tantárgyak</div>
     <div class="subjectsContent">
+       {% if Subjects | length > 0 %}
        {% for s in Subjects %}
         <script>UploadWindow.allSubject.push({
                     id : '{{s.getId()}}',
@@ -16,6 +17,9 @@
           </script>
          {{ include('FrontendSubjectBundle:Default:oneSubject.html.twig',{'name' : s.getName(), 'path' : s.getSlug()} )}}
        {% endfor %}
+       {% else %}
+          Nincsenek aktív tantárgyak
+       {% endif %}
     </div>
 </div>
 {% else %}

@@ -1,4 +1,4 @@
-  <div class="message" messageid="{{Message.getId()}}">
+  <div class="message{% if page != 'sent' and Message.getSeeTime() is null %} new-message{% endif %}" messageid="{{Message.getId()}}" url="{{path('messaging_homepage_page_single', {page : 'uzenet',messageId : Message.getId() })}}">
       {% set count = 0 %}
       {% if Message.getParent() is not null %}
           {% set count = Message.getParent().getChildren()|length %}

@@ -8,11 +8,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    public function indexAction($name)
-    {
-        return $this->render('FrontendLayoutBundle:Default:index.html.twig', array('name' => $name));
-    }
-    
     public function visitAction(Request $request)
     {
         $session = $request->getSession();

@@ -8,18 +8,10 @@
             Barátod <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Üzenet küldése</a></li>
             <li class="divider"></li>
             <li><a href="javascript:void(0)" class="friendMarking" userid="{{ViewedUser.id}}" type="reject">Nem a barátom</a></li>
           </ul>
         </div>  
-        {#
-        <span class="myFriend down-ico" userid="{{ViewedUser.id}}">Barátod</span>
-        <div class="qtip-to-myfriend" userid="{{ViewedUser.id}}" style="display: none;">
-            <a href="javascript:void(0)" class="friendMarking" userid="{{ViewedUser.id}}">Barátság törlése</a>
-        </div>
-        <button class="friend-mark-button remove friendMarking" userid="{{ViewedUser.id}}">Barátság törlése</button>
-        #}
     {% elseif FriendsObject.getStatus() == 'rejected' or FriendsObject.getStatus() == 'selected-rejected'  %}
         <button class="friend-mark-button add friendMarking" type="select" userid="{{ViewedUser.id}}">Barátnak jelölés</button>
     {% elseif FriendsObject.getStatus() == 'selected' %}
@@ -38,7 +30,7 @@
             </div>  
         {% endif %}
     {% else %}    
-        NINCS KEZELVE
+        Hiba!
     {% endif %}
 {% endif %}
 </div>

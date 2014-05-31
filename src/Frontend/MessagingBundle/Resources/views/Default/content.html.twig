@@ -5,13 +5,13 @@
                 <a href="javascript:void(0)" page="newMessage">Új üzenet írása</a>
             </li>
             <li{% if page == 'received' %} class="active"{% endif %}>
-                <a href="{{path('messaging_homepage')}}" getp="received" page="receivedMessages">Beérkezett üzenetek</a>
+                <a href="{{path('messaging_homepage_page', {page : 'beerkezett-uzenetek'})}}" getp="received" page="receivedMessages">Beérkezett üzenetek</a>
             </li>
             <li{% if page == 'sent' %} class="active"{% endif %}>
-                <a href="{{path('messaging_homepage')}}" getp="sent" page="sentMessages">Elküldött üzenetek</a>
+                <a href="{{path('messaging_homepage_page', {page : 'elkuldott-uzenetek'})}}" getp="sent" page="sentMessages">Elküldött üzenetek</a>
             </li>
             <li{% if page == 'deleted' %} class="active"{% endif %}>
-                <a href="{{path('messaging_homepage')}}" getp="deleted" page="deletedMessages">Törölt üzenetek</a>
+                <a href="{{path('messaging_homepage_page', {page : 'torolt-uzenetek'})}}" getp="deleted" page="deletedMessages">Törölt üzenetek</a>
             </li>
         </ul>
     </div>
@@ -34,8 +34,8 @@
                 {% render(controller('FrontendMessagingBundle:Default:getPage', {page : page})) %}
             {% endif %}
         </div>
-        <div class="p sentMessages{% if getPage == 'sent' %} active{% endif %}">
-            {% if getPage == 'sent' %}
+        <div class="p sentMessages{% if page == 'sent' %} active{% endif %}">
+            {% if page == 'sent' %}
                 {% render(controller('FrontendMessagingBundle:Default:getPage', {page : page})) %}
             {% endif %}
         </div>
