@@ -1,3 +1,6 @@
+/*
+ * A vendégkönyvhöz szükséges jquery függvények
+ */
 GuestBook = {
     
     newButton: null,

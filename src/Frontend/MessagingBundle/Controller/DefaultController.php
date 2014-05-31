@@ -9,8 +9,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Frontend\MessagingBundle\Entity\Message;
 
-class DefaultController extends Controller
-{
+class DefaultController extends Controller{
+    
+    /*
+     * Az üzenetek oldal renderelése
+     */
     public function indexAction($page = 'beerkezett-uzenetek', $messageId = null)
     {
         try{
@@ -61,6 +64,9 @@ class DefaultController extends Controller
         ));
     }
     
+    /*
+     * Oldal lekérdezése
+     */
     public function getPageAction($page = null, $messageId = null){
         try{
             return $this->render('FrontendMessagingBundle:Default:page.html.twig', array(
@@ -74,6 +80,9 @@ class DefaultController extends Controller
         }
     }
     
+    /*
+     * Egy üzenet(üzenetváltás) lekérdezése
+     */
     public function getSingleMessageAction($messageId = null){
         $request = $this->get('request');
         try{
@@ -185,6 +194,9 @@ class DefaultController extends Controller
         }
     }
     
+    /*
+     * További üzenetek lekérdezése (FIXME: még fejleszteni kell rajta)
+     */
     public function getMoreMessagesAction($page = null){
         $request = $this->get('request');
         try{
@@ -210,7 +222,9 @@ class DefaultController extends Controller
         }
     }
     
-    
+    /*
+     * Üzenet küldése
+     */
     public function sendMessageAction(){
         try{
             $request = $this->get('request');
@@ -285,6 +299,9 @@ class DefaultController extends Controller
         }
     }
     
+    /*
+     * Üzenet törlése
+     */
     public function deleteMessageAction(){
         $request = $this->get('request');
         if(!$request->isMethod('POST')){

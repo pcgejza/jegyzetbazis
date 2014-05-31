@@ -4,9 +4,12 @@ namespace Frontend\LayoutBundle\Controller;
 use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse ;
 
+/*
+ * A fejléchez szükges függvények controller-e
+ */
 class HeaderController extends Controller{
     
-    
+    // a fejléc renderelése
     public function getHeaderAction(){
         $User = $this->container->get('security.context')->getToken()->getUser();
         
@@ -21,6 +24,9 @@ class HeaderController extends Controller{
                 ));
     }
     
+    /*
+     * A bejelentkezési/regisztrációs/elfeljetett jelszó ablak renderelése
+     */
     public function getAuthRevealAction(){
         try{
             $page = $this->get('request')->request->get('page');

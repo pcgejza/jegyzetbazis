@@ -6,8 +6,12 @@ use Frontend\LayoutBundle\Entity\Visitors;
 use \Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class DefaultController extends Controller
-{
+/*
+ * az alap oldal kerethez szükséges függvényekhez írt controller
+ */
+class DefaultController extends Controller{
+    
+    // látogatás függvény
     public function visitAction(Request $request)
     {
         $session = $request->getSession();
@@ -49,6 +53,7 @@ class DefaultController extends Controller
         return new \Symfony\Component\HttpFoundation\Response($count);
     }
     
+    // az összes letöltés lekérdezéséhez szükséges függvény
     public function getAllDownloadsCountAction(){
        $count = $this->getDoctrine()->getRepository('FrontendSubjectBundle:File')
                ->createQueryBuilder('file')

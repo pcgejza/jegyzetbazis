@@ -1,3 +1,6 @@
+/*
+ * A felugró ablakot kezelő objektum
+ */
 InfoPopUp = {
     
     popupElement: null,
@@ -9,7 +12,6 @@ InfoPopUp = {
     },
     
     bindUIActions:function(){
-        console.debug('bindUI');
         $('.close-reveal-modal', this.popupElement).click(InfoPopUp.hideInfoPopUp());
         this.popupElement
                 .find('.close-reveal-modal, .buttons .close-popup')
@@ -18,7 +20,9 @@ InfoPopUp = {
                 });
     },
     
-    
+    /*
+     * Felugró ablak megjelenítése
+     */
     showInfoPopup: function(obj){
         var type = (typeof(obj) == 'undefined' || typeof(obj.type) == 'undefined') ? 'info' : obj.type;
         var topText = (typeof(obj) == 'undefined' || typeof(obj.topText) == 'undefined') ? '' : obj.topText;
@@ -47,11 +51,8 @@ InfoPopUp = {
             timer.set({ time : closeTime, autostart : true });
         }
     },
-    
+    // felugró ablak elrejtése
     hideInfoPopUp: function(){
           this.popupElement.trigger('reveal:close');
-    },
-    
-    
-    
+    }
 }

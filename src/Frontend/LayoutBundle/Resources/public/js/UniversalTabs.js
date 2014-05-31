@@ -1,3 +1,6 @@
+/*
+ * Az univerzális fülek-hez írt jquery függvények
+ */
 UniversalTabs = {
     
     tabHolder: null,

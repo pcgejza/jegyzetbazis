@@ -1,3 +1,6 @@
+/*
+ * A megosztott függvényeknek szánt objektum
+ */
 Shared = {
     
     loadingHtmlImage: null,
@@ -28,7 +31,9 @@ Shared = {
         this.bindVisitActions();
     },
     
-    
+    /*
+     * A látogató számára minden fél percben frissül az adatbázisban az online státusz
+     */
     bindVisitActions: function(){
         
         var timer = $.timer(function() {
@@ -48,14 +53,14 @@ Shared = {
             Shared.moveRightTab($(this), 210);
         });
     },
-    
+    // jobb oldali tabok felugratása
     moveRightTab: function(vDiv, px){
         var $rigthPos = vDiv.css('right');
         vDiv.animate({
             'right' : - (px)
         }, 200);
     },
-    
+    // a látogatás frissítése a szerveren
     refreshVisit: function(){
         $.post(Shared.visitActionUrl, function(data){
             $('.visitorsCount').html(data);
@@ -63,7 +68,7 @@ Shared = {
     },
     
 }
-
+/*
 Sizer = {
     
     maxWidth : null,
@@ -103,3 +108,5 @@ Sizer = {
     }
     
 }
+
+*/

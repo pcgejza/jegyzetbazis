@@ -1,3 +1,6 @@
+/*
+ * Az üzenetek oldal jquery függvényei
+ */
 MessagingShared = {
     
     loadingDivHtml: '<div class="loading"></div>',
@@ -34,6 +37,9 @@ MessagingShared = {
                 });
     },
     
+    /*
+     * Új üzenet küldése funkció felüldefiniálása
+     */
     bindNewMessageSend: function(){
         $('.newMessageForm').unbind('submit').bind('submit', function(e){
             e.preventDefault();
@@ -99,6 +105,9 @@ MessagingShared = {
         });
     },
     
+    /*
+     * üzenetre kattintva funkció felüldefiniálása
+     */
     bindClickToMessage: function(){
         $('.list DIV.message').unbind('click')
                 .bind('click', function(){
@@ -120,6 +129,9 @@ MessagingShared = {
                 });
     },
     
+    /*
+     * az üzenet törlés funkció felüldefiniálása
+     */
     bindDeleteMessageAction: function(){
         $('DIV.message .deleteMessage').unbind('click').bind('click', function(e){
             var target = $('ul li a[page="deletedMessages"]').parent();
@@ -148,6 +160,9 @@ MessagingShared = {
         });
     },
     
+    /*
+     * Oldal megnyitása
+     */
     openPage: function(page,getp, href, messageId, u){
        var messagesList = $('.messages .messagesList');
         var selectedPage= messagesList.find('.p.'+page);
@@ -173,6 +188,9 @@ MessagingShared = {
         }
     },
     
+    /*
+     * Üzenetet 'Látta'
+     */
     seeMessageAction: function(msgid){
         $.post(MessagingShared.seeURL,{
             msgid : msgid

@@ -9,12 +9,17 @@ use Symfony\Component\Security\Acl\Exception\Exception;
 
 use Frontend\IndexBundle\Entity\GuestBook;
 
+/*
+ * A vendégkönyvhöz írt controller
+ */
 class GuestbookController extends Controller{
    
+    // vendégkönyv renderelése
     public function guestBookAction(){
         return $this->render('FrontendIndexBundle:Guestbook:index.html.twig');
     }
     
+    // vendégkönyv bejegyzések renderelése
     public function entriesAction(){
         $bookings = $this->getDoctrine()->getRepository('FrontendIndexBundle:GuestBook')
                     ->createQueryBuilder('booking')
@@ -30,6 +35,7 @@ class GuestbookController extends Controller{
          ));
     }
     
+    // új bejegyzés a vendégkönyvbe
     public function newBookingAction(\Symfony\Component\HttpFoundation\Request $request){
         try{
             $text = $request->request->get('text');

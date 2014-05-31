@@ -1,3 +1,6 @@
+/*
+ * A fejléchez szükséges jquery függvények
+ */
 Header = {
     
     postID: 0,
@@ -36,11 +39,12 @@ Header = {
         
     },
     
+    // fejléc beállítása
     setHeader: function(html){
         this.headerHolder.html(html);
         this.init();
     },
-    
+    // fejléchez szükséges felugró fülek hozzáadása
     addQtipToHeader: function(){
       var h = $('.userHeaderqtip', this.headerUserBox).html();
       var un = $('.userHeaderElement .userName').html();
@@ -62,10 +66,8 @@ Header = {
                 width: this.headerUserBox.width()
             }
         });
-          
-          
     },
-    
+    // a menühöz szükséges felugrók hozzáadása
     addQtipsToMenu: function(){
         this.menuHolder.find('.menu-element').each(function(){
             $(this).qtip({
